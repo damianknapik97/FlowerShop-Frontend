@@ -16,6 +16,15 @@ configurations {
 	}
 }
 
+
+
+task runDocker(type: Exec) {
+	commandLine "cmd", "/c", '..\\RunPowerShellScript.bat'
+}
+
+
+bootRun.dependsOn(runDocker)
+
 repositories {
 	mavenCentral()
 	maven { url 'https://repo.spring.io/milestone' }

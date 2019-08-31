@@ -1,5 +1,7 @@
 package com.dknapik.flowershop.model;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
+	private UUID id;
 	@Column(unique = true)
 	private String userName;
 	@Column
@@ -43,10 +45,10 @@ public class User {
 		
 	
 	
-	public long getId() {
+	public UUID getId() {
 		return id;
 	}
-	public void setId(long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getUserName() {

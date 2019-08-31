@@ -31,7 +31,7 @@ public class Bouquet {
 	@Column
 	private double totalPrice;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flower", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Flower> flowers;
 
 	
@@ -44,13 +44,13 @@ public class Bouquet {
 	}
 
 	public UUID getId() {
-		super()
 		return id;
 	}
-
+	
 	public void setId(UUID id) {
 		this.id = id;
 	}
+
 
 	public String getName() {
 		return name;
