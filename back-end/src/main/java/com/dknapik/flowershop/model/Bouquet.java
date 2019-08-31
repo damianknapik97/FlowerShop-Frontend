@@ -22,26 +22,34 @@ import javax.persistence.OneToMany;
 public class Bouquet {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
-	@Column
+	@Column//(unique = true)
 	private String name;
-	@Column
-	private double workPrice;
-	@Column
-	private double totalPrice;
+	@Column//(columnDefinition = "double not null")
+	private double workCost;
+	@Column//(columnDefinition = "integer default 1")
+	private int quantity = 1;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<Flower> flowers;
 
 	
-	public Bouquet(String name, double workPrice, double totalPrice, List<Flower> flowers) {
+	public Bouquet(String name, double workPrice, List<Flower> flowers) {
 		super();
 		this.name = name;
-		this.workPrice = workPrice;
-		this.totalPrice = totalPrice;
+		this.workCost = workPrice;
 		this.flowers = flowers;
 	}
+	
+	public Bouquet(String name, double workPrice, int quantity, List<Flower> flowers) {
+		super();
+		this.name = name;
+		this.workCost = workPrice;
+		this.quantity = quantity;
+		this.flowers = flowers;
+	}
+	
 
 	public UUID getId() {
 		return id;
@@ -50,7 +58,6 @@ public class Bouquet {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-
 
 	public String getName() {
 		return name;
@@ -61,19 +68,18 @@ public class Bouquet {
 	}
 
 	public double getWorkPrice() {
-		return workPrice;
+		return workCost;
 	}
 
 	public void setWorkPrice(double workPrice) {
-		this.workPrice = workPrice;
+		this.workCost = workPrice;
+	}
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	public List<Flower> getFlowers() {
@@ -83,7 +89,4 @@ public class Bouquet {
 	public void setFlowers(List<Flower> flowers) {
 		this.flowers = flowers;
 	}
-	
-	
-
 }

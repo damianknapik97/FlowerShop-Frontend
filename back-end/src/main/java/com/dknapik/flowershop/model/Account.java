@@ -8,19 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 /**
- * Represents user account in web application
+ * Represents accounts in web application
  * 
  * @author Damian
  *
  */
 @Entity
-public class User {
+public class Account {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	@Column(unique = true)
-	private String userName;
+	private String name;
 	@Column
 	private String password;
 	@Column
@@ -29,21 +29,19 @@ public class User {
 	private String role;
 	
 
-	public User(String password, String email, String role) {
+	public Account(String password, String email, String role) {
 		super();
 		this.password = password;
 		this.email = email;
 		this.role = role;
 	}
 
-	public User(String userName, String password, String email, String role) {
-		this.userName = userName;
+	public Account(String name, String password, String email, String role) {
+		this.name = name;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 	}
-		
-	
 	
 	public UUID getId() {
 		return id;
@@ -51,11 +49,11 @@ public class User {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getPassword() {
 		return password;

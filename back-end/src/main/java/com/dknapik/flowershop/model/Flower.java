@@ -12,12 +12,14 @@ import javax.persistence.Id;
 public class Flower {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
-	@Column
+	@Column//(unique = true)
 	private String name;
-	@Column
+	@Column//(columnDefinition = "double not null")
 	private double price;
+	@Column//(columnDefinition = "integer default 1")
+	private int quantity = 1;
 	
 	public Flower(String name, double price) {
 		super();
@@ -25,6 +27,17 @@ public class Flower {
 		this.price = price;
 	}
 	
+	public Flower(String name, double price, int quantity) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	
+	public Flower() {
+		
+	}
+
 	public UUID getId() {
 		return id;
 	}
@@ -42,6 +55,12 @@ public class Flower {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	
