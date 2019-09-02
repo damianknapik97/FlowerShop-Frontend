@@ -37,11 +37,13 @@ public class Account {
 	}
 
 	public Account(String name, String password, String email, String role) {
+		super();
 		this.name = name;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 	}
+	
 	
 	public UUID getId() {
 		return id;
@@ -73,7 +75,4 @@ public class Account {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	
-	
 }

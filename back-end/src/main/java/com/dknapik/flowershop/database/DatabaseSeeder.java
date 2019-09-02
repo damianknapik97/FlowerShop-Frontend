@@ -3,9 +3,14 @@ package com.dknapik.flowershop.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+
+import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.dknapik.flowershop.model.Bouquet;
@@ -31,10 +36,16 @@ public class DatabaseSeeder implements CommandLineRunner {
 	private final FlowerRepository flowerRepository;
 	private final AccountRepository accountRepository;
 	
-	public DatabaseSeeder(BouquetRepository bouquetRepository, FlowerRepository flowerRepository, AccountRepository accountRepository) {
+	private final CurrencyUnit currency;
+	
+	
+	@Autowired
+	public DatabaseSeeder(BouquetRepository bouquetRepository, FlowerRepository flowerRepository, AccountRepository accountRepository, Environment env) {
 		this.bouquetRepository = bouquetRepository;
 		this.flowerRepository = flowerRepository;
 		this.accountRepository = accountRepository;
+		
+		this.currency = Monetary.getCurrency(env.getProperty("app-monetary-currency"));
 	}
 	
 	
@@ -76,9 +87,9 @@ public class DatabaseSeeder implements CommandLineRunner {
 	public void initializeFlowers() {
 		List<Flower> initialDataFlowers = new ArrayList<>();
 		
-		initialDataFlowers.add(new Flower("Róża", 5.00));
-		initialDataFlowers.add(new Flower("Tulipan", 4.00));
-		initialDataFlowers.add(new Flower("Frezja", 6.00));
+		initialDataFlowers.add(new Flower("Róża", Money.of(5.00, currency)));
+		initialDataFlowers.add(new Flower("Tulipan", Money.of(4.00, currency)));
+		initialDataFlowers.add(new Flower("Frezja", Money.of(6.00, currency)));
 		
 		flowerRepository.saveAll(initialDataFlowers);
 	}

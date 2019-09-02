@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 /**
@@ -30,10 +31,12 @@ public class Bouquet {
 	private double workCost;
 	@Column//(columnDefinition = "integer default 1")
 	private int quantity = 1;
-	
+	@JoinColumn(name = "id")
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	private List<Flower> flowers;
 
+	
+	private String currency = "ZL";
 	
 	public Bouquet(String name, double workPrice, List<Flower> flowers) {
 		super();
@@ -48,6 +51,8 @@ public class Bouquet {
 		this.workCost = workPrice;
 		this.quantity = quantity;
 		this.flowers = flowers;
+		
+		
 	}
 	
 

@@ -8,34 +8,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.javamoney.moneta.Money;
+
+
 @Entity
 public class Flower {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
-	@Column//(unique = true)
+	@Column
 	private String name;
-	@Column//(columnDefinition = "double not null")
-	private double price;
-	@Column//(columnDefinition = "integer default 1")
+	@Column
+	private String price;
+	@Column
 	private int quantity = 1;
 	
-	public Flower(String name, double price) {
+	public Flower(String name, Money price) {
 		super();
 		this.name = name;
-		this.price = price;
+		this.price = price.toString();
+		
 	}
 	
-	public Flower(String name, double price, int quantity) {
+	public Flower(String name, Money price, int quantity) {
 		super();
 		this.name = name;
-		this.price = price;
+		this.price = price.toString();
 		this.quantity = quantity;
+		
+		
 	}
 	
 	public Flower() {
-		
 	}
 
 	public UUID getId() {
@@ -50,11 +55,11 @@ public class Flower {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getPrice() {
-		return price;
+	public Money getPrice() {
+		return Money.parse(this.price);
 	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPrice(Money price) {
+		this.price = price.toString();
 	}
 	public int getQuantity() {
 		return quantity;
