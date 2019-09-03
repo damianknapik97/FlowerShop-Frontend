@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.dknapik.flowershop.model.Bouquet;
 import com.dknapik.flowershop.model.Flower;
 import com.dknapik.flowershop.model.Account;
+import com.dknapik.flowershop.model.BouqetFlower;
 
 /**
  * 
@@ -57,7 +58,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 		
 		if(debugMode) {
 			initializeFlowers();
-			initializeBouquets();	
+			test();
+			//initializeBouquets();	
 		}
 	}
 	
@@ -106,7 +108,7 @@ public class DatabaseSeeder implements CommandLineRunner {
 		flower.setQuantity(5);
 		flowerList.add(flower);
 		System.out.println("FLOWER NAME : - " +flower.getName());
-		initialDataBouquets.add(new Bouquet("Basic Bouquet", 10, flowerList));
+		//initialDataBouquets.add(new Bouquet("Basic Bouquet", 10, flowerList));
 		
 		/*
 		flowerList = new ArrayList<>();
@@ -120,7 +122,20 @@ public class DatabaseSeeder implements CommandLineRunner {
 		
 		initialDataBouquets.add(new Bouquet("Intermediate Bouquet", 15, flowerList));
 		*/
-		bouquetRepository.saveAll(initialDataBouquets);
+		//bouquetRepository.saveAll(initialDataBouquets);
 	}
 
+	public void test() {
+		Bouquet bouquet;
+		
+		List<BouqetFlower> flowerList = new ArrayList<>();
+		flowerList.add(new BouqetFlower(flowerRepository.findByName("Tulipan"),5));
+		
+		bouquet = new Bouquet("TEST", 10, 10, flowerList);
+		
+		bouquetRepository.saveAndFlush(bouquet);
+		
+	}
+	
+	
 }

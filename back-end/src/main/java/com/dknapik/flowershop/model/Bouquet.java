@@ -14,7 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
 
 /**
  * @author Damian
@@ -27,24 +30,30 @@ public class Bouquet {
 	private UUID id;
 	@Column//(unique = true)
 	private String name;
-	@Column//(columnDefinition = "double not null")
+	//@Column//(columnDefinition = "double not null")
 	private double workCost;
 	@Column//(columnDefinition = "integer default 1")
 	private int quantity = 1;
-	@JoinColumn(name = "id")
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-	private List<Flower> flowers;
+	
+	
+	//@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST})
+	//@Cascade({CascadeType.SAVE_UPDATE})
+	//@JoinColumn(name = "bouquet_id", referencedColumnName = "id")
+	//private List<Flower> flowers;
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "bouquet_id", referencedColumnName = "id")
+	private List<BouqetFlower> bouquetFlowers;
 	
-	private String currency = "ZL";
 	
-	public Bouquet(String name, double workPrice, List<Flower> flowers) {
+	public Bouquet(String name, double workPrice) {
 		super();
 		this.name = name;
 		this.workCost = workPrice;
-		this.flowers = flowers;
+		//this.flowers = flowers;
 	}
-	
+
+	/*
 	public Bouquet(String name, double workPrice, int quantity, List<Flower> flowers) {
 		super();
 		this.name = name;
@@ -54,7 +63,16 @@ public class Bouquet {
 		
 		
 	}
+	*/
 	
+	public Bouquet(String name, double workPrice, int quantity, List<BouqetFlower> flowers2) {
+		super();
+		this.name = name;
+		this.workCost = workPrice;
+		this.quantity = quantity;
+		this.bouquetFlowers = flowers2;
+		
+	}
 
 	public UUID getId() {
 		return id;
@@ -86,6 +104,8 @@ public class Bouquet {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
+	/*
 
 	public List<Flower> getFlowers() {
 		return flowers;
@@ -94,4 +114,5 @@ public class Bouquet {
 	public void setFlowers(List<Flower> flowers) {
 		this.flowers = flowers;
 	}
+	*/
 }

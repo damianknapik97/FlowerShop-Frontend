@@ -4,9 +4,12 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.javamoney.moneta.Money;
 
@@ -36,8 +39,6 @@ public class Flower {
 		this.name = name;
 		this.price = price.toString();
 		this.quantity = quantity;
-		
-		
 	}
 	
 	public Flower() {
