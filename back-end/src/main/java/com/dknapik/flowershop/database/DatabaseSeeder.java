@@ -1,7 +1,9 @@
 package com.dknapik.flowershop.database;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Component;
 import com.dknapik.flowershop.model.Bouquet;
 import com.dknapik.flowershop.model.Flower;
 import com.dknapik.flowershop.model.Account;
-import com.dknapik.flowershop.model.BouqetFlower;
+import com.dknapik.flowershop.model.FlowerPack;
 
 /**
  * 
@@ -104,10 +106,10 @@ public class DatabaseSeeder implements CommandLineRunner {
 		List<Flower> flowerList = new ArrayList<>();
 		Flower flower;
 		
-		flower = flowerRepository.findByName("Tulipan");	
-		flower.setQuantity(5);
-		flowerList.add(flower);
-		System.out.println("FLOWER NAME : - " +flower.getName());
+		//flower = flowerRepository.findByName("Tulipan");	
+		//flower.setQuantity(5);
+		//flowerList.add(flower);
+		//System.out.println("FLOWER NAME : - " +flower.getName());
 		//initialDataBouquets.add(new Bouquet("Basic Bouquet", 10, flowerList));
 		
 		/*
@@ -128,10 +130,10 @@ public class DatabaseSeeder implements CommandLineRunner {
 	public void test() {
 		Bouquet bouquet;
 		
-		List<BouqetFlower> flowerList = new ArrayList<>();
-		flowerList.add(new BouqetFlower(flowerRepository.findByName("Tulipan"),5));
+		Set<FlowerPack> flowerList = new HashSet<>();
+		flowerList.add(new FlowerPack(flowerRepository.findByName("Tulipan"),5));
 		
-		bouquet = new Bouquet("TEST", 10, 10, flowerList);
+		bouquet = new Bouquet("TEST", Money.of(10, currency), 10, flowerList);
 		
 		bouquetRepository.saveAndFlush(bouquet);
 		

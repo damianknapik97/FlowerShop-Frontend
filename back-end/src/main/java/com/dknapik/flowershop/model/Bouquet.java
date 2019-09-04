@@ -4,6 +4,7 @@
 package com.dknapik.flowershop.model;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cascade;
+import org.javamoney.moneta.Money;
 
 /**
  * @author Damian
@@ -28,49 +30,22 @@ public class Bouquet {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private UUID id;
-	@Column//(unique = true)
+	@Column
 	private String name;
-	//@Column//(columnDefinition = "double not null")
-	private double workCost;
-	@Column//(columnDefinition = "integer default 1")
+	@Column
+	private String workCost;
+	@Column
 	private int quantity = 1;
-	
-	
-	//@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST})
-	//@Cascade({CascadeType.SAVE_UPDATE})
-	//@JoinColumn(name = "bouquet_id", referencedColumnName = "id")
-	//private List<Flower> flowers;
-
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "bouquet_id", referencedColumnName = "id")
-	private List<BouqetFlower> bouquetFlowers;
+	private Set<FlowerPack> flowersList;
 	
-	
-	public Bouquet(String name, double workPrice) {
+	public Bouquet(String name, Money cost, int quantity, Set<FlowerPack> flowersList) {
 		super();
 		this.name = name;
-		this.workCost = workPrice;
-		//this.flowers = flowers;
-	}
-
-	/*
-	public Bouquet(String name, double workPrice, int quantity, List<Flower> flowers) {
-		super();
-		this.name = name;
-		this.workCost = workPrice;
+		this.workCost = cost.toString();
 		this.quantity = quantity;
-		this.flowers = flowers;
-		
-		
-	}
-	*/
-	
-	public Bouquet(String name, double workPrice, int quantity, List<BouqetFlower> flowers2) {
-		super();
-		this.name = name;
-		this.workCost = workPrice;
-		this.quantity = quantity;
-		this.bouquetFlowers = flowers2;
+		this.flowersList = flowersList;
 		
 	}
 
@@ -90,12 +65,12 @@ public class Bouquet {
 		this.name = name;
 	}
 
-	public double getWorkPrice() {
-		return workCost;
+	public Money getWorkCost() {
+		return Money.parse(workCost);
 	}
 
-	public void setWorkPrice(double workPrice) {
-		this.workCost = workPrice;
+	public void setWorkPrice(Money cost) {
+		this.workCost = cost.toString();
 	}
 	public int getQuantity() {
 		return quantity;
@@ -104,15 +79,13 @@ public class Bouquet {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	public Set<FlowerPack> getFlowersList() {
+		return flowersList;
+	}
+
+	public void setFlowersList(Set<FlowerPack> flowersList) {
+		this.flowersList = flowersList;
+	}
 	
-	/*
-
-	public List<Flower> getFlowers() {
-		return flowers;
-	}
-
-	public void setFlowers(List<Flower> flowers) {
-		this.flowers = flowers;
-	}
-	*/
 }

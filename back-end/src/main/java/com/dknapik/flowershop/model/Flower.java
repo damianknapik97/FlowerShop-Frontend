@@ -24,21 +24,12 @@ public class Flower {
 	private String name;
 	@Column
 	private String price;
-	@Column
-	private int quantity = 1;
 	
 	public Flower(String name, Money price) {
 		super();
 		this.name = name;
 		this.price = price.toString();
 		
-	}
-	
-	public Flower(String name, Money price, int quantity) {
-		super();
-		this.name = name;
-		this.price = price.toString();
-		this.quantity = quantity;
 	}
 	
 	public Flower() {
@@ -62,13 +53,5 @@ public class Flower {
 	public void setPrice(Money price) {
 		this.price = price.toString();
 	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	
 	
 }
