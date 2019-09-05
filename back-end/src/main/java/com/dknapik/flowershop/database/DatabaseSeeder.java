@@ -55,13 +55,11 @@ public class DatabaseSeeder implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		
 		initializeAccounts();
 		
 		if(debugMode) {
 			initializeFlowers();
-			test();
-			//initializeBouquets();	
+			initializeBouquets();	
 		}
 	}
 	
@@ -102,42 +100,20 @@ public class DatabaseSeeder implements CommandLineRunner {
 	 * Initialize database with Bouquets consisting of initialized flowers, used for debugging/testing purposes
 	 */
 	public void initializeBouquets() {
-		List<Bouquet> initialDataBouquets = new ArrayList<>();
-		List<Flower> flowerList = new ArrayList<>();
-		Flower flower;
-		
-		//flower = flowerRepository.findByName("Tulipan");	
-		//flower.setQuantity(5);
-		//flowerList.add(flower);
-		//System.out.println("FLOWER NAME : - " +flower.getName());
-		//initialDataBouquets.add(new Bouquet("Basic Bouquet", 10, flowerList));
-		
-		/*
-		flowerList = new ArrayList<>();
-		flower = flowerRepository.findByName("Róża");
-		flower.setQuantity(5);
-		flowerList.add(flower);
-		
-		flower= flowerRepository.findByName("Tulipan");
-		flower.setQuantity(5);
-		flowerList.add(flower);
-		
-		initialDataBouquets.add(new Bouquet("Intermediate Bouquet", 15, flowerList));
-		*/
-		//bouquetRepository.saveAll(initialDataBouquets);
-	}
-
-	public void test() {
 		Bouquet bouquet;
+		Set<FlowerPack> flowerList;
 		
-		Set<FlowerPack> flowerList = new HashSet<>();
-		flowerList.add(new FlowerPack(flowerRepository.findByName("Tulipan"),5));
+		flowerList = new HashSet<>();
+		flowerList.add(new FlowerPack(flowerRepository.findByName("Róża"), 5));
+		bouquet = new Bouquet("Basic", Money.of(10, currency), flowerList);
+		bouquetRepository.saveAndFlush(bouquet);
 		
-		bouquet = new Bouquet("TEST", Money.of(10, currency), 10, flowerList);
-		
+		flowerList = new HashSet<>();
+		flowerList.add(new FlowerPack(flowerRepository.findByName("Róża"), 5));
+		flowerList.add(new FlowerPack(flowerRepository.findByName("Tulipan"), 3));
+		bouquet = new Bouquet("Expanded", Money.of(15, currency), flowerList);
 		bouquetRepository.saveAndFlush(bouquet);
 		
 	}
-	
 	
 }

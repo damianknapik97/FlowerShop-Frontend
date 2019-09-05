@@ -3,7 +3,6 @@
  */
 package com.dknapik.flowershop.model;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,10 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Cascade;
 import org.javamoney.moneta.Money;
 
 /**
@@ -34,17 +31,14 @@ public class Bouquet {
 	private String name;
 	@Column
 	private String workCost;
-	@Column
-	private int quantity = 1;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "bouquet_id", referencedColumnName = "id")
 	private Set<FlowerPack> flowersList;
 	
-	public Bouquet(String name, Money cost, int quantity, Set<FlowerPack> flowersList) {
+	public Bouquet(String name, Money cost, Set<FlowerPack> flowersList) {
 		super();
 		this.name = name;
 		this.workCost = cost.toString();
-		this.quantity = quantity;
 		this.flowersList = flowersList;
 		
 	}
@@ -72,14 +66,7 @@ public class Bouquet {
 	public void setWorkPrice(Money cost) {
 		this.workCost = cost.toString();
 	}
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
+	
 	public Set<FlowerPack> getFlowersList() {
 		return flowersList;
 	}

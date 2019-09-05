@@ -1,6 +1,5 @@
 package com.dknapik.flowershop.database;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -4,17 +4,11 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-import org.javamoney.moneta.Money;
 
 @Entity
 public class FlowerPack {
@@ -28,8 +22,6 @@ public class FlowerPack {
 	@Column
 	private int numberOfFlowers;
 	
-	private Money totalCost;
-	
 	public FlowerPack(Flower flower, int numberOfFlowers) {
 		super();
 		this.flower = flower;
@@ -42,11 +34,31 @@ public class FlowerPack {
 	public void setNumberOfFlowers(int numberOfFlowers) {
 		this.numberOfFlowers = numberOfFlowers;
 	}
-	
-	private Money countTotalCost() {
-		return null;
+
+	@Override
+	public String toString() {		
+		return this.flower.getName() + " - " + this.numberOfFlowers;
+	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		
+		if(arg0 == null) return false;
+		if(arg0 == this) return true;
+		if(!(arg0 instanceof FlowerPack)) return false;
+		
+		FlowerPack pack = (FlowerPack) arg0;
+		
+		return pack.flower.getName().contentEquals(flower.getName()) && pack.numberOfFlowers == numberOfFlowers;
+	}
+
+	@Override
+	public int hashCode() {
+			int result = 17;
+			result = 31 * result + flower.getName().hashCode();
+			result = 31 * result + numberOfFlowers;
+		return result;
 	}
 	
-	//public getTotalCost
 	
 }
