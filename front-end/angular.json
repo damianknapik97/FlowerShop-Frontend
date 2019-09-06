@@ -3,10 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "FlowerShop": {
+    "front-end": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "inlineTemplate": true,
           "style": "sass"
         }
       },
@@ -17,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/FlowerShop",
+            "outputPath": "dist/front-end",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -67,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "FlowerShop:build"
+            "browserTarget": "front-end:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "FlowerShop:build:production"
+              "browserTarget": "front-end:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "FlowerShop:build"
+            "browserTarget": "front-end:build"
           }
         },
         "test": {
@@ -115,15 +116,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "FlowerShop:serve"
+            "devServerTarget": "front-end:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "FlowerShop:serve:production"
+              "devServerTarget": "front-end:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "FlowerShop"
+  "defaultProject": "front-end"
 }
