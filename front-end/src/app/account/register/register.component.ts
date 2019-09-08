@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   template: `
     <p>
-      login works!
+      register works!
     </p>
   `,
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./register.component.sass']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   constructor() { }
 
