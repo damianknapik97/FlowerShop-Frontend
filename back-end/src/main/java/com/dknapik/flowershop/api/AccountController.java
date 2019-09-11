@@ -15,7 +15,7 @@ import com.dknapik.flowershop.database.AccountRepository;
 import com.dknapik.flowershop.model.Account;
 
 @RestController
-@RequestMapping("/account/register")
+@RequestMapping("/account")
 @CrossOrigin
 public class AccountController {
 
@@ -26,7 +26,7 @@ public class AccountController {
 		this.accountRepo = accountRepo;
 	}
 	
-	@PostMapping()
+	@PostMapping("/register")
 	public void createAccount(@RequestBody AccountViewModel accountViewModel, BindingResult bindingResult) {
 		System.out.println("!!!!!!!!!!!!!!!!!! POST REACH !!!!!!!!!!!!!");
 		if(bindingResult.hasErrors()) {

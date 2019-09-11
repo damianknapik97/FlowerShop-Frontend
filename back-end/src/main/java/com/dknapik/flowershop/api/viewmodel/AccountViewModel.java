@@ -8,12 +8,11 @@ public class AccountViewModel {
 	@NotNull
 	private String name;
 	@NotNull
-	@Min(8)
-	private String password;
-	@NotNull
 	@Email
 	private String email;
-	
+	@NotNull
+	@Min(8)
+	private String password;
 	private String role = "User";
 
 	public String getName() {
