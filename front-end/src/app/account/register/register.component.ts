@@ -1,46 +1,41 @@
 import { Component, OnInit } from '@angular/core'; 
 import { Router } from '@angular/router';
-
-import axios from 'axios';
-import { AxiosInstance } from 'axios';
+import { HttpClient } from '@angular/common/http';
+import { RegisterViewModel } from './registerviewmodel';
 
 @Component({
   selector: 'app-register',
   templateUrl: 'register.component.html',
   styleUrls: ['./register.component.sass']
 })
+
+
 export class RegisterComponent implements OnInit {
 
-  private axios: AxiosInstance;
-
-  model: AccountViewModel = {
+  model: RegisterViewModel = {
     name: '',
     password: '',
     email: '',
-    role: 'User'
+    role: 'user'
   };
 
-  constructor(private router: Router) {
-
+  constructor(private http: HttpClient) {
    }
 
   ngOnInit() {
   }
-  createAccount3(): void {
-    alert(this.model.name)
-  }
 
   createAccount(): void {
     const url = 'http://localhost:8080/account/register';
-    this.axios.post(url, this.model)
+
+    this.http.post(url, this.model).subscribe(
+      res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error)
+      }
+    );
   }
-
 }
-
-export interface AccountViewModel {
-  name: string;
-  password: string;
-  email: string;
-  role: string;
-
-}
+      

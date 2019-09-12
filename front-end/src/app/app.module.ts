@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './account/register/register.component';
 import { AccountComponent } from './account/account.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -27,8 +29,8 @@ import { AccountComponent } from './account/account.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
-  ],
+    FormsModule,
+    HttpClientModule  ],
   providers: [],
   bootstrap: [AppComponent]
 })
