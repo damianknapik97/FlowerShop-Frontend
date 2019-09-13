@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core'; 
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { RegisterViewModel } from './registerviewmodel';
-import { FormControl, Validators } from '@angular/forms';
+import { RegisterViewModel } from './register.viewmodel';
+
+
 
 @Component({
   selector: 'app-register',
@@ -10,22 +11,27 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./register.component.sass']
 })
 
-
 export class RegisterComponent implements OnInit {
 
-  model: RegisterViewModel = {
+
+  public checkBoxValue: boolean
+  private model: RegisterViewModel = {
     name: '',
     password: '',
     email: '',
     role: 'user',
-    regulationsAccepted: false
   };
 
   constructor(private http: HttpClient) {
+    this.checkBoxValue = false;
    }
+
+
+
 
   ngOnInit() {
   }
+
 
   createAccount(): void {
     const url = 'http://localhost:8080/account/register';

@@ -3,5 +3,4 @@ export interface RegisterViewModel {
   password: string;
   email: string;
   role: string;
-  regulationsAccepted: boolean;
 }

@@ -1,11 +1,28 @@
-<form class="accountForm">
+<form class="accountForm" #f="ngForm">
   <div class="form-group">
-    <label for="exampleInputLogin1">Login</label>
-    <input type="text" class="form-control" id="exampleInputLogin1" aria-describedby="loginHelp">
+    <label for="loginInput">Login</label>
+    <input type="text" 
+           class="form-control"
+           id="loginInput"
+           aria-describedby="loginHelp"
+           [(ngModel)]="model.login"
+           name="login"
+           #login="ngModel"
+           required>
+    <div class="text-danger" *ngIf="f.submitted && login.invalid"> Login can not be empty</div>
+
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
+    <label for="passwordInput">Password</label>
+    <input type="password" 
+           class="form-control"
+           id="passwordInput"
+           [(ngModel)]="model.password"
+           name="password"
+           #password="ngModel"
+           required>
+    <div class="text-danger" *ngIf="f.submitted && password.invalid"> Password can not be empty</div>
+
   </div>
   <button type="submit" class="btn btn-primary submit-button">Submit</button>
 </form>
