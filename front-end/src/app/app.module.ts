@@ -6,7 +6,7 @@ import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './core/navigation/navigation.component';
 import { LoginComponent } from './modules/account/login/login.component';
-import { ProfileComponent } from './modules/profile/profile.component';
+import { ProfileComponent } from './modules/account/profile/profile.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { HomeComponent } from './modules/home/home.component';
 import { RegisterComponent } from './modules/account/register/register.component';

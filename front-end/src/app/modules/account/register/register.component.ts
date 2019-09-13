@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { RegisterViewModel } from './register.viewmodel';
+import { Account } from '../model/account';
+import { environment } from 'src/environments/environment.prod';
 
 
 
@@ -15,28 +16,23 @@ export class RegisterComponent implements OnInit {
 
 
   public checkBoxValue: boolean
-  private model: RegisterViewModel = {
+  private model: Account = {
     name: '',
-    password: '',
     email: '',
+    password: '',
     role: 'user',
   };
 
   constructor(private http: HttpClient) {
     this.checkBoxValue = false;
    }
-
-
-
-
   ngOnInit() {
   }
 
 
   createAccount(): void {
-    const url = 'http://localhost:8080/account/register';
 
-    this.http.post(url, this.model).subscribe(
+    this.http.post(environment.apiUrl + '/account/register', this.model).subscribe(
       res => {
         console.log(res);
       },

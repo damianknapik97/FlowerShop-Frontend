@@ -10,9 +10,10 @@
           [(ngModel)]="model.name"
           #name="ngModel"
           [ngClass]="{ 'is-invalid': f.submitted && name.invalid }"
-          required />
+          required minlength="5" />
     <div class="text-danger" *ngIf="f.submitted && name.invalid">
       <div *ngIf="name.errors.required" >Login can not be empty </div>
+      <div *ngIf="name.errors.minlength" >Minimum 5 characters</div>
       <div *ngIf="name.errors.invalid" >Login is not valid </div>
     </div>
   </div>
