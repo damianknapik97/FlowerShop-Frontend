@@ -2,15 +2,20 @@ package com.dknapik.flowershop.api.viewmodel;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class AccountViewModel {
-	@NotNull
+	
+	@NotEmpty
+	@Min(5)
 	private String name;
-	@NotNull
+	
+	@NotEmpty
 	@Email
 	private String email;
-	@NotNull
+	
+	@NotEmpty
 	@Min(8)
 	private String password;
 	private String role = "User";
