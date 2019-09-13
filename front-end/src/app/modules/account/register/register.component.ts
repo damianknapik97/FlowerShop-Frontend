@@ -27,9 +27,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  digitFormControl = new FormControl('',Validators.pattern('(?=.*?[0-9])(?=.*?[A-Z]).+'));
-  
-
   createAccount(): void {
     const url = 'http://localhost:8080/account/register';
 
