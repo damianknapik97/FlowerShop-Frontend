@@ -1,5 +1,4 @@
 Set-Variable -Name "containerName" -Value "postgreSQL"
-docker login;
 docker pull postgres;
 docker stop $(docker ps -a -q -f "name=$(Get-Variable -Name "containerName" -ValueOnly)");
 docker rm $(docker ps -a -q -f "name=$(Get-Variable -Name "containerName" -ValueOnly)");

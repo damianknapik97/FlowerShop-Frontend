@@ -1,9 +1,13 @@
 package com.dknapik.flowershop.api.viewmodel;
 
+import javax.validation.constraints.NotEmpty;
+
 public class LoginViewModel {
 	
+	@NotEmpty
 	private String username;
 	
+	@NotEmpty
 	private String password;
 
 	public String getUsername() {

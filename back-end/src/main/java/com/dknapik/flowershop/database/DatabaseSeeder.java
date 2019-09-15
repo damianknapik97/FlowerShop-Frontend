@@ -19,6 +19,7 @@ import com.dknapik.flowershop.model.Bouquet;
 import com.dknapik.flowershop.model.Flower;
 import com.dknapik.flowershop.model.Account;
 import com.dknapik.flowershop.model.FlowerPack;
+import com.dknapik.security.UserRoles;
 
 /**
  * 
@@ -71,13 +72,12 @@ public class DatabaseSeeder implements CommandLineRunner {
 		List<Account> initialDataAccounts = new ArrayList<>();
 		
 		if(accountRepository.findByName("root") == null) {
-			initialDataAccounts.add(new Account("root", "root", "root@test.pl", "Admin"));
+			initialDataAccounts.add(new Account("root", "root", "root@test.pl", UserRoles.ADMIN));
 		}
 		
-		
 		if(debugMode) {
-			initialDataAccounts.add(new Account("employee", "employee", "employee@test.pl", "Employee"));
-			initialDataAccounts.add(new Account("user", "user", "user@test.pl", "User"));	
+			initialDataAccounts.add(new Account("employee", "employee", "employee@test.pl", UserRoles.EMPLOYEE));
+			initialDataAccounts.add(new Account("user", "user", "user@test.pl", UserRoles.USER));	
 		}
 		
 		accountRepository.saveAll(initialDataAccounts);

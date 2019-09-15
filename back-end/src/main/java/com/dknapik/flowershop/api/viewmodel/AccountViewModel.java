@@ -3,7 +3,9 @@ package com.dknapik.flowershop.api.viewmodel;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import com.dknapik.security.UserRoles;
 
 public class AccountViewModel {
 	
@@ -17,9 +19,12 @@ public class AccountViewModel {
 	
 	@NotEmpty
 	@Min(8)
+	@Pattern(regexp = "(?=.*?[0-9])(?=.*?[A-Z]).+")
 	private String password;
-	private String role = "User";
+	
+	private String role = UserRoles.USER;
 
+	
 	public String getName() {
 		return name;
 	}

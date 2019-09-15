@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.validation.ValidationException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.dknapik.flowershop.api.viewmodel.AccountViewModel;
+import com.dknapik.flowershop.api.viewmodel.LoginViewModel;
 import com.dknapik.flowershop.database.AccountRepository;
 import com.dknapik.flowershop.model.Account;
 
@@ -24,6 +27,7 @@ import com.dknapik.flowershop.model.Account;
 @CrossOrigin
 public class AccountController {
 
+	protected final Logger log = LogManager.getLogger(getClass().getName()); 
 	private final AccountRepository accountRepo;
 
 	@Autowired
@@ -49,8 +53,24 @@ public class AccountController {
 	
 	@GetMapping("/{name}")
 	public Account getAccountInformations(@PathVariable("name") final String accName) {		
-		System.out.println(accName);
 		return Optional.of(this.accountRepo.findByName(accName)).orElse(null);
 	}
 	
+	@PostMapping("/login")
+	public void login(@RequestBody LoginViewModel loginViewModel, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			log.error("Binding error trying to map request to" + loginViewModel.getClass().getName());
+		}
+	}
+	
+	@GetMapping("/profile")
+	public String getAccountInformation() {
+		return "test";
+	}
+	
+	@GetMapping("/GetAllUsers")
+	public String getAllUsersAccounts() {
+		return "test2";
+		
+	}
 }
