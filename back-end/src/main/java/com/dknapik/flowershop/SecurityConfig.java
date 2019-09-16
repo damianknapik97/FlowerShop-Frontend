@@ -1,7 +1,8 @@
-package com.dknapik.security;
+package com.dknapik.flowershop;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 import com.dknapik.flowershop.database.AccountRepository;
+import com.dknapik.security.JwtAuthenticationFilter;
+import com.dknapik.security.JwtAuthorizationFilter;
+import com.dknapik.security.UserRoles;
 
 @Configuration
 @EnableWebSecurity
@@ -34,9 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
     			.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.accRepository))
     			.authorizeRequests()
+    			.antMatchers(HttpMethod.POST, "/login").permitAll()
     			.antMatchers("/account/profile").authenticated()
     			.antMatchers("/account/GetAllUsers").hasRole(UserRoles.ADMIN)
-    			.antMatchers("/**").permitAll();;
+    			.antMatchers("/**").permitAll();
     	
     }
     

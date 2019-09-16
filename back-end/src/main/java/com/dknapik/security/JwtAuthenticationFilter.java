@@ -48,6 +48,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			//Authenticate user
 			return authenticationManager.authenticate(authenticationToken);
 		} catch(IOException e) {
+			e.printStackTrace();
 			log.warn("Couldn't map login credentials to LoginViewModel class");
 		}
 		return null;
