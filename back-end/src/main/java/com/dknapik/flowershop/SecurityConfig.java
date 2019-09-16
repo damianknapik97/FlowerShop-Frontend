@@ -3,29 +3,36 @@ package com.dknapik.flowershop;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 import com.dknapik.flowershop.database.AccountRepository;
 import com.dknapik.security.JwtAuthenticationFilter;
 import com.dknapik.security.JwtAuthorizationFilter;
+import com.dknapik.security.UserPrincipalDetailsService;
 import com.dknapik.security.UserRoles;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
 	private AccountRepository accRepository;
 
-	
 	public SecurityConfig(AccountRepository accRepository) {
 		this.accRepository = accRepository;
 	}
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
 	
     @Override
@@ -42,10 +49,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     			.antMatchers("/account/profile").authenticated()
     			.antMatchers("/account/GetAllUsers").hasRole(UserRoles.ADMIN)
     			.antMatchers("/**").permitAll();
-    	
     }
     
+    @Bean
+	protected UserDetailsService userDetailsService() {
+    	UserPrincipalDetailsService userPrincipalDetailsService = new UserPrincipalDetailsService(accRepository);
+    	
+    	return userPrincipalDetailsService;
+    }
     
+    @Bean
+    DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+
+        return daoAuthenticationProvider;
+    }
     
     @Bean
     PasswordEncoder passwordEncoder() {

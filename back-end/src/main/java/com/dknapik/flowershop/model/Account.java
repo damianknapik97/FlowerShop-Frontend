@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 /**
  * Represents accounts in web application
  * 
@@ -33,7 +35,7 @@ public class Account {
 
 	public Account(String password, String email, String role) {
 		super();
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 		this.email = email;
 		this.role = role;
 	}
@@ -41,7 +43,7 @@ public class Account {
 	public Account(String name, String password, String email, String role) {
 		super();
 		this.name = name;
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 		this.email = email;
 		this.role = role;
 	}
@@ -63,7 +65,7 @@ public class Account {
 		return password;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode(password);
 	}
 	public String getEmail() {
 		return email;
