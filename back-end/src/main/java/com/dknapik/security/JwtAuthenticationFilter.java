@@ -66,8 +66,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.withExpiresAt(new Date(System.currentTimeMillis() + JwtProperties.EXPIRATION_TIME))
 				.sign(JwtProperties.ENCODING_ALGORITHM);
 		
-		//Add token in response
+		//Add JWT token in response
 		response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);
+		//Add CORS policy header
+		response.addHeader("Access-Control-Allow-Origin", "*");
 	}
 	
 	

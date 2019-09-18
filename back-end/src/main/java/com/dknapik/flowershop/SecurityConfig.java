@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.dknapik.flowershop.database.AccountRepository;
 import com.dknapik.security.JwtAuthenticationFilter;
@@ -33,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
-
 	
     @Override
     protected void configure(HttpSecurity security) throws Exception {
@@ -41,11 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	security.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
     			.and()
     			.csrf().disable()
-    			.httpBasic().disable()
     			.addFilter(new JwtAuthenticationFilter(authenticationManager()))
     			.addFilter(new JwtAuthorizationFilter(authenticationManager(), this.accRepository))
     			.authorizeRequests()
-    			.antMatchers(HttpMethod.POST, "/login").permitAll()
+    			.antMatchers("/login").permitAll()
     			.antMatchers("/account/profile").authenticated()
     			.antMatchers("/account/GetAllUsers").hasRole(UserRoles.ADMIN)
     			.antMatchers("/**").permitAll();

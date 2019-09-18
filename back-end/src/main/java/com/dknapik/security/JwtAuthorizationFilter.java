@@ -62,7 +62,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 				Account account = accountRepository.findByName(userName);
 				UserPrincipal userPrincipal = new UserPrincipal(account);
 				return new UsernamePasswordAuthenticationToken(userName, null, userPrincipal.getAuthorities());
-				
 			}
 		}
 		return null;
