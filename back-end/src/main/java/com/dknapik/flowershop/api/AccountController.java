@@ -1,6 +1,5 @@
 package com.dknapik.flowershop.api;
 
-import java.util.Optional;
 
 import javax.validation.ValidationException;
 
@@ -15,12 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.dknapik.flowershop.api.viewmodel.AccountViewModel;
-import com.dknapik.flowershop.api.viewmodel.LoginViewModel;
-import com.dknapik.flowershop.database.AccountRepository;
 import com.dknapik.flowershop.model.Account;
+import com.dknapik.flowershop.services.AccountService;
 
 @RestController
 @RequestMapping("/account")
@@ -28,49 +25,31 @@ import com.dknapik.flowershop.model.Account;
 public class AccountController {
 
 	protected final Logger log = LogManager.getLogger(getClass().getName()); 
-	private final AccountRepository accountRepo;
-
-	@Autowired
-	public AccountController(AccountRepository accountRepo) {
-		this.accountRepo = accountRepo;
-	}
+	private final AccountService service;
 	
+	@Autowired
+	public AccountController(AccountService service) {	
+		this.service = service;
+	}
+
+
 	@PostMapping("/register")
-	public RedirectView createAccount(@RequestBody AccountViewModel accountViewModel, BindingResult bindingResult) {
+	public void createAccount(@RequestBody AccountViewModel accountViewModel, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
+			log.error("Couldn't process register POST request");
 			throw new ValidationException("Errors detected, account couldn't be created");
 		}
-		
-		Account newAccount = new Account(accountViewModel.getName(),
-										 accountViewModel.getPassword(), 
-										 accountViewModel.getEmail(), 
-										 accountViewModel.getRole());
-		this.accountRepo.saveAndFlush(newAccount);
-		
-		return new RedirectView("");
+		this.service.createNewUser(accountViewModel);
 	}
-	
 	
 	@GetMapping("/{name}")
-	public Account getAccountInformations(@PathVariable("name") final String accName) {		
-		return Optional.of(this.accountRepo.findByName(accName)).orElse(null);
-	}
-	
-	@PostMapping("/login")
-	public void login(@RequestBody LoginViewModel loginViewModel, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
-			log.error("Binding error trying to map request to" + loginViewModel.getClass().getName());
-		}
+	public Account getAccountInformations(@PathVariable("name") final String accName) {	
+		return new Account();
 	}
 	
 	@GetMapping("/profile")
 	public String getAccountInformation() {
 		return "test";
 	}
-	
-	@GetMapping("/GetAllUsers")
-	public String getAllUsersAccounts() {
-		return "test2";
-		
-	}
+
 }

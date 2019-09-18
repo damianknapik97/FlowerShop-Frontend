@@ -40,8 +40,10 @@ dependencies {
 	implementation 'org.javamoney:moneta:1.1'
 	//JWT tokens libraries
 	implementation 'com.auth0:java-jwt:3.4.1'
-	//Log4j for logging to help in debug processes
+	//ModelMapper to help in mapping VivewModels(DTO's) to Models(Entities)
+	implementation 'org.modelmapper:modelmapper:2.3.0'
 
+	//Log4j for logging to help in debug processes
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.1'
  	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
 
