@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Account } from '../model/account';
-import { environment } from 'src/environments/environment.prod';
+import { Account } from '../../../core/model/account';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -41,4 +41,5 @@ export class RegisterComponent implements OnInit {
       }
     );
   }
+
 }

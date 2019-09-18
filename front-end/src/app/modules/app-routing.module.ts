@@ -7,6 +7,8 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
 
+import { AuthenticationGuard } from '../core/security';
+
 const routes: Routes = [
   {
     path: '',
@@ -23,7 +25,8 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
+    canActivate: [AuthenticationGuard]
   },
   {
     path: 'login',

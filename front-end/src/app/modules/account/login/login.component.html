@@ -1,11 +1,12 @@
-<form class="accountForm" #f="ngForm">
+<form class="accountForm" name="form" #f="ngForm" (ngSubmit)="f.form.valid && validateUser()">
+
   <div class="form-group">
     <label for="loginInput">Login</label>
     <input type="text" 
            class="form-control"
            id="loginInput"
            aria-describedby="loginHelp"
-           [(ngModel)]="model.login"
+           [(ngModel)]="model.username"
            name="login"
            #login="ngModel"
            required>
