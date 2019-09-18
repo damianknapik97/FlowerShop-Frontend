@@ -6,6 +6,7 @@ import { User } from '../model/user';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoginViewModel } from '../model/login.viewmodel';
+import { Router } from '@angular/router';
 
 /*tslint:disable */
 @Injectable()
@@ -15,7 +16,7 @@ export class AuthenticationService {
   public currentToken: Observable<String>;
   private storageItemName: string = 'jwtToken';
 
-	constructor( private http: HttpClient ) {
+	constructor( private http: HttpClient, private router: Router ) {
       this.currentTokenSubject = new BehaviorSubject<String>( JSON.parse(localStorage.getItem(this.storageItemName)));
       this.currentToken = this.currentTokenSubject.asObservable();
    }
@@ -33,7 +34,7 @@ export class AuthenticationService {
         console.log(response.headers.get('Expires'));
         localStorage.setItem(this.storageItemName, JSON.stringify(jwtToken));
         this.currentTokenSubject.next(JSON.parse(localStorage.getItem(this.storageItemName)));
-
+        this.router.navigate(['/']);
       }
         
     );

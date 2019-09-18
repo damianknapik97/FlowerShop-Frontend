@@ -10,14 +10,23 @@ constructor(private authenticationService: AuthenticationService, private router
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-		const currentToken = this.authenticationService.currentTokenValue;
-		
-		console.log(currentToken)
-		 if(currentToken != null && currentToken !== ''){
+		let currentToken: String = this.authenticationService.currentTokenValue;
+
+		let firstPathSegment: String = route.url.find(
+			index => 1
+		).path;
+
+		if(firstPathSegment === 'account' && currentToken == null) {
+			return true;
+		}
+		if(firstPathSegment === 'account' && currentToken != null){
+			return false;
+		}
+		if(currentToken != null){
 			return true;
 		}
 
-		this.router.navigate(['/account/login']);
+		this.router.navigate(['/']);
 		return false;
 	}
 }
