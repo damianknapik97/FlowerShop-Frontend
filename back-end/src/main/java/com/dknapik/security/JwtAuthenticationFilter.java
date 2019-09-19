@@ -68,8 +68,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 		//Add JWT token in response
 		response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + token);
+		//Add Role in response
+		response.addHeader("Role", principal.toString());
 		//Add CORS policy header
-		response.addHeader("Access-Control-Expose-Headers", "Authorization");
+		response.addHeader("Access-Control-Expose-Headers", "Authorization, Role");
 		response.addHeader("Access-Control-Allow-Origin", "*");
 	}
 	

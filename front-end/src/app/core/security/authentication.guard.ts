@@ -1,32 +1,58 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthenticationService } from './';
+import { User } from '../model/user.viewmodel';
 
 /*tslint:disable */
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
 
-constructor(private authenticationService: AuthenticationService, private router: Router){}
+	private user:User
+
+	constructor(private authenticationService: AuthenticationService, private router: Router){
+		this.user = this.authenticationService.currentUserValue; 
+	}
+
+	
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-		let currentToken: String = this.authenticationService.currentTokenValue;
+		this.user = this.authenticationService.currentUserValue; 
 
 		let firstPathSegment: String = route.url.find(
 			index => 1
 		).path;
 
-		if(firstPathSegment === 'account' && currentToken == null) {
-			return true;
-		}
-		if(firstPathSegment === 'account' && currentToken != null){
-			return false;
-		}
-		if(currentToken != null){
-			return true;
+		let canActivateLogin = this.canActivateLogin(firstPathSegment);
+		if(canActivateLogin != null){
+			return canActivateLogin;
 		}
 
-		this.router.navigate(['/']);
-		return false;
+		if(this.isAuthenticated){
+			return true;
+		} else {
+			this.router.navigate(['/']);
+			return false
+		}
+		
 	}
+
+	canActivateLogin(route: String) {
+		// Login handling
+		if(route === 'account' && this.user == null) {
+			return true;
+		} else if(route === 'account' && this.user != null){
+			return false;
+		}
+		return null;
+	}
+
+	isAuthenticated() {
+		if(this.user != null){
+			return true;
+		}
+		return false;
+
+	}
+
 }

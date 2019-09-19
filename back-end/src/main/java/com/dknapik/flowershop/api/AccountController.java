@@ -32,7 +32,6 @@ public class AccountController {
 		this.service = service;
 	}
 
-
 	@PostMapping("/register")
 	public void createAccount(@RequestBody AccountViewModel accountViewModel, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {

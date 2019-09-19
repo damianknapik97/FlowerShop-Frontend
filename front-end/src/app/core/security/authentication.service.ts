@@ -1,40 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../model/user';
 
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoginViewModel } from '../model/login.viewmodel';
 import { Router } from '@angular/router';
+import { User } from '../model/user.viewmodel';
 
 /*tslint:disable */
 @Injectable()
 export class AuthenticationService {
 
-  private currentTokenSubject: BehaviorSubject<String>;
-  public currentToken: Observable<String>;
-  private storageItemName: string = 'jwtToken';
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+  private storageItemName: string = 'User';
 
 	constructor( private http: HttpClient, private router: Router ) {
-      this.currentTokenSubject = new BehaviorSubject<String>( JSON.parse(localStorage.getItem(this.storageItemName)));
-      this.currentToken = this.currentTokenSubject.asObservable();
+      this.currentUserSubject = new BehaviorSubject<User>( JSON.parse(localStorage.getItem(this.storageItemName)));
+      this.currentUser = this.currentUserSubject.asObservable();
    }
 
-   public get currentTokenValue(): String {
-      return this.currentTokenSubject.value;
+   public get currentUserValue(): User {
+      return this.currentUserSubject.value;
    }
 
-   login(loginViewModel: LoginViewModel){
-
-
+   login(loginViewModel: LoginViewModel): void{
     this.http.post(environment.apiUrl+'/login', loginViewModel, {observe :'response'}).subscribe(
       response => {
-        const jwtToken = response.headers.get('Authorization');
-        console.log(response.headers.get('Expires'));
-        localStorage.setItem(this.storageItemName, JSON.stringify(jwtToken));
-        this.currentTokenSubject.next(JSON.parse(localStorage.getItem(this.storageItemName)));
+        localStorage.removeItem(this.storageItemName);
+        let newUser: User = {
+          role : response.headers.get('Role'),
+          token : response.headers.get('Authorization')
+        };
+        localStorage.setItem(this.storageItemName, JSON.stringify(newUser));
+        this.currentUserSubject.next(JSON.parse(localStorage.getItem(this.storageItemName)));
         this.router.navigate(['/']);
+        location.reload();
+        
       }
         
     );
@@ -58,7 +61,9 @@ export class AuthenticationService {
    logout() {
      
     localStorage.removeItem(this.storageItemName);
-    this.currentTokenSubject.next(null);
+    this.currentUserSubject.next(null);
+    this.router.navigate(['/']);
+    location.reload();
 
    }
 }
