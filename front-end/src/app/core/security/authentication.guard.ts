@@ -38,7 +38,6 @@ export class AuthenticationGuard implements CanActivate {
 	}
 
 	canActivateLogin(route: String) {
-		// Login handling
 		if(route === 'account' && this.user == null) {
 			return true;
 		} else if(route === 'account' && this.user != null){

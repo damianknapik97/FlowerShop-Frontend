@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     role: 'user',
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.checkBoxValue = false;
    }
   ngOnInit() {
@@ -40,6 +40,8 @@ export class RegisterComponent implements OnInit {
         console.log(error);
       }
     );
+    this.router.navigate(['/account/login']);
+
   }
 
 }

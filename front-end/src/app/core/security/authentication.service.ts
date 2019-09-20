@@ -15,6 +15,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
   private storageItemName: string = 'User';
+  private lastLoginResult: boolean;
 
 	constructor( private http: HttpClient, private router: Router ) {
       this.currentUserSubject = new BehaviorSubject<User>( JSON.parse(localStorage.getItem(this.storageItemName)));
@@ -25,44 +26,33 @@ export class AuthenticationService {
       return this.currentUserSubject.value;
    }
 
-   login(loginViewModel: LoginViewModel): void{
+   login(loginViewModel: LoginViewModel): boolean{
+    this.lastLoginResult = false;
+
     this.http.post(environment.apiUrl+'/login', loginViewModel, {observe :'response'}).subscribe(
       response => {
         localStorage.removeItem(this.storageItemName);
-        let newUser: User = {
-          role : response.headers.get('Role'),
-          token : response.headers.get('Authorization')
-        };
-        localStorage.setItem(this.storageItemName, JSON.stringify(newUser));
-        this.currentUserSubject.next(JSON.parse(localStorage.getItem(this.storageItemName)));
-        this.router.navigate(['/']);
-        location.reload();
+        if(response.status == 200) {
+          let newUser: User = {
+            role : response.headers.get('Role'),
+            token : response.headers.get('Authorization')
+          };
+          localStorage.setItem(this.storageItemName, JSON.stringify(newUser));
+          this.currentUserSubject.next(JSON.parse(localStorage.getItem(this.storageItemName)));  
+          location.reload();
+          this.lastLoginResult = true;
+        }
         
       }
         
     );
-    /*
-     return this.http.post<any>(environment.apiUrl+'/login', loginViewModel).pipe(map(user => {
-      user.token
-      console.log(user.token);
-       if (user && user.token){
-         // Store token in local storage
-         localStorage.setItem('currentUser', JSON.stringify(user));
-         this.currentUserSubject.next(user);
-       }
-
-       return user
-     })).subscribe();
-    
-
-         */
+    return this.lastLoginResult;
    }
    
    logout() {
      
     localStorage.removeItem(this.storageItemName);
     this.currentUserSubject.next(null);
-    this.router.navigate(['/']);
     location.reload();
 
    }
