@@ -34,6 +34,7 @@ export class AuthenticationService {
         localStorage.removeItem(this.storageItemName);
         if(response.status == 200) {
           let newUser: User = {
+            id : response.headers.get('ID'),
             role : response.headers.get('Role'),
             token : response.headers.get('Authorization')
           };

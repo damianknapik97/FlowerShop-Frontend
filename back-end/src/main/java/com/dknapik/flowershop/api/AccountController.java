@@ -41,14 +41,14 @@ public class AccountController {
 		this.service.createNewUser(accountViewModel);
 	}
 	
-	@GetMapping("/{name}")
-	public Account getAccountInformations(@PathVariable("name") final String accName) {	
-		return new Account();
-	}
-	
-	@GetMapping("/profile")
-	public String getAccountInformation() {
-		return "test";
+	@GetMapping("/retrieve/{accountID}")
+	public Account retrieveAccount(@PathVariable("accountID") String accountID) {
+		try {
+			return this.service.retrieveAccountDetails(accountID);
+		} catch(Exception e) {
+			log.error(e.getMessage());
+		}
+		return null;
 	}
 
 }

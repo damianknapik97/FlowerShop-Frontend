@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Account } from '../../../core/model/account';
+import { User } from 'src/app/core/model/user.viewmodel';
 
 @Component({
   selector: 'app-profile',
@@ -14,12 +15,16 @@ export class ProfileComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.getAllAccountData();
+    this.retrieveAccountDetails();
   }
 
-  public getAllAccountData(){
-    const url = environment.apiUrl + '/account/root';
-    this.http.get<Account>(url).subscribe(
+  public retrieveAccountDetails(){
+
+    const user: User = JSON.parse(localStorage.getItem('User'));
+
+    const params = new HttpParams().set('accountID', user.id);
+
+    this.http.get<Account>(environment.apiUrl + '/account/retrieve/', {params}).subscribe(
       res => {
         this.account = res;
       },

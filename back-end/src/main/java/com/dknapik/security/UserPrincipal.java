@@ -3,6 +3,7 @@ package com.dknapik.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,6 +28,10 @@ public class UserPrincipal implements UserDetails{
 		return authorities;
 	}
 
+	public UUID getID() {
+		return account.getId();
+	}
+	
 	@Override
 	public String getPassword() {
 		return this.account.getPassword();
