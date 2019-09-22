@@ -11,6 +11,7 @@ export class NavigationComponent implements OnInit {
 
   constructor( private authenticationGuard: AuthenticationGuard, private authenticationService: AuthenticationService ) {}
 
+
   ngOnInit() {
   }
 

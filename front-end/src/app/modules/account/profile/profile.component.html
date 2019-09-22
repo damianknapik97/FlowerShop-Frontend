@@ -1,0 +1,65 @@
+<form class="accountForm" name="form" #f="ngForm" (ngSubmit)="f.form.valid && updateAccountDetails()">
+
+  <p>{{message}}</p>
+
+  <div class="form-group">
+    <label for="RegisterEmail">Email address</label>
+    <input type="email"
+          class="form-control"
+          id="RegisterEmail"
+          aria-describedby="RegisterEmailHelp"
+          name="email"
+          [(ngModel)]="model.email"
+          #email="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+          required email />
+    <div>
+      <div class="text-danger" *ngIf="f.submitted && email.invalid">
+        <div *ngIf="email.errors.required"> Email can not be empty </div>
+        <div *ngIf="email.errors.email"> Email is not valid </div>
+    </div>
+  </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="RegisterPassword">Password</label>
+  <input type="password"
+         class="form-control"
+         id="RegisterPassword"
+         name="password"
+         [(ngModel)]="model.password"
+         #password="ngModel"
+         [ngClass]="{ 'is-invalid': f.submitted && password.invalid}"
+        minlength="8" pattern="(?=.*?[0-9])(?=.*?[A-Z]).+" />
+    <div class="text-danger" *ngIf="f.submitted && password.invalid">
+      <div *ngIf="password.errors.minlength">Minimum 8 characters </div>
+      <div *ngIf="password.errors.pattern">Minimum one digit and one upper case character required</div>
+      <div *ngIf="password.errors.invalid">Password is not valid </div>
+    </div>
+  </div>
+  
+
+  <div class="form-group" *ngIf="!isPasswordEmpty()" >
+    <label for="RegisterPassword">Repeat Password</label>
+      <input type="password"
+         class="form-control"
+         id="RegisterPassword"
+         name="passwordConfirmation"
+         [(ngModel)]="passwordConfirmation"
+         #passConfirmation="ngModel"
+         [ngClass]="{ 'is-invalid': f.submitted && passConfirmation.invalid}"
+         appMatchString="{{model.password}}" />
+    <div class="text-danger" *ngIf="passConfirmation.invalid">
+      <div >Passwords must match</div>
+
+    </div>
+
+  </div>
+
+  <button type="submit" class="btn btn-primary submit-button">Update</button>
+</form>
+
+<br>
+
+<button (click)="removeAccount()">Remove account</button>

@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Account } from '../../../core/model/account';
+import { Account } from '../../../core/model/account.viewmodel';
 import { environment } from 'src/environments/environment';
 
 
@@ -28,7 +28,6 @@ export class RegisterComponent implements OnInit {
    }
   ngOnInit() {
   }
-
 
   createAccount(): void {
 

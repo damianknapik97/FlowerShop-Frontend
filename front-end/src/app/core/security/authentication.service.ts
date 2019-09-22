@@ -53,7 +53,9 @@ export class AuthenticationService {
    logout() {
      
     localStorage.removeItem(this.storageItemName);
+    //this.http.get(environment.apiUrl+'/logout').subscribe()
     this.currentUserSubject.next(null);
+    
     location.reload();
 
    }
