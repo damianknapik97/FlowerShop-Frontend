@@ -29,8 +29,9 @@ public class AccountService {
 	
 	public Account retrieveAccountDetails(String id) throws IOException {
 		UUID accId = UUID.fromString(id);	
-		
-		return accountRepo.findById(accId).orElseThrow(() -> new IOException("Couldn't map provided ID with any account from database"));
+		Account acc = accountRepo.findById(accId).orElseThrow(() -> new IOException("Couldn't map provided ID with any account from database"));
+		acc.setPasswordNoEncoding("");
+		return acc;
 	}
 	
 

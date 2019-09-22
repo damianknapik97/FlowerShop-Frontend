@@ -67,6 +67,9 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = new BCryptPasswordEncoder().encode(password);
 	}
+	public void setPasswordNoEncoding(String password) {
+		this.password = password;
+	}
 	public String getEmail() {
 		return email;
 	}
