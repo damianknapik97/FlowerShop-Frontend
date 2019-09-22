@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NG_VALIDATORS } from '@angular/forms';
 
 import { AppRoutingModule } from './modules/app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { AccountComponent } from './modules/account/account.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, AuthenticationService, AuthenticationGuard } from './core/security';
 import { ErrorInterceptor } from './core/security';
+import { MatchStringValidatorDirective } from './core/directives/match-string.directive';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ErrorInterceptor } from './core/security';
     HomeComponent,
     RegisterComponent,
     AccountComponent,
+    MatchStringValidatorDirective
   ],
   imports: [
     BrowserModule,
