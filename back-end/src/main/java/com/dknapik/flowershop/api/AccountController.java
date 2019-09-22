@@ -1,18 +1,23 @@
 package com.dknapik.flowershop.api;
 
 
-import javax.validation.ValidationException;
+
+import java.util.HashMap;
+
+import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,23 +41,63 @@ public class AccountController {
 	}
 
 	@PostMapping("/register")
-	public ResponseEntity<?> createAccount(@RequestBody AccountViewModel accountViewModel, BindingResult bindingResult) {
+	public ResponseEntity<String> createAccount(@Valid @RequestBody AccountViewModel accountViewModel, BindingResult bindingResult) {
+		String responseMsg = "Account created succesfully";
+		HttpStatus status = HttpStatus.OK;
+		
 		if(bindingResult.hasErrors()) {
 			log.error("Couldn't map provided credentials with AccountViewModel");
-			return new ResponseEntity<>("Couldn't match provided credentials with database data", HttpStatus.BAD_REQUEST);
+			responseMsg = "Couldn't create account with provided credentials";
+			status = HttpStatus.BAD_REQUEST;
 		}
+		
 		this.service.createNewUser(accountViewModel);
-		return new ResponseEntity<>("Account created succesfuly", HttpStatus.OK);
+		
+		return new ResponseEntity<>(responseMsg, status);
 	}
 	
 	@GetMapping()
-	public ResponseEntity<?> retrieveAccount(@RequestParam String accountID) {
+	public ResponseEntity<Account> retrieveAccount(@RequestParam String accountID) {
+		Account acc = null;
+		HttpStatus status = HttpStatus.OK;
 		try {
-			return new ResponseEntity<>(this.service.retrieveAccountDetails(accountID), HttpStatus.OK);
+			acc = this.service.retrieveAccountDetails(accountID);
 		} catch(Exception e) {
 			log.error(e.getMessage());
+			status = HttpStatus.NOT_FOUND;
 		}
-		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		
+		return new ResponseEntity<>(acc, status);
 	}
+	
+	//TODO separate DTO needed for password update to confirm that updating user is an actual user
+	@PutMapping()
+	public ResponseEntity<String> updateAccount(@Valid @RequestBody AccountViewModel accountViewModel, BindingResult bindingResult) {
+		String message = "Update Succesfull !";
+		HttpStatus status = HttpStatus.OK;
+		
+		this.service.updateAccount(accountViewModel, bindingResult);
+
+		return new ResponseEntity<>(message, status);
+	}
+	
+	//TODO add DTO to confirm that user deleting account is an actual user
+	@DeleteMapping()
+	public ResponseEntity<String> deleteAccount(@RequestParam String accountID) {
+		String message = "Account deleted succesfully !";
+		HttpStatus status =  HttpStatus.OK;
+		
+		try {
+			this.service.deleteAccount(accountID);
+			
+		} catch(Exception e) {
+			this.log.error(e.getMessage());
+			message = e.getMessage(); 
+			status = HttpStatus.BAD_REQUEST;
+		}
+		
+		return new ResponseEntity<>(message, status);
+	}
+	
 
 }

@@ -1,6 +1,5 @@
 package com.dknapik.flowershop.api.viewmodel;
 
-import javax.validation.constraints.NotEmpty;
 
 public class LoginViewModel {
 	
