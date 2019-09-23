@@ -1,5 +1,5 @@
 import { matchStringValidator } from '../validators/match-string.validator';
-import { AbstractControl, Validator, NG_VALIDATORS, FormControl } from '@angular/forms';
+import { AbstractControl, Validator, NG_VALIDATORS } from '@angular/forms';
 import { Input, Directive } from '@angular/core';
 
 @Directive({

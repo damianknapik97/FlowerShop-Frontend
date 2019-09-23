@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginViewModel } from '../../../core/model/login.viewmodel';
+import { LoginViewModel } from 'src/app/core/models';
 import { AuthenticationService } from 'src/app/core/security';
 import { BehaviorSubject } from 'rxjs';
 
@@ -10,9 +10,18 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
+  constructor(private authenticationService: AuthenticationService) {
+    this.strMessage = '';
+   }
+
   public strMessage: string;
 
   private strMessage2 = new BehaviorSubject<string>('');
+
+  model: LoginViewModel = {
+    username: '',
+    password: ''
+  };
 
   isMessageEmpty() {
     if (this.strMessage2.value === '' || this.strMessage2.value === null) {
@@ -22,24 +31,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  model: LoginViewModel = {
-    username: '',
-    password: ''
-  };
-
-  constructor(private authenticationService: AuthenticationService) {
-    this.strMessage = '';
-   }
-
   ngOnInit() {}
 
   validateUser(): void {
-    let loginResult: boolean = this.authenticationService.login(this.model);
+    const loginResult: boolean = this.authenticationService.login(this.model);
 
-    if(loginResult) {
-      this.strMessage2.next('Login Succesful !')
+    if (loginResult) {
+      this.strMessage2.next('Login Succesful !');
     } else {
-      this.strMessage2.next('Login Failed ! ')
+      this.strMessage2.next('Login Failed ! ');
     }
 
   }

@@ -1,8 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Account } from '../../../core/model/account.viewmodel';
+import { Account } from '../../../core/models';
 import { environment } from 'src/environments/environment';
+import { AuthenticationService } from 'src/app/core/security';
 
 
 
@@ -15,19 +16,20 @@ import { environment } from 'src/environments/environment';
 export class RegisterComponent implements OnInit {
 
 
-  public checkBoxValue: boolean
+  public checkBoxValue: boolean;
   private model: Account = {
+    id: this.authService.currentUserID,
     name: '',
     email: '',
     password: '',
     role: 'user',
   };
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) {
     this.checkBoxValue = false;
    }
-  ngOnInit() {
-  }
+
+  ngOnInit() {}
 
   createAccount(): void {
 

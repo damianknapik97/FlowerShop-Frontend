@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationGuard, AuthenticationService } from '../security';
-import { User } from '../model/user.viewmodel';
+import { AuthenticationGuard, AuthenticationService } from '../../core/security';
 
 @Component({
   selector: 'app-navigation',

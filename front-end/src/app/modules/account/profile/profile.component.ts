@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Account } from '../../../core/model/account.viewmodel';
-import { User } from 'src/app/core/model/user.viewmodel';
+import { User, Account } from 'src/app/core/models';
 import { AuthenticationService } from 'src/app/core/security';
 
 @Component({
@@ -12,6 +11,7 @@ import { AuthenticationService } from 'src/app/core/security';
 })
 export class ProfileComponent implements OnInit {
   private model: Account = {
+    id: this.authService.currentUserID,
     name: '',
     email: '',
     password: '',
@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  constructor(private http: HttpClient, private authenticationService: AuthenticationService) { }
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.retrieveAccountDetails();
@@ -36,8 +36,7 @@ export class ProfileComponent implements OnInit {
 
   private retrieveAccountDetails(): void {
 
-    const user: User = JSON.parse(localStorage.getItem('User'));
-    const params = new HttpParams().set('accountID', user.id);
+    const params = new HttpParams().set('accountID', this.model.id);
 
     this.http.get<Account>(environment.apiUrl + '/account', {params}).subscribe(
       res => {
@@ -59,10 +58,10 @@ export class ProfileComponent implements OnInit {
   private removeAccount(): void {
 
     const user: User = JSON.parse(localStorage.getItem('User'));
-    const params = new HttpParams().set('accountID', user.id);
+    const params = new HttpParams().set('accountID', this.model.id);
 
     this.http.delete(environment.apiUrl + '/account', {params}).subscribe();
 
-    this.authenticationService.logout();
+    this.authService.logout();
   }
 }
