@@ -15,6 +15,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor, AuthenticationService, AuthenticationGuard } from './core/security';
 import { ErrorInterceptor } from './core/security';
 import { MatchStringValidatorDirective } from './core/directives/match-string.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { MatchStringValidatorDirective } from './core/directives/match-string.di
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

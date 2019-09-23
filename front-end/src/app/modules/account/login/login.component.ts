@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginViewModel } from 'src/app/core/models';
-import { AuthenticationService } from 'src/app/core/security';
 import { BehaviorSubject } from 'rxjs';
+import { AccountService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-login',
@@ -10,38 +10,19 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService) {
-    this.strMessage = '';
-   }
-
-  public strMessage: string;
-
-  private strMessage2 = new BehaviorSubject<string>('');
-
-  model: LoginViewModel = {
+  private strMessage = new BehaviorSubject<string>('');
+  private model: LoginViewModel = {
     username: '',
     password: ''
   };
 
-  isMessageEmpty() {
-    if (this.strMessage2.value === '' || this.strMessage2.value === null) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
+  constructor(private accService: AccountService) {}
 
   ngOnInit() {}
 
-  validateUser(): void {
-    const loginResult: boolean = this.authenticationService.login(this.model);
-
-    if (loginResult) {
-      this.strMessage2.next('Login Succesful !');
-    } else {
-      this.strMessage2.next('Login Failed ! ');
-    }
-
+  private validateUser(): void {
+    this.strMessage.next(this.accService.login(this.model));
   }
 
 }

@@ -1,5 +1,7 @@
 <form class="accountForm" name="form" #f="ngForm" (ngSubmit)="f.form.valid && validateUser()">
 
+  <p>{{strMessage.getValue()}}</p>
+
   <div class="form-group">
     <label for="loginInput">Login</label>
     <input type="text" 
