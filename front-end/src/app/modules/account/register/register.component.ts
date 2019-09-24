@@ -1,9 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { Account } from '../../../core/models';
-import { environment } from 'src/environments/environment';
 import { AuthenticationService } from 'src/app/core/security';
+import { AccountService } from 'src/app/core/services';
+import { MatSnackBar } from '@angular/material';
 
 
 
@@ -25,24 +25,24 @@ export class RegisterComponent implements OnInit {
     role: 'user',
   };
 
-  constructor(private http: HttpClient, private router: Router, private authService: AuthenticationService) {
+  constructor(private router: Router,
+              private authService: AuthenticationService,
+              private accService: AccountService,
+              private snackBar: MatSnackBar) {
     this.checkBoxValue = false;
    }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   createAccount(): void {
-
-    this.http.post(environment.apiUrl + '/account/register', this.model).subscribe(
-      res => {
-        console.log(res);
-      },
+    this.accService.register(this.model).subscribe(
+      result => {
+        this.router.navigate(['/account/login']);
+        this.snackBar.open(result);
+       },
       error => {
-        console.log(error);
-      }
+        this.snackBar.open(error);
+       }
     );
-    this.router.navigate(['/account/login']);
-
   }
-
 }

@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { LoginComponent } from './modules/account/login/login.component';
-import { ProfileComponent } from './modules/account/profile/profile.component';
+import { ProfileComponent } from './modules/profile/profile.component';
 import { HomeComponent } from './modules/home/home.component';
 import { RegisterComponent } from './modules/account/register/register.component';
 import { AccountComponent } from './modules/account/account.component';
@@ -17,6 +17,9 @@ import { ErrorInterceptor } from './core/security';
 import { MatchStringValidatorDirective } from './core/directives/match-string.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material';
+import { ManageDetailsComponent } from './modules/profile/manage-details/manage-details.component';
+import { DeleteComponent } from './modules/profile/delete/delete.component';
+import { ChangePasswordComponent } from './modules/profile/change-password/change-password.component';
 
 
 @NgModule({
@@ -28,7 +31,10 @@ import { MatSnackBarModule } from '@angular/material';
     HomeComponent,
     RegisterComponent,
     AccountComponent,
-    MatchStringValidatorDirective
+    MatchStringValidatorDirective,
+    ManageDetailsComponent,
+    DeleteComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
