@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountDetailsViewModel } from 'src/app/core/viewmodels/account';
+import { AuthenticationService } from 'src/app/core/security';
+import { AccountService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-manage-details',
@@ -7,9 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageDetailsComponent implements OnInit {
 
-  constructor() { }
+  public message: string = '';
+  private model: AccountDetailsViewModel = {
+    email: ''
+  };
 
-  ngOnInit() {
+  constructor(private authService: AuthenticationService,
+              private accService: AccountService) { }
+
+  ngOnInit() {}
+
+  private updateInformations(): void {
+    this.accService.updateDetails(this.model).subscribe(
+      result => {
+        this.message = result;
+        location.reload();
+      },
+      error => {
+        this.message = error;
+      }
+      );
   }
-
 }

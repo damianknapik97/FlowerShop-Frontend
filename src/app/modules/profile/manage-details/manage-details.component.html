@@ -1,11 +1,24 @@
-<html>
+<form class="accountForm" name="form" #f="ngForm" (ngSubmit)="f.form.valid && updateInformations()">
 
-<head>
-	<title>title</title>
-</head>
+  <p>{{message}}</p>
 
-<body>
-	It works!
-</body>
-
-</html>
+  <div class="form-group account-details-form">
+    <label for="RegisterEmail">Email address</label>
+    <input type="email"
+          class="form-control"
+          id="RegisterEmail"
+          aria-describedby="RegisterEmailHelp"
+          name="email"
+          [(ngModel)]="model.email"
+          #email="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+          required email />
+    <div>
+      <div class="text-danger" *ngIf="f.submitted && email.invalid">
+        <div *ngIf="email.errors.required"> Email can not be empty </div>
+        <div *ngIf="email.errors.email"> Email is not valid </div>
+    </div>
+  </div>
+  </div>
+  <button type="submit" class="btn btn-primary submit-button">Submit</button>
+</form>

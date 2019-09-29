@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { LoginViewModel } from '../models';
-import { User } from '../models';
+import { LoginViewModel, User } from '../viewmodels/account';
 
 import { MatSnackBar } from '@angular/material';
 
@@ -28,7 +27,7 @@ export class AuthenticationService {
    public get currentUserID(): string {
      if(this.currentUserValue != null){
       let toReturn: string = this.currentUserValue.accId;
-      if(toReturn != null){
+      if(toReturn != null) {
         return toReturn;
       }
     }

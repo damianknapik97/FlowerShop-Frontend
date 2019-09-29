@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
-import { User } from '../models';
+import { User } from '../viewmodels/account';
 
 /*tslint:disable */
 @Injectable()

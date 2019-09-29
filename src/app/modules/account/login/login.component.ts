@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginViewModel } from 'src/app/core/models';
+import { LoginViewModel } from 'src/app/core/viewmodels/account';
 import { AccountService } from 'src/app/core/services';
 
 @Component({

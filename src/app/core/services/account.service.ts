@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LoginViewModel, Account } from '../models';
+import { LoginViewModel, Account, AccountDetailsViewModel, PasswordChangeViewModel } from '../viewmodels/account';
 import { AuthenticationService } from '../security';
 import { environment } from 'src/environments/environment';
 
@@ -19,18 +19,21 @@ export class AccountService {
     }
 
     public register(model: Account): Observable<string> {
-        return this.http.post<string>(environment.apiUrl + '/account/register', model);
+        return this.http.post<string>(environment.apiUrl + '/account', model);
     }
 
-    public delete(password: string): Observable<any> {
-        const params = new HttpParams().set('accountID', this.authService.currentUserID)
-                                       .set('password', password);
+    public delete(password: string): Observable<string> {
+        const params = new HttpParams().set('password', password);
 
-        return this.http.delete<any>(environment.apiUrl + '/account', {params});
+        return this.http.delete<string>(environment.apiUrl + '/account', {params});
     }
 
-    public updateDetails(model: Account): Observable<any> {
-        return this.http.put<any>(environment.apiUrl + '/account', model);
+    public updateDetails(model: AccountDetailsViewModel): Observable<string> {
+        return this.http.put<string>(environment.apiUrl + '/account', model);
+    }
+
+    public updatePassword(model: PasswordChangeViewModel): Observable<string> {
+        return this.http.put<string>(environment.apiUrl + '/password', model)
     }
 
     public getDetails(): Observable<Account> {
