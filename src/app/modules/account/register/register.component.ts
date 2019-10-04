@@ -1,7 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from 'src/app/core/viewmodels/account';
-import { AuthenticationService } from 'src/app/core/security';
 import { AccountService } from 'src/app/core/services';
 import { MatSnackBar } from '@angular/material';
 

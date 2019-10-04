@@ -20,7 +20,7 @@
 				<a class="nav-item nav-link" routerLink="/profile">Profile</a>
 			</li>
 			<li class="nav-item" *ngIf="authenticationGuard.isAuthenticated()" >
-				<a class="nav-item nav-link" href="" (click)="authenticationService.logout()">Logout</a>
+				 <a class="nav-item nav-link" [routerLink]="" (click)="authenticationService.logout()">Logout</a>
 			</li>
 		</ul>
 	</div>

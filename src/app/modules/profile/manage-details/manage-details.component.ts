@@ -18,17 +18,29 @@ export class ManageDetailsComponent implements OnInit {
   constructor(private authService: AuthenticationService,
               private accService: AccountService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.accService.getDetails().subscribe(
+      result => {
+        this.model = result;
+      },
+      error => {
+        this.message = error;
+      }
+    )
+  }
 
   private updateInformations(): void {
     this.accService.updateDetails(this.model).subscribe(
       result => {
         this.message = result;
-        location.reload();
       },
       error => {
         this.message = error;
       }
-      );
+    ).add(
+      () => {
+        location.reload();
+      }
+    );
   }
 }

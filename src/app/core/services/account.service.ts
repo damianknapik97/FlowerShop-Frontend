@@ -36,8 +36,8 @@ export class AccountService {
         return this.http.put<string>(environment.apiUrl + '/password', model)
     }
 
-    public getDetails(): Observable<Account> {
-        return this.http.get<Account>(environment.apiUrl + '/account');
+    public getDetails(): Observable<AccountDetailsViewModel> {
+        return this.http.get<AccountDetailsViewModel>(environment.apiUrl + '/account');
     }
 
 

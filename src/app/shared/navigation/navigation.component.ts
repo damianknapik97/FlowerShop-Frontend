@@ -8,7 +8,8 @@ import { AuthenticationGuard, AuthenticationService } from '../../core/security'
 })
 export class NavigationComponent implements OnInit {
 
-  constructor( private authenticationGuard: AuthenticationGuard, private authenticationService: AuthenticationService ) {}
+  constructor( private authenticationGuard: AuthenticationGuard,
+               private authenticationService: AuthenticationService ) {}
 
 
   ngOnInit() {

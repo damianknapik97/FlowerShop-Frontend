@@ -60,13 +60,18 @@ export class AuthenticationService {
       );
    }
    
-   logout() {
-     
-    localStorage.removeItem(this.storageItemName);
-    //this.http.get(environment.apiUrl+'/logout').subscribe()
-    this.currentUserSubject.next(null);
+   public logout(): void {
     
-    location.reload();
-
+    this.http.post(environment.apiUrl+'/logout', null).subscribe(
+      res => {},
+      err => {},
+    ).add(
+      () => {
+        localStorage.removeItem(this.storageItemName);
+        this.currentUserSubject.next(null);
+        location.reload();
+        this.snackBar.open("Logged out !");
+      }
+    );
    }
 }
