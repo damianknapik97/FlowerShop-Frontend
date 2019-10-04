@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  private validateUser(): void {
+  public validateUser(): void {
     this.accService.login(this.model);
   }
 
