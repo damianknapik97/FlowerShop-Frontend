@@ -9,8 +9,8 @@ import { AccountService } from 'src/app/core/services';
 })
 export class ChangePasswordComponent implements OnInit {
 
-  private message: string = '';
-  private model: PasswordChangeViewModel = {
+  public message: string = '';
+  public model: PasswordChangeViewModel = {
      currentPassword: '',
      newPassword: '',
      newPasswordConfirmation: ''
@@ -21,7 +21,7 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit() {
   }
 
-  private updatePassword(): void {
+  public updatePassword(): void {
     this.accService.updatePassword(this.model).subscribe(
       response => {
         this.message = response;

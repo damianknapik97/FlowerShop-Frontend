@@ -8,15 +8,15 @@ import { AccountService } from 'src/app/core/services';
 })
 export class DeleteComponent implements OnInit {
 
-  private message: string = '';
-  private modelPassword: string = '';
+  public message: string = '';
+  public modelPassword: string = '';
 
   constructor(private accService: AccountService) { }
 
   ngOnInit() {
   }
 
-  private deleteAccount(): void {
+  public deleteAccount(): void {
     this.accService.delete(this.modelPassword).subscribe(
       result => {
         location.reload();

@@ -9,7 +9,7 @@ import { AccountService } from 'src/app/core/services';
 })
 export class LoginComponent implements OnInit {
 
-  private model: LoginViewModel = {
+  public model: LoginViewModel = {
     username: '',
     password: ''
   };

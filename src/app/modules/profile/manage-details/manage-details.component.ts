@@ -11,7 +11,7 @@ import { AccountService } from 'src/app/core/services';
 export class ManageDetailsComponent implements OnInit {
 
   public message: string = '';
-  private model: AccountDetailsViewModel = {
+  public model: AccountDetailsViewModel = {
     email: ''
   };
 
@@ -29,7 +29,7 @@ export class ManageDetailsComponent implements OnInit {
     )
   }
 
-  private updateInformations(): void {
+  public updateInformations(): void {
     this.accService.updateDetails(this.model).subscribe(
       result => {
         this.message = result;

@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
 
   public checkBoxValue: boolean;
-  private model: Account = {
+  public model: Account = {
     name: '',
     email: '',
     password: '',
@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() { }
 
-  createAccount(): void {
+  public createAccount(): void {
     this.accService.register(this.model).subscribe(
       result => {
         this.router.navigate(['/account/login']);
