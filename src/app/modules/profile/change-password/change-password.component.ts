@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PasswordChangeViewModel } from 'src/app/core/viewmodels/account';
 import { AccountService } from 'src/app/core/services';
+import {MatchStringValidatorDirective } from 'src/app/core/directives/match-string.directive';
 
 @Component({
   selector: 'app-change-password',
@@ -22,6 +23,7 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   public updatePassword(): void {
+    console.log("test");
     this.accService.updatePassword(this.model).subscribe(
       response => {
         this.message = response;

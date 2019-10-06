@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/core/services';
+import { AuthenticationService } from 'src/app/core/security';
 
 @Component({
   selector: 'app-delete',
@@ -11,7 +12,7 @@ export class DeleteComponent implements OnInit {
   public message: string = '';
   public modelPassword: string = '';
 
-  constructor(private accService: AccountService) { }
+  constructor(private accService: AccountService, private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
@@ -19,10 +20,13 @@ export class DeleteComponent implements OnInit {
   public deleteAccount(): void {
     this.accService.delete(this.modelPassword).subscribe(
       result => {
-        location.reload();
       },
       error => {
         this.message = error;
+      }
+    ).add(
+      () => {
+        this.authService.logout();
       }
     )
   }

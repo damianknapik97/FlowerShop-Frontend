@@ -32,14 +32,10 @@ export class ManageDetailsComponent implements OnInit {
   public updateInformations(): void {
     this.accService.updateDetails(this.model).subscribe(
       result => {
-        this.message = result;
+        this.message = "Account updated succesfully!"
       },
       error => {
-        this.message = error;
-      }
-    ).add(
-      () => {
-        location.reload();
+        this.message = "Account updated failed !"
       }
     );
   }
