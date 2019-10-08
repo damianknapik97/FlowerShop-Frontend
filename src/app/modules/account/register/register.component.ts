@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { Account } from 'src/app/core/viewmodels/account';
+import { AccountDto } from 'src/app/core/dto/account';
 import { AccountService } from 'src/app/core/services';
 import { MatSnackBar } from '@angular/material';
 
@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
 
 
   public checkBoxValue: boolean;
-  public model: Account = {
+  public model: AccountDto = {
     name: '',
     email: '',
     password: '',

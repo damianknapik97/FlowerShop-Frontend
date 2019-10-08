@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountDetailsViewModel } from 'src/app/core/viewmodels/account';
+import { AccountDetailsDto } from 'src/app/core/dto/account';
 import { AuthenticationService } from 'src/app/core/security';
 import { AccountService } from 'src/app/core/services';
 
@@ -11,7 +11,7 @@ import { AccountService } from 'src/app/core/services';
 export class ManageDetailsComponent implements OnInit {
 
   public message: string = '';
-  public model: AccountDetailsViewModel = {
+  public model: AccountDetailsDto = {
     email: ''
   };
 
