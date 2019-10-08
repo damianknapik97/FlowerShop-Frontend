@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { LoginViewModel, Account, AccountDetailsViewModel, PasswordChangeViewModel } from '../viewmodels/account';
 import { AuthenticationService } from '../security';
 import { environment } from 'src/environments/environment';
+import { MessageResponseDto } from '../viewmodels/message-response.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +19,9 @@ export class AccountService {
         this.authService.login(loginModel);
     }
 
-    public register(model: Account): Observable<string> {
-        return this.http.post<string>(environment.apiUrl + '/account', model);
+    public register(model: Account): Observable<MessageResponseDto> {
+
+        return this.http.post<MessageResponseDto>(environment.apiUrl + '/account', model);
     }
 
     public delete(password: string): Observable<string> {

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from 'src/app/core/security';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -12,12 +10,25 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
+            let errorMsg = '';
+
             if (err.status === 401) {
                 // Auto logout if 401 response returned from api
                 this.authenticationService.logout();
+                errorMsg = 'You do not have required privileges to perform that action'
+
+            } else if ( err.status === 404 || err.status === 101) {
+                errorMsg = 'Service not found!';
+            } else {
+                errorMsg = err.message;
             }
 
-            const error = err.message || err.statusText;
+            if (!errorMsg) {
+                errorMsg = 'Error! Service currenty unavaible, please try again later';
+                return throwError(errorMsg);
+            }
+
+            const error = err.statusText || errorMsg;
             return throwError(error);
         }));
     }

@@ -12,8 +12,8 @@ import { RegisterComponent } from './modules/account/register/register.component
 import { AccountComponent } from './modules/account/account.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor, AuthenticationService, AuthenticationGuard } from './core/security';
-import { ErrorInterceptor } from './core/security';
+import { AuthenticationService, AuthenticationGuard } from './core/security';
+import { ErrorInterceptor, JwtInterceptor } from './core/interceptors';
 import { MatchStringValidatorDirective } from './core/directives/match-string.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material';
@@ -34,7 +34,7 @@ import { ChangePasswordComponent } from './modules/profile/change-password/chang
     MatchStringValidatorDirective,
     ManageDetailsComponent,
     DeleteComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

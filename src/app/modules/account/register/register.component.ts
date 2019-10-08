@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from 'src/app/core/viewmodels/account';
 import { AccountService } from 'src/app/core/services';
@@ -34,10 +34,15 @@ export class RegisterComponent implements OnInit {
   public createAccount(): void {
     this.accService.register(this.model).subscribe(
       result => {
-        this.router.navigate(['/account/login']);
-        this.snackBar.open(result);
+        if (!result.message.toUpperCase().includes('ALREADY EXISTS')) {
+          this.router.navigate(['/account/login']);
+        }
+        this.snackBar.open(result.message);
        },
       error => {
+        if (!error) {
+          this.snackBar.open('Error creating account !');
+        }
         this.snackBar.open(error);
        }
     );
