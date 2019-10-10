@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PasswordChangeViewModel } from 'src/app/core/viewmodels/account';
+import { PasswordChangeDto } from 'src/app/core/dto/account';
 import { AccountService } from 'src/app/core/services';
 import {MatchStringValidatorDirective } from 'src/app/core/directives/match-string.directive';
 
@@ -11,7 +11,7 @@ import {MatchStringValidatorDirective } from 'src/app/core/directives/match-stri
 export class ChangePasswordComponent implements OnInit {
 
   public message: string = '';
-  public model: PasswordChangeViewModel = {
+  public model: PasswordChangeDto = {
      currentPassword: '',
      newPassword: '',
      newPasswordConfirmation: ''

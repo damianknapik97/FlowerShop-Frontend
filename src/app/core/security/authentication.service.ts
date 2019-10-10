@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { LoginViewModel, User } from '../viewmodels/account';
+import { LoginDto, UserDto } from '../dto/account';
 
 import { MatSnackBar } from '@angular/material';
 
@@ -11,16 +11,16 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class AuthenticationService {
 
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  private currentUserSubject: BehaviorSubject<UserDto>;
+  public currentUser: Observable<UserDto>;
   private storageItemName: string = 'User';
 
 	constructor( private http: HttpClient, private snackBar: MatSnackBar ) {
-      this.currentUserSubject = new BehaviorSubject<User>( JSON.parse(localStorage.getItem(this.storageItemName)));
+      this.currentUserSubject = new BehaviorSubject<UserDto>( JSON.parse(localStorage.getItem(this.storageItemName)));
       this.currentUser = this.currentUserSubject.asObservable();
    }
 
-   public get currentUserValue(): User {
+   public get currentUserValue(): UserDto {
       return this.currentUserSubject.value;
    }
 
@@ -34,13 +34,13 @@ export class AuthenticationService {
      return "";
    }
 
-   public login(loginViewModel: LoginViewModel): void {
+   public login(loginViewModel: LoginDto): void {
 
       this.http.post(environment.apiUrl+'/login', loginViewModel, {observe :'response'}).subscribe(
         response => {
           localStorage.removeItem(this.storageItemName);
           if(response.status == 200) {
-            let newUser: User = {
+            let newUser: UserDto = {
               accId : response.headers.get('ID'),
               role : response.headers.get('Role'),
               token : response.headers.get('Authorization')

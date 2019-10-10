@@ -1,4 +1,4 @@
-export interface LoginViewModel {
+export interface LoginDto {
   username: string;
   password: string;
 }
