@@ -20,6 +20,9 @@ import { MatSnackBarModule } from '@angular/material';
 import { ManageDetailsComponent } from './modules/profile/manage-details/manage-details.component';
 import { DeleteComponent } from './modules/profile/delete/delete.component';
 import { ChangePasswordComponent } from './modules/profile/change-password/change-password.component';
+import { ProductsComponent } from './modules/products/products.component';
+import { BouquetComponent } from './modules/products/bouquet/bouquet.component';
+import { FlowerComponent } from './modules/products/flower/flower.component';
 
 
 @NgModule({
@@ -35,6 +38,9 @@ import { ChangePasswordComponent } from './modules/profile/change-password/chang
     ManageDetailsComponent,
     DeleteComponent,
     ChangePasswordComponent,
+    ProductsComponent,
+    BouquetComponent,
+    FlowerComponent,
   ],
   imports: [
     BrowserModule,

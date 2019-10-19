@@ -11,6 +11,9 @@ import { ManageDetailsComponent } from './modules/profile/manage-details/manage-
 import { AuthenticationGuard } from './core/security';
 import { ChangePasswordComponent } from './modules/profile/change-password/change-password.component';
 import { DeleteComponent } from './modules/profile/delete/delete.component';
+import { ProductsComponent } from './modules/products/products.component';
+import { BouquetComponent } from './modules/products/bouquet/bouquet.component';
+import { FlowerComponent } from './modules/products/flower/flower.component';
 
 
 const routes: Routes = [
@@ -41,6 +44,14 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'products',
+    component: ProductsComponent,
+    children: [
+      { path: 'bouquet', component: BouquetComponent },
+      { path: 'flower', component: FlowerComponent }
+    ]
   }
 
 ];
