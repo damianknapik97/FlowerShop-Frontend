@@ -11,11 +11,11 @@ export class FlowerService {
     private apiUrl: string;
 
     constructor(private http: HttpClient) {
-        this.apiUrl = environment.apiUrl + '/bouquet';
+        this.apiUrl = environment.apiUrl + '/products/flower';
     }
 
-    public retrieveFullBouquetList(): Observable<FlowerDto[]> {
-        return this.http.get<FlowerDto[]>(this.apiUrl);
+    public retrieveFullFlowerList(): Observable<FlowerDto[]> {
+        return this.http.get<FlowerDto[]>(this.apiUrl + '/all');
     }
 
 }

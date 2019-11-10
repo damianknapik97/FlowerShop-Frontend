@@ -11,11 +11,11 @@ export class BouquetService {
     private apiUrl: string;
 
     constructor(private http: HttpClient) {
-        this.apiUrl = environment.apiUrl + '/bouquet';
+        this.apiUrl = environment.apiUrl + '/products/bouquet';
     }
 
     public retrieveFullBouquetList(): Observable<BouquetDto[]> {
-        return this.http.get<BouquetDto[]>(this.apiUrl);
+        return this.http.get<BouquetDto[]>(this.apiUrl + '/all');
     }
 
 
