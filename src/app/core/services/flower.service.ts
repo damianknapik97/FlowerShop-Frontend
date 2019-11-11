@@ -11,7 +11,7 @@ export class FlowerService {
     private apiUrl: string;
 
     constructor(private http: HttpClient) {
-        this.apiUrl = environment.apiUrl + '/products/flower';
+        this.apiUrl = environment.apiUrl + '/products/flowers';
     }
 
     public retrieveFullFlowerList(): Observable<FlowerDto[]> {

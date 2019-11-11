@@ -1,8 +1,19 @@
-<div *ngFor="let bouquet of model">
-    <div>
-        {{bouquet.id}}
-        {{bouquet.name}}
-        {{bouquet.totalCost}};
-    </div>
+<div class="container">
+  <div class="row products-row" *ngFor="let row of viewModel;">
 
+      <div class="card products-column" style="width: 18rem;" *ngFor="let product of row;" >
+        <img class="card-img-top" src="https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">Some quick example text </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{product.price}}</li>
+          <li class="list-group-item">{{product.id}}</li>
+        </ul>
+        <div class="card-body">
+          <a href="#" class="card-link">Link</a>
+        </div>
+      </div>
+  </div>
 </div>

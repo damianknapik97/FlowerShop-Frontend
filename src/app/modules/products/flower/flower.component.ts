@@ -11,7 +11,7 @@ import { ArrayUtilities } from 'src/app/core/utilites';
 export class FlowerComponent implements OnInit {
 
   public message: string;
-  public displayModel: FlowerDto[][];
+  public viewModel: FlowerDto[][];
   public elemntsInRow = 3;
 
   constructor(private flowerService: FlowerService,
@@ -26,13 +26,13 @@ export class FlowerComponent implements OnInit {
     this.flowerService.retrieveFullFlowerList().subscribe(
       result => {
         model = result;
+        this.viewModel = this.arrayUtils.convertToTwoDimensions(model as object[], this.elemntsInRow) as FlowerDto[][];
       },
       error => {
         this.message = error;
       }
-    ).add(() => {
-      this.displayModel = this.arrayUtils.convertToTwoDimensions(model, this.elemntsInRow) as FlowerDto[][];
-    });
+
+    );
   }
 
 

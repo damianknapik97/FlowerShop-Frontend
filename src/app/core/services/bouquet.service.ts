@@ -11,7 +11,7 @@ export class BouquetService {
     private apiUrl: string;
 
     constructor(private http: HttpClient) {
-        this.apiUrl = environment.apiUrl + '/products/bouquet';
+        this.apiUrl = environment.apiUrl + '/products/bouquets';
     }
 
     public retrieveFullBouquetList(): Observable<BouquetDto[]> {

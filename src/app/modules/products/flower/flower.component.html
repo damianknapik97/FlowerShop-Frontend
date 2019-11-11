@@ -1,68 +1,18 @@
 <div class="container">
-
-  <div *ngFor="let flower of model; let i=index"> // np 40 elementow
-    <div class="row" *ngIf="i % 10 === 0"> // ma sie wyswietlac co 10 elementow
-      <div class="column">Jakis element</div>    // ma sie powtarzac 10 razy aby wyswietlic 10 elementow
-
-
-
-
-
-      <div class="card" style="width: 18rem;" *ngFor=>
-        <img class="card-img-top" src="..." alt="Card image cap">
+  <div class="row products-row" *ngFor="let row of viewModel;">
+      <div class="card products-column" style="width: 18rem;" *ngFor="let product of row;" >
+        <img class="card-img-top" src="https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">Some quick example text </p>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Vestibulum at eros</li>
+          <li class="list-group-item">{{product.price}}</li>
+          <li class="list-group-item">{{product.id}}</li>
         </ul>
         <div class="card-body">
-          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Link</a>
         </div>
       </div>
-
-      {{i + 1}}
-
-      <div class="card" style="width: 18rem;" *ngFor=>
-          <img class="card-img-top" src="..." alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-          </ul>
-          <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-          </div>
-        </div>
-
-        <div class="card" style="width: 18rem;" *ngFor=>
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Cras justo odio</li>
-              <li class="list-group-item">Dapibus ac facilisis in</li>
-              <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-            <div class="card-body">
-              <a href="#" class="card-link">Card link</a>
-            </div>
-          </div>
-
-      <div class="product_tile">
-          {{flower.id}}
-          {{flower.name}}
-          {{flower.price}}
-      </div>
-    </div>
   </div>
 </div>
