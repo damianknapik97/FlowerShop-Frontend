@@ -1,27 +1,34 @@
-# FrontEnd
+# Flower Shop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
+This project serves as a base for learning front end and back end development with usage of Angular and Spring Boot.
 
-## Development server
+## Project goals
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Create secure website that will allow its user to:
+* Buy, pay and deliver products to indicated destination
+* Customize own Bouquets
+* Name and save Shopping Carts with products for later usage
+* Manage selled products by accounts with certain privileges
+* Contant shop customer service via email forms
 
-## Code scaffolding
+### Track current progress
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* [Currently deployed master branch](https://flowershop-frontend.herokuapp.com/)
 
-## Build
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Used Technologies
 
-## Running unit tests
+**Front End** 
+* Angular 8
+* Bootstrap
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**Back End** 
+* Java 8
+* Spring Boot
+* Spring Security
+* PostgreSQL
+* Docker
+* Gradle
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Connection beetween Front End and Back End estabilished using REST API
