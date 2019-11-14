@@ -40,7 +40,7 @@ export class AccountService {
             }
         }
 
-        return this.http.delete<string>(environment.apiUrl + '/account', options);
+        return this.http.delete<string>(environment.apiUrl + '/account', {params});
     }
 
     public updateDetails(model: AccountDetailsDto): Observable<any> {
