@@ -1,5 +1,9 @@
+import { Price } from './price.dto';
+
 export interface FlowerDto {
     id: string;
     name: string;
-    price: string;
+    price: Price;
+    description: string;
+    height: number;
 }

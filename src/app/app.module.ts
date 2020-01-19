@@ -11,6 +11,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { RegisterComponent } from './modules/account/register/register.component';
 import { AccountComponent } from './modules/account/account.component';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService, AuthenticationGuard } from './core/security';
 import { ErrorInterceptor, JwtInterceptor } from './core/interceptors';
@@ -23,6 +24,8 @@ import { ChangePasswordComponent } from './modules/profile/change-password/chang
 import { ProductsComponent } from './modules/products/products.component';
 import { BouquetComponent } from './modules/products/bouquet/bouquet.component';
 import { FlowerComponent } from './modules/products/flower/flower.component';
+import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
+import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
 
 
 @NgModule({
@@ -41,6 +44,8 @@ import { FlowerComponent } from './modules/products/flower/flower.component';
     ProductsComponent,
     BouquetComponent,
     FlowerComponent,
+    SouvenirComponent,
+    OccasionalArticleComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,8 @@ import { FlowerComponent } from './modules/products/flower/flower.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

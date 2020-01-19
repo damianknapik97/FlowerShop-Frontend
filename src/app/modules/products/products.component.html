@@ -1,1 +1,20 @@
-<router-outlet></router-outlet>
+<div class="d-flex btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-success btn-lg" [routerLink] = "['flower']" routerLinkActive="active" >
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> Flowers
+  </label>
+  <label class="btn btn-success btn-lg" [routerLink] = "['occasional-article']" routerLinkActive="active">
+    <input type="radio" name="options" id="option2" autocomplete="off"> Occasional Articles
+  </label>
+  <label class="btn btn-success btn-lg" [routerLink] = "['souvenir']" routerLinkActive="active">
+    <input type="radio" name="options" id="option3" autocomplete="off"> Souvenirs
+  </label>
+  <label class="btn btn-success btn-lg" [routerLink] = "['bouquet']" routerLinkActive="active">
+    <input type="radio" name="options" id="option3" autocomplete="off"> Bouquets
+  </label>
+</div>
+
+<div class="product-content d-flex justify-content-center">
+  <router-outlet></router-outlet>
+</div>
+
+

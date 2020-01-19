@@ -14,6 +14,8 @@ import { DeleteComponent } from './modules/profile/delete/delete.component';
 import { ProductsComponent } from './modules/products/products.component';
 import { BouquetComponent } from './modules/products/bouquet/bouquet.component';
 import { FlowerComponent } from './modules/products/flower/flower.component';
+import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
+import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
 
 
 const routes: Routes = [
@@ -49,8 +51,10 @@ const routes: Routes = [
     path: 'products',
     component: ProductsComponent,
     children: [
-      { path: 'bouquet', component: BouquetComponent },
-      { path: 'flower', component: FlowerComponent }
+      { path: 'flower', component: FlowerComponent },
+      { path: 'occasional-article', component: OccasionalArticleComponent},
+      { path: 'souvenir', component: SouvenirComponent },
+      { path: 'bouquet', component: BouquetComponent }
     ]
   }
 

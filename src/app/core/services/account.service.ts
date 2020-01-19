@@ -28,6 +28,7 @@ export class AccountService {
     public delete(password: string): Observable<string> {
         const params = new HttpParams().set('password', password);
 
+        /*
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -39,6 +40,7 @@ export class AccountService {
                 password
             }
         }
+        */
 
         return this.http.delete<string>(environment.apiUrl + '/account', {params});
     }

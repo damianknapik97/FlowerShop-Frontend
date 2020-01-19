@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
     name: '',
     email: '',
     password: '',
-    role: 'user',
+    role: 'USER',
   };
 
   constructor(private router: Router,

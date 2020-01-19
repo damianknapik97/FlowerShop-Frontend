@@ -1,18 +1,56 @@
-<div class="container">
-  <div class="row products-row" *ngFor="let row of viewModel;">
-      <div class="card products-column" style="width: 18rem;" *ngFor="let product of row;" >
-        <img class="card-img-top" src="https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{product.name}}</h5>
-          <p class="card-text">Some quick example text </p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{product.price}}</li>
-          <li class="list-group-item">{{product.id}}</li>
-        </ul>
-        <div class="card-body">
-          <a href="#" class="card-link">Link</a>
-        </div>
+<h4 *ngIf="message != ''">
+  Waiting for resources to load
+</h4>
+
+<div class="container" >
+  <div>
+    <ngb-pagination
+      class="d-flex justify-content-center "
+      size="lg"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="collectionSize"
+      (pageChange)="onChangePage(page)"
+    ></ngb-pagination>
+  </div>
+  <div class="row products-row" *ngFor="let row of viewModel">
+    <div
+      class="card products-column"
+      style="width: 18rem;"
+      *ngFor="let product of row"
+    >
+      <img
+        class="card-img-top"
+        src="https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text ">
+          <small>ID: {{ product.id }} </small>
+        </p>
       </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ product.description }}</li>
+      </ul>
+      <div class="card-body">
+        <p class="price">
+          {{ product.price.amount }} {{ product.price.currency }}
+          <button type="button" class="btn btn-success float-right">
+            Add to cart
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ngb-pagination
+      class="d-flex justify-content-center "
+      size="lg"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="collectionSize"
+      (pageChange)="onChangePage(page)"
+    ></ngb-pagination>
   </div>
 </div>
