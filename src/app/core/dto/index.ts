@@ -6,3 +6,5 @@ export * from './bouquet.dto';
 export * from './souvenir.dto';
 export * from './occasional-article.dto';
 
+export * from './order/shopping-cart.dto';
+

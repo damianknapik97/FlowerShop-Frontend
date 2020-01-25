@@ -26,6 +26,7 @@ import { BouquetComponent } from './modules/products/bouquet/bouquet.component';
 import { FlowerComponent } from './modules/products/flower/flower.component';
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
+import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { OccasionalArticleComponent } from './modules/products/occasional-articl
     BouquetComponent,
     FlowerComponent,
     SouvenirComponent,
-    OccasionalArticleComponent
+    OccasionalArticleComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

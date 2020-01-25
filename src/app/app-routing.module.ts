@@ -16,6 +16,7 @@ import { BouquetComponent } from './modules/products/bouquet/bouquet.component';
 import { FlowerComponent } from './modules/products/flower/flower.component';
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
+import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 
 
 const routes: Routes = [
@@ -56,6 +57,10 @@ const routes: Routes = [
       { path: 'souvenir', component: SouvenirComponent },
       { path: 'bouquet', component: BouquetComponent }
     ]
+  },
+  {
+  path: 'shopping-cart',
+  component: ShoppingCartComponent
   }
 
 ];
