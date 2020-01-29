@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SouvenirDto } from 'src/app/core/dto/souvenir.dto';
+import { SouvenirDTO } from 'src/app/core/dto/souvenir.dto';
 import { SouvenirService } from 'src/app/core/services';
 import { ArrayUtilities } from 'src/app/core/utilites';
 import { RestPage } from 'src/app/core/dto/rest-page';
@@ -11,7 +11,7 @@ import { RestPage } from 'src/app/core/dto/rest-page';
 })
 export class SouvenirComponent implements OnInit {
   public message = 'Waiting for products to load...';
-  public viewModel: SouvenirDto[][];
+  public viewModel: SouvenirDTO[][];
   public elemntsInRow = 3;
   @Input() page = 1;
   @Input() pageSize;
@@ -30,14 +30,14 @@ export class SouvenirComponent implements OnInit {
   }
 
   private getSouvenirsPage(pageNumber: number): void {
-    let page: RestPage<SouvenirDto>;
+    let page: RestPage<SouvenirDTO>;
     this.service.retrievePage(pageNumber - 1).subscribe(
       result => {
         page = result;
         this.message = '';
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
-        this.viewModel = this.arrayUtils.convertToTwoDimensions(page.content as object[], this.elemntsInRow) as SouvenirDto[][];
+        this.viewModel = this.arrayUtils.convertToTwoDimensions(page.content as object[], this.elemntsInRow) as SouvenirDTO[][];
       },
       error => {
         this.message = error;

@@ -1,7 +1,7 @@
-import { OccasionalArticleDto } from '../occasional-article.dto';
+import { OccasionalArticleDTO } from '../occasional-article.dto';
 
-export interface OccasionalArticleOrderDto {
+export interface OccasionalArticleOrderDTO {
   id: string;
   itemCount: number;
-  occasionalArticle: OccasionalArticleDto;
+  occasionalArticleDTO: OccasionalArticleDTO;
 }

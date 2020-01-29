@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FlowerService } from 'src/app/core/services';
-import { FlowerDto } from 'src/app/core/dto';
+import { FlowerDTO } from 'src/app/core/dto';
 import { ArrayUtilities } from 'src/app/core/utilites';
 import { RestPage } from 'src/app/core/dto/rest-page';
 
@@ -11,7 +11,7 @@ import { RestPage } from 'src/app/core/dto/rest-page';
 })
 export class FlowerComponent implements OnInit {
   public message = 'Waiting for products to load...';
-  public viewModel: FlowerDto[][];
+  public viewModel: FlowerDTO[][];
   public elemntsInRow = 3;
   @Input() page = 1;
   @Input() pageSize;
@@ -30,14 +30,14 @@ export class FlowerComponent implements OnInit {
   }
 
   private getFlowersPage(pageNumber: number): void {
-    let page: RestPage<FlowerDto>;
+    let page: RestPage<FlowerDTO>;
     this.flowerService.retrievFlowerPage(pageNumber - 1).subscribe(
       result => {
         page = result;
         this.message = '';
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
-        this.viewModel = this.arrayUtils.convertToTwoDimensions(page.content as object[], this.elemntsInRow) as FlowerDto[][];
+        this.viewModel = this.arrayUtils.convertToTwoDimensions(page.content as object[], this.elemntsInRow) as FlowerDTO[][];
       },
       error => {
         this.message = error;

@@ -1,7 +1,7 @@
-import { FlowerDto } from '../flower.dto';
+import { FlowerDTO } from '../flower.dto';
 
-export interface FlowerOrderDto {
+export interface FlowerOrderDTO {
   id: string;
   itemCount: number;
-  flower: FlowerDto;
+  flowerDTO: FlowerDTO;
 }

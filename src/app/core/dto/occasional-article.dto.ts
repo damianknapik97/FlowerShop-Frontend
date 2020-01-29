@@ -1,6 +1,6 @@
 import { Price } from './price.dto';
 
-export interface OccasionalArticleDto {
+export interface OccasionalArticleDTO {
   id: string;
   name: string;
   price: Price;

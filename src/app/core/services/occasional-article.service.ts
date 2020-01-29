@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { OccasionalArticleDto, RestPage } from '../dto';
+import { OccasionalArticleDTO, RestPage } from '../dto';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -14,9 +14,9 @@ export class OccasionalArticleService {
     this.apiUrl = environment.apiUrl + '/product/occasional-article';
   }
 
-  public retrievePage(pageNumber: number): Observable<RestPage<OccasionalArticleDto>> {
+  public retrievePage(pageNumber: number): Observable<RestPage<OccasionalArticleDTO>> {
     const params = new HttpParams().set('page', pageNumber.toString());
 
-    return this.http.get<RestPage<OccasionalArticleDto>>(this.apiUrl, {params});
+    return this.http.get<RestPage<OccasionalArticleDTO>>(this.apiUrl, {params});
   }
 }

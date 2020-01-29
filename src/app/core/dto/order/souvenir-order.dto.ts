@@ -1,7 +1,7 @@
-import { SouvenirDto } from '../souvenir.dto';
+import { SouvenirDTO } from '../souvenir.dto';
 
-export interface SouvenirOrderDto {
+export interface SouvenirOrderDTO {
   id: string;
   itemCount: number;
-  souvenir: SouvenirDto;
+  souvenirDTO: SouvenirDTO;
 }

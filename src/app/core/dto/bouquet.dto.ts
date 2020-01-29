@@ -1,4 +1,4 @@
-export interface BouquetDto {
+export interface BouquetDTO {
     id: string;
     name: string;
     amount: number;

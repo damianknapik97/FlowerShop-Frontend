@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ShoppingCartDto } from '../dto';
+import { ShoppingCartDTO } from '../dto';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,8 +14,8 @@ export class ShoppingCartService {
     this.apiUrl = environment.apiUrl + '/shopping-cart';
   }
 
-  public getShoppingCart(): Observable<ShoppingCartDto> {
-    return this.http.get<ShoppingCartDto>(this.apiUrl);
+  public getShoppingCart(): Observable<ShoppingCartDTO> {
+    return this.http.get<ShoppingCartDTO>(this.apiUrl);
   }
 
   public retrieveTotalNumberOfProducts(): Observable<number> {
@@ -25,7 +25,7 @@ export class ShoppingCartService {
   /**
    * Get rid of null values to avoid errors in console
    */
-  public initializeMissingArrays(shoppingCart: ShoppingCartDto) {
+  public initializeMissingArrays(shoppingCart: ShoppingCartDTO) {
     if (shoppingCart != null) {
       if (shoppingCart.flowerOrderList == null) {
         shoppingCart.flowerOrderList = [];

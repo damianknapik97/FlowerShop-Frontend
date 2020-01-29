@@ -1,11 +1,11 @@
-import { OccasionalArticleOrderDto } from './occasional-article-order.dto';
-import { SouvenirOrderDto } from './souvenir-order.dto';
-import { FlowerOrderDto } from './flower-order.dto';
+import { OccasionalArticleOrderDTO } from './occasional-article-order.dto';
+import { SouvenirOrderDTO } from './souvenir-order.dto';
+import { FlowerOrderDTO } from './flower-order.dto';
 
-export interface ShoppingCartDto {
+export interface ShoppingCartDTO {
   id: string;
   name: string;
-  occasionalArticleOrderList: OccasionalArticleOrderDto[];
-  souvenirOrderList: SouvenirOrderDto[];
-  flowerOrderList: FlowerOrderDto[];
+  occasionalArticleOrderDTOs: OccasionalArticleOrderDTO[];
+  souvenirOrderDTOs: SouvenirOrderDTO[];
+  flowerOrderDTOs: FlowerOrderDTO[];
 }

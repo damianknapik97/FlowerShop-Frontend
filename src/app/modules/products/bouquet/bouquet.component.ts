@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BouquetService } from 'src/app/core/services';
-import { BouquetDto } from 'src/app/core/dto';
+import { BouquetDTO } from 'src/app/core/dto';
 import { ArrayUtilities } from 'src/app/core/utilites';
 
 @Component({
@@ -11,7 +11,7 @@ import { ArrayUtilities } from 'src/app/core/utilites';
 export class BouquetComponent implements OnInit {
 
   public message: string;
-  public viewModel: BouquetDto[][];
+  public viewModel: BouquetDTO[][];
   public elemntsInRow = 3;
 
   constructor(private bouquetService: BouquetService,
@@ -22,7 +22,7 @@ export class BouquetComponent implements OnInit {
   }
 
   private getAllBouquets(): void {
-    let model: BouquetDto[];
+    let model: BouquetDTO[];
     this.bouquetService.retrieveFullBouquetList().subscribe(
       res => {
         model = res;
@@ -31,7 +31,7 @@ export class BouquetComponent implements OnInit {
         this.message = error;
       }
     ).add(() => {
-      this.viewModel = this.arrayUtils.convertToTwoDimensions(model, this.elemntsInRow) as BouquetDto[][];
+      this.viewModel = this.arrayUtils.convertToTwoDimensions(model, this.elemntsInRow) as BouquetDTO[][];
     });
   }
 }

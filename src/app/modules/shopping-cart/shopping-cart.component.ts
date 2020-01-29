@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from 'src/app/core/services/shopping-cart.service';
-import { ShoppingCartDto } from 'src/app/core/dto';
+import { ShoppingCartDTO } from 'src/app/core/dto';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -9,7 +9,7 @@ import { ShoppingCartDto } from 'src/app/core/dto';
 })
 export class ShoppingCartComponent implements OnInit {
   public message = 'Loading...';
-  public shoppingCart: ShoppingCartDto;
+  public shoppingCart: ShoppingCartDTO;
 
   constructor(private service: ShoppingCartService) { }
 

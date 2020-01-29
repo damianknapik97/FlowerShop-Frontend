@@ -1,4 +1,4 @@
-export interface UserDto {
+export interface UserDTO {
     accId: string;
     role: string;
     token?: string;

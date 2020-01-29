@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OccasionalArticleDto, RestPage } from 'src/app/core/dto';
+import { OccasionalArticleDTO, RestPage } from 'src/app/core/dto';
 import { OccasionalArticleService } from 'src/app/core/services';
 import { ArrayUtilities } from 'src/app/core/utilites';
 
@@ -10,7 +10,7 @@ import { ArrayUtilities } from 'src/app/core/utilites';
 })
 export class OccasionalArticleComponent implements OnInit {
   public message = 'Waiting for products to load...';
-  public viewModel: OccasionalArticleDto[][];
+  public viewModel: OccasionalArticleDTO[][];
   public elemntsInRow = 3;
   @Input() page = 1;
   @Input() pageSize;
@@ -30,7 +30,7 @@ export class OccasionalArticleComponent implements OnInit {
   }
 
   private getOccasionalArticlesPage(pageNumber: number): void {
-    let page: RestPage<OccasionalArticleDto>;
+    let page: RestPage<OccasionalArticleDTO>;
     this.service.retrievePage(pageNumber - 1).subscribe(
       result => {
         page = result;
@@ -40,7 +40,7 @@ export class OccasionalArticleComponent implements OnInit {
         this.viewModel = this.arrayUtils.convertToTwoDimensions(
           page.content as object[],
           this.elemntsInRow
-        ) as OccasionalArticleDto[][];
+        ) as OccasionalArticleDTO[][];
       },
       error => {
         this.message = error;
