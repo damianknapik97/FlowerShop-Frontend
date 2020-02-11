@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from 'src/app/core/services/shopping-cart.service';
-import { ShoppingCartDTO } from 'src/app/core/dto';
+import { ShoppingCartDTO } from 'src/app/core/dto/order';
+import { Price } from 'src/app/core/dto';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,10 +11,14 @@ import { ShoppingCartDTO } from 'src/app/core/dto';
 export class ShoppingCartComponent implements OnInit {
   public message = 'Loading...';
   public shoppingCart: ShoppingCartDTO;
+  public shipping: Price;
+  public totalPrice: Price;
 
   constructor(private service: ShoppingCartService) { }
 
   ngOnInit() {
+    /* TODO: Add shipping */
+    this.shipping = {amount: 5, currency: 'PLN'};
     this.retrieveShoppingCartData();
   }
 
@@ -23,16 +28,17 @@ export class ShoppingCartComponent implements OnInit {
         this.message = '';
         this.service.initializeMissingArrays(result);
         this.shoppingCart = result;
-
-
-        console.log(this.shoppingCart.occasionalArticleOrderList.length);
-
+        this.recountTotalPrice();
       },
       error => {
         this.message = error;
 
       }
     )
+  }
+
+  private recountTotalPrice() {
+    this.totalPrice = this.service.countTotalPrice(this.shoppingCart, this.shipping);
   }
 
 }
