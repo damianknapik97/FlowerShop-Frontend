@@ -27,6 +27,7 @@ import { FlowerComponent } from './modules/products/flower/flower.component';
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.com
     FlowerComponent,
     SouvenirComponent,
     OccasionalArticleComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
