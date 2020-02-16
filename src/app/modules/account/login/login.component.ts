@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginDto } from 'src/app/core/dto/account';
+import { LoginDTO } from 'src/app/core/dto/account';
 import { AccountService } from 'src/app/core/services';
 
 @Component({
@@ -9,7 +9,7 @@ import { AccountService } from 'src/app/core/services';
 })
 export class LoginComponent implements OnInit {
 
-  public model: LoginDto = {
+  public model: LoginDTO = {
     username: '',
     password: ''
   };

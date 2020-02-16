@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { LoginDto, UserDto } from '../dto/account';
+import { LoginDTO, UserDTO } from '../dto/account';
 
 import { MatSnackBar } from '@angular/material';
 
@@ -11,16 +11,16 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class AuthenticationService {
 
-  private currentUserSubject: BehaviorSubject<UserDto>;
-  public currentUser: Observable<UserDto>;
+  private currentUserSubject: BehaviorSubject<UserDTO>;
+  public currentUser: Observable<UserDTO>;
   private storageItemName: string = 'User';
 
 	constructor( private http: HttpClient, private snackBar: MatSnackBar ) {
-      this.currentUserSubject = new BehaviorSubject<UserDto>( JSON.parse(localStorage.getItem(this.storageItemName)));
+      this.currentUserSubject = new BehaviorSubject<UserDTO>( JSON.parse(localStorage.getItem(this.storageItemName)));
       this.currentUser = this.currentUserSubject.asObservable();
    }
 
-   public get currentUserValue(): UserDto {
+   public get currentUserValue(): UserDTO {
       return this.currentUserSubject.value;
    }
 
@@ -34,34 +34,34 @@ export class AuthenticationService {
      return "";
    }
 
-   public login(loginViewModel: LoginDto): void {
+   public login(loginViewModel: LoginDTO): void {
 
       this.http.post(environment.apiUrl+'/login', loginViewModel, {observe :'response'}).subscribe(
         response => {
           localStorage.removeItem(this.storageItemName);
           if(response.status == 200) {
-            let newUser: UserDto = {
+            let newUser: UserDTO = {
               accId : response.headers.get('ID'),
               role : response.headers.get('Role'),
               token : response.headers.get('Authorization')
             };
             localStorage.setItem(this.storageItemName, JSON.stringify(newUser));
-            this.currentUserSubject.next(JSON.parse(localStorage.getItem(this.storageItemName)));  
+            this.currentUserSubject.next(JSON.parse(localStorage.getItem(this.storageItemName)));
             location.reload();
           } else {
            this.snackBar.open('Login failed, please check your credentials');
           }
-          
+
         },
         error => {
           this.snackBar.open('Login failed, please check your credentials');
         }
-          
+
       );
    }
-   
+
    public logout(): void {
-    
+
     this.http.post(environment.apiUrl+'/logout', null).subscribe(
       res => {},
       err => {},

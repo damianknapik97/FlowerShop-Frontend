@@ -1,0 +1,57 @@
+<h4 *ngIf="message != ''">
+  Waiting for resources to load
+</h4>
+
+<div class="container" >
+  <div>
+    <ngb-pagination
+      class="d-flex justify-content-center "
+      size="lg"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="collectionSize"
+      (pageChange)="onChangePage(page)"
+    ></ngb-pagination>
+  </div>
+  <div class="row products-row" *ngFor="let row of viewModel">
+    <div
+      class="card products-column"
+      style="width: 18rem;"
+      *ngFor="let product of row"
+    >
+      <img
+        class="card-img-top"
+        src="https://i.etsystatic.com/8134248/r/il/d5eb3a/1168097200/il_570xN.1168097200_5r0l.jpg"
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text ">
+          <small>ID: {{ product.id }} </small>
+        </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Theme: {{ product.theme }}</li>
+        <li class="list-group-item">{{ product.description }}</li>
+      </ul>
+      <div class="card-body">
+        <p class="price">
+          {{ product.price.amount }} {{ product.price.currency }}
+          <button type="button" class="btn btn-success float-right" *ngIf="authenticationGuard.isAuthenticated()" (click)="addToShoppingCart(product.id)">
+            Add to cart
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ngb-pagination
+      class="d-flex justify-content-center "
+      size="lg"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="collectionSize"
+      (pageChange)="onChangePage(page)"
+    ></ngb-pagination>
+  </div>
+</div>

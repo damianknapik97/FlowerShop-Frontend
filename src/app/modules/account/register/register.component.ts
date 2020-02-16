@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountDto } from 'src/app/core/dto/account';
+import { AccountDTO } from 'src/app/core/dto/account';
 import { AccountService } from 'src/app/core/services';
 import { MatSnackBar } from '@angular/material';
 
@@ -16,11 +16,11 @@ export class RegisterComponent implements OnInit {
 
 
   public checkBoxValue: boolean;
-  public model: AccountDto = {
+  public model: AccountDTO = {
     name: '',
     email: '',
     password: '',
-    role: 'user',
+    role: 'USER',
   };
 
   constructor(private router: Router,

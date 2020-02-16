@@ -1,0 +1,56 @@
+<h4 *ngIf="message != ''">
+  Waiting for resources to load
+</h4>
+
+<div class="container">
+  <div>
+    <ngb-pagination
+      class="d-flex justify-content-center "
+      size="lg"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="collectionSize"
+      (pageChange)="onChangePage(page)"
+    ></ngb-pagination>
+  </div>
+  <div class="row products-row" *ngFor="let row of viewModel">
+    <div
+      class="card products-column"
+      style="width: 18rem;"
+      *ngFor="let product of row"
+    >
+      <img
+        class="card-img-top"
+        src="https://res.cloudinary.com/teepublic/image/private/s--SGRNbp7E--/c_crop,x_10,y_10/c_fit,h_799/c_crop,g_north_west,h_1051,w_1051,x_-153,y_-126/l_upload:v1507037314:production:blanks:gbajnunp66ec7xftnpq1/fl_layer_apply,g_north_west,x_-258,y_-225/b_rgb:ffffff/c_limit,f_jpg,h_630,q_90,w_630/v1521105002/production/designs/2473230_0.jpg"
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text ">
+          <small>ID: {{ product.id }} </small>
+        </p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{ product.description }}</li>
+      </ul>
+      <div class="card-body">
+        <p class="price">
+          {{ product.price.amount }} {{ product.price.currency }}
+          <button type="button" class="btn btn-success float-right" *ngIf="authenticationGuard.isAuthenticated()" (click)="addToShoppingCart(product.id)">
+            Add to cart
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ngb-pagination
+      class="d-flex justify-content-center "
+      size="lg"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [collectionSize]="collectionSize"
+      (pageChange)="onChangePage(page)"
+    ></ngb-pagination>
+  </div>
+</div>

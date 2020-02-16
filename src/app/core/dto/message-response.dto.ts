@@ -1,3 +1,3 @@
-export interface MessageResponseDto {
+export interface MessageResponseDTO {
     message: string;
 }

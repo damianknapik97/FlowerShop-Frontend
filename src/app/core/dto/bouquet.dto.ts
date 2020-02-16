@@ -1,5 +1,6 @@
-export interface BouquetDto {
+export interface BouquetDTO {
     id: string;
     name: string;
-    price: string;
+    amount: number;
+    currency: string;
 }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
-import { UserDto } from '../dto/account';
+import { UserDTO } from '../dto/account';
 
 /*tslint:disable */
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
-	private user: UserDto;
+	private user: UserDTO;
 
 	constructor(private authenticationService: AuthenticationService, private router: Router) {
 		this.user = this.authenticationService.currentUserValue;
@@ -25,7 +25,6 @@ export class AuthenticationGuard implements CanActivate {
 			return canActivateLogin;
 		}
 
-		console.log(this.isAuthenticated());
  		if(this.isAuthenticated()) {
 			return true;
 		} else {

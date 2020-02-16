@@ -1,33 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { FlowerDTO } from '../dto/flower.dto';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RestPage } from '../dto/rest-page';
+import { SouvenirDTO } from '../dto/souvenir.dto';
 import { ShoppingCartService } from './shopping-cart.service';
 import { MessageResponseDTO } from '../dto';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class FlowerService {
+export class SouvenirService {
   private apiUrl: string;
 
   constructor(private http: HttpClient, private shoppingCartService: ShoppingCartService) {
-    this.apiUrl = environment.apiUrl + '/product/flower';
+    this.apiUrl = environment.apiUrl + '/product/souvenir';
   }
 
-  public retrievFlowerPage(page: number): Observable<RestPage<FlowerDTO>> {
-    if (page < 0) {
-      page = 0;
-    }
-    const params = new HttpParams().set('page', page.toString());
+  public retrievePage(pageNumber: number): Observable<RestPage<SouvenirDTO>> {
+    const params = new HttpParams().set('page', pageNumber.toString());
 
-    return this.http.get<RestPage<FlowerDTO>>(this.apiUrl, { params });
+    return this.http.get<RestPage<SouvenirDTO>>(this.apiUrl, {params});
   }
 
   public addToShoppingCart(id: string): Observable<MessageResponseDTO> {
-    return this.shoppingCartService.putFlower(id);
+    return this.shoppingCartService.putSouvenir(id);
   }
-
 }

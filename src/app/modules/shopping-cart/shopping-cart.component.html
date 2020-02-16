@@ -1,0 +1,227 @@
+<div class="border-bottom border-success">
+  <h2>Current items in shopping cart:</h2>
+</div>
+
+<div *ngIf="message != ''">
+  <h4>{{ message }}</h4>
+</div>
+
+<div class="card" *ngIf="shoppingCart.flowerOrderDTOs.length > 0 ">
+  <div class="card-header" id="headingOne">
+    <button
+      class="btn btn-success"
+      type="button"
+      data-toggle="collapse"
+      data-target="#collapseFlower"
+      aria-expanded="true"
+      aria-controls="collapseFlower"
+    >
+      Flowers
+    </button>
+  </div>
+  <div class="collapse show multi-collapse" id="collapseFlower">
+    <div class="card-body">
+      <div class="container mb-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col" class="text-right">Price</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let flowerOrder of shoppingCart.flowerOrderDTOs">
+                    <td>
+                      <img src="https://dummyimage.com/50x50/55595c/fff" />
+                    </td>
+                    <td>{{flowerOrder.flowerDTO.name}}</td>
+                    <td>
+                      {{flowerOrder.itemCount}}
+                    </td>
+                    <td class="text-right">{{flowerOrder.flowerDTO.price.amount | number:'1.2-2'}} {{flowerOrder.flowerDTO.price.currency}}</td>
+                    <td class="text-right">
+                      <button class="btn btn-sm btn-danger" (click)="deleteFlowerOrder(flowerOrder)">
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card" *ngIf="shoppingCart.occasionalArticleOrderDTOs.length > 0">
+    <div class="card-header" id="headingOne">
+      <button
+        class="btn btn-success"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapseOccasionalArticle"
+        aria-expanded="true"
+        aria-controls="collapseOccasionalArticle"
+      >
+        Occasional Articles
+      </button>
+    </div>
+    <div class="collapse show multi-collapse" id="collapseOccasionalArticle">
+      <div class="card-body">
+        <div class="container mb-4">
+          <div class="row">
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col" class="text-right">Price</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let occasionalArticle of shoppingCart.occasionalArticleOrderDTOs">
+                      <td>
+                        <img src="https://dummyimage.com/50x50/55595c/fff" />
+                      </td>
+                      <td>{{occasionalArticle.occasionalArticleDTO.name}}</td>
+                      <td>
+                       {{occasionalArticle.itemCount}}
+                      </td>
+                      <td class="text-right">{{occasionalArticle.occasionalArticleDTO.price.amount | number:'1.2-2'}} {{occasionalArticle.occasionalArticleDTO.price.currency}}</td>
+                      <td class="text-right">
+                        <button class="btn btn-sm btn-danger" (click)="deleteOccasionalArticleOrder(occasionalArticle)">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" *ngIf="shoppingCart.souvenirOrderDTOs.length > 0">
+    <div class="card-header" id="headingOne">
+      <button
+        class="btn btn-success"
+        type="button"
+        data-toggle="collapse"
+        data-target="#collapseSouvenir"
+        aria-expanded="true"
+        aria-controls="collapseSouvenir"
+      >
+        Souvenirs
+      </button>
+    </div>
+    <div class="collapse show multi-collapse" id="collapseSouvenir">
+      <div class="card-body">
+        <div class="container mb-4">
+          <div class="row">
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Product</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col" class="text-right">Price</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let souvenirOrder of shoppingCart.souvenirOrderDTOs">
+                      <td>
+                        <img src="https://dummyimage.com/50x50/55595c/fff" />
+                      </td>
+                      <td>{{souvenirOrder.souvenirDTO.name}}</td>
+                      <td>
+                        {{souvenirOrder.itemCount}}
+                      </td>
+                      <td class="text-right">{{souvenirOrder.souvenirDTO.price.amount | number: '1.2-2'}} {{souvenirOrder.souvenirDTO.price.currency}}</td>
+                      <td class="text-right">
+                        <button class="btn btn-sm btn-danger" (click)="deleteSouvenirOrder(souvenirOrder)">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col" class="text-right"></th>
+              <th scope="col" class="text-right">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-right">Shipping</td>
+              <td class="text-right">{{shipping.amount | number:'1.2-2'}} {{shipping.currency}}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-right"><strong>Total</strong></td>
+              <td class="text-right"><strong>{{totalPrice.amount | number:'1.2-2'}} {{totalPrice.currency}}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col mb-2">
+      <div class="row">
+        <div class="col-sm-12  col-md-6">
+            <button class="btn btn-block btn-info" [routerLink]="'/products/flower'"  >
+              Continue Shopping
+            </button>
+
+        </div>
+        <div class="col-sm-12 col-md-6 text-right" *ngIf='false'>
+          <button class="btn btn-lg btn-block btn-success text-uppercase">
+            Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

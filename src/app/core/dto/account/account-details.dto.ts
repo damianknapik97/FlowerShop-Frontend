@@ -1,3 +1,3 @@
-export interface AccountDetailsDto {
+export interface AccountDetailsDTO {
     email: string;
 }

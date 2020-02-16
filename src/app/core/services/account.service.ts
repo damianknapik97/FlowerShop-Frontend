@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '../security';
 import { environment } from 'src/environments/environment';
 
-import { LoginDto, AccountDto, AccountDetailsDto, PasswordChangeDto } from '../dto/account';
-import { MessageResponseDto } from '../dto';
+import { LoginDTO, AccountDTO, AccountDetailsDTO, PasswordChangeDTO } from '../dto/account';
+import { MessageResponseDTO } from '../dto';
 
 @Injectable({
     providedIn: 'root'
@@ -16,18 +16,19 @@ export class AccountService {
         private authService: AuthenticationService
     ) {}
 
-    public login(loginModel: LoginDto): void {
+    public login(loginModel: LoginDTO): void {
         this.authService.login(loginModel);
     }
 
-    public register(model: AccountDto): Observable<MessageResponseDto> {
+    public register(model: AccountDTO): Observable<MessageResponseDTO> {
 
-        return this.http.post<MessageResponseDto>(environment.apiUrl + '/account', model);
+        return this.http.post<MessageResponseDTO>(environment.apiUrl + '/account', model);
     }
 
     public delete(password: string): Observable<string> {
         const params = new HttpParams().set('password', password);
 
+        /*
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -39,20 +40,21 @@ export class AccountService {
                 password
             }
         }
+        */
 
         return this.http.delete<string>(environment.apiUrl + '/account', {params});
     }
 
-    public updateDetails(model: AccountDetailsDto): Observable<any> {
+    public updateDetails(model: AccountDetailsDTO): Observable<any> {
         return this.http.put(environment.apiUrl + '/account', model);
     }
 
-    public updatePassword(model: PasswordChangeDto): Observable<string> {
+    public updatePassword(model: PasswordChangeDTO): Observable<string> {
         return this.http.put<string>(environment.apiUrl + '/account/password', model)
     }
 
-    public getDetails(): Observable<AccountDetailsDto> {
-        return this.http.get<AccountDetailsDto>(environment.apiUrl + '/account');
+    public getDetails(): Observable<AccountDetailsDTO> {
+        return this.http.get<AccountDetailsDTO>(environment.apiUrl + '/account');
     }
 
 
