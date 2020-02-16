@@ -3,6 +3,8 @@ import { SouvenirDTO } from 'src/app/core/dto/souvenir.dto';
 import { SouvenirService } from 'src/app/core/services';
 import { ArrayUtilities } from 'src/app/core/utilites';
 import { RestPage } from 'src/app/core/dto/rest-page';
+import { MatSnackBar } from '@angular/material';
+import { AuthenticationGuard } from 'src/app/core/security';
 
 @Component({
   selector: 'app-souvenir',
@@ -18,7 +20,9 @@ export class SouvenirComponent implements OnInit {
   @Input() collectionSize;
 
   constructor(private service: SouvenirService,
-              private arrayUtils: ArrayUtilities) { }
+              private arrayUtils: ArrayUtilities,
+              private snackBar: MatSnackBar,
+              public authenticationGuard: AuthenticationGuard) { }
 
   ngOnInit() {
     this.getSouvenirsPage(this.page);
@@ -41,6 +45,17 @@ export class SouvenirComponent implements OnInit {
       },
       error => {
         this.message = error;
+      }
+    );
+  }
+
+  public addToShoppingCart(id: string) {
+    this.service.addToShoppingCart(id).subscribe(
+      result => {
+        this.snackBar.open(result.message, '', {duration: 1500});
+      },
+      error => {
+        this.snackBar.open(error, '', {duration: 1500});
       }
     );
   }

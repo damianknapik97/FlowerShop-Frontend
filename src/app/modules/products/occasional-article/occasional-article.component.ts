@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { OccasionalArticleDTO, RestPage } from 'src/app/core/dto';
 import { OccasionalArticleService } from 'src/app/core/services';
 import { ArrayUtilities } from 'src/app/core/utilites';
+import { MatSnackBar } from '@angular/material';
+import { AuthenticationGuard } from 'src/app/core/security';
 
 @Component({
   selector: 'app-occasional-article',
@@ -16,10 +18,10 @@ export class OccasionalArticleComponent implements OnInit {
   @Input() pageSize;
   @Input() collectionSize;
 
-  constructor(
-    private service: OccasionalArticleService,
-    private arrayUtils: ArrayUtilities
-  ) {}
+  constructor(private service: OccasionalArticleService,
+              private arrayUtils: ArrayUtilities,
+              private snackBar: MatSnackBar,
+              public authenticationGuard: AuthenticationGuard) {}
 
   ngOnInit() {
     this.getOccasionalArticlesPage(this.page);
@@ -47,4 +49,16 @@ export class OccasionalArticleComponent implements OnInit {
       }
     );
   }
+
+  public addToShoppingCart(id: string) {
+    this.service.addToShoppingCart(id).subscribe(
+      result => {
+        this.snackBar.open(result.message, '', {duration: 1500});
+      },
+      error => {
+        this.snackBar.open(error, '', {duration: 1500});
+      }
+    );
+  }
+
 }

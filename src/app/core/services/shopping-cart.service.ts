@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -22,6 +22,37 @@ export class ShoppingCartService {
 
   public retrieveTotalNumberOfProducts(): Observable<number> {
     return this.http.get<number>(this.apiUrl + '/count');
+  }
+
+  public putFlower(id: string): Observable<MessageResponseDTO> {
+    const params = new HttpParams().set('id', id);
+    return this.http.put<MessageResponseDTO>(this.apiUrl + '/flower', params);
+  }
+
+  public putOccasionalArticle(id: string): Observable<MessageResponseDTO> {
+    const params = new HttpParams().set('id', id);
+    return this.http.put<MessageResponseDTO>(this.apiUrl + '/occasional-article', params);
+  }
+
+  public putSouvenir(id: string): Observable<MessageResponseDTO> {
+    const params = new HttpParams().set('id', id);
+    return this.http.put<MessageResponseDTO>(this.apiUrl + '/souvenir', params);
+
+  }
+
+  public deleteFlowerOrder(id: string): Observable<MessageResponseDTO> {
+    const params = new HttpParams().set('id', id);
+    return this.http.delete<MessageResponseDTO>(this.apiUrl + '/flower', {params});
+  }
+
+  public deleteOccasionalArticleOrder(id: string): Observable<MessageResponseDTO> {
+    const params = new HttpParams().set('id', id);
+    return this.http.delete<MessageResponseDTO>(this.apiUrl + '/occasional-article', {params});
+  }
+
+  public deleteSouvenirOrder(id: string): Observable<MessageResponseDTO> {
+    const params = new HttpParams().set('id', id);
+    return this.http.delete<MessageResponseDTO>(this.apiUrl + '/souvenir', {params});
   }
 
   /**
@@ -89,9 +120,5 @@ export class ShoppingCartService {
     }
 
     return {amount: totalPrice, currency: currenciesArray[0]};
-  }
-
-  public putFlowerOrder(): Observable<MessageResponseDTO> {
-    return null;
   }
 }

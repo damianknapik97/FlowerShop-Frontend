@@ -34,4 +34,5 @@ export class BouquetComponent implements OnInit {
       this.viewModel = this.arrayUtils.convertToTwoDimensions(model, this.elemntsInRow) as BouquetDTO[][];
     });
   }
+
 }

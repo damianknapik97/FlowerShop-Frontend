@@ -4,6 +4,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RestPage } from '../dto/rest-page';
 import { SouvenirDTO } from '../dto/souvenir.dto';
+import { ShoppingCartService } from './shopping-cart.service';
+import { MessageResponseDTO } from '../dto';
 
 
 @Injectable({
@@ -12,7 +14,7 @@ import { SouvenirDTO } from '../dto/souvenir.dto';
 export class SouvenirService {
   private apiUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private shoppingCartService: ShoppingCartService) {
     this.apiUrl = environment.apiUrl + '/product/souvenir';
   }
 
@@ -20,5 +22,9 @@ export class SouvenirService {
     const params = new HttpParams().set('page', pageNumber.toString());
 
     return this.http.get<RestPage<SouvenirDTO>>(this.apiUrl, {params});
+  }
+
+  public addToShoppingCart(id: string): Observable<MessageResponseDTO> {
+    return this.shoppingCartService.putSouvenir(id);
   }
 }
