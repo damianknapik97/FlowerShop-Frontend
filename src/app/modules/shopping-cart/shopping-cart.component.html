@@ -46,7 +46,7 @@
                     </td>
                     <td class="text-right">{{flowerOrder.flowerDTO.price.amount | number:'1.2-2'}} {{flowerOrder.flowerDTO.price.currency}}</td>
                     <td class="text-right">
-                      <button class="btn btn-sm btn-danger">
+                      <button class="btn btn-sm btn-danger" (click)="deleteFlowerOrder(flowerOrder)">
                         <i class="fa fa-trash"></i>
                       </button>
                     </td>
@@ -101,7 +101,7 @@
                       </td>
                       <td class="text-right">{{occasionalArticle.occasionalArticleDTO.price.amount | number:'1.2-2'}} {{occasionalArticle.occasionalArticleDTO.price.currency}}</td>
                       <td class="text-right">
-                        <button class="btn btn-sm btn-danger">
+                        <button class="btn btn-sm btn-danger" (click)="deleteOccasionalArticleOrder(occasionalArticle)">
                           <i class="fa fa-trash"></i>
                         </button>
                       </td>
@@ -156,7 +156,7 @@
                       </td>
                       <td class="text-right">{{souvenirOrder.souvenirDTO.price.amount | number: '1.2-2'}} {{souvenirOrder.souvenirDTO.price.currency}}</td>
                       <td class="text-right">
-                        <button class="btn btn-sm btn-danger">
+                        <button class="btn btn-sm btn-danger" (click)="deleteSouvenirOrder(souvenirOrder)">
                           <i class="fa fa-trash"></i>
                         </button>
                       </td>
@@ -211,11 +211,12 @@
     <div class="col mb-2">
       <div class="row">
         <div class="col-sm-12  col-md-6">
-          <button class="btn btn-block btn-light">
-            Continue Shopping
-          </button>
+            <button class="btn btn-block btn-info" [routerLink]="'/products/flower'"  >
+              Continue Shopping
+            </button>
+
         </div>
-        <div class="col-sm-12 col-md-6 text-right">
+        <div class="col-sm-12 col-md-6 text-right" *ngIf='false'>
           <button class="btn btn-lg btn-block btn-success text-uppercase">
             Checkout
           </button>

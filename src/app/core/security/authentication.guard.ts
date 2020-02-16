@@ -25,7 +25,6 @@ export class AuthenticationGuard implements CanActivate {
 			return canActivateLogin;
 		}
 
-		console.log(this.isAuthenticated());
  		if(this.isAuthenticated()) {
 			return true;
 		} else {

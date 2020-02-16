@@ -60,7 +60,8 @@ const routes: Routes = [
   },
   {
   path: 'shopping-cart',
-  component: ShoppingCartComponent
+  component: ShoppingCartComponent,
+  canActivate: [AuthenticationGuard]
   }
 
 ];
