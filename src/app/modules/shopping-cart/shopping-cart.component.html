@@ -2,11 +2,11 @@
   <h2>Current items in shopping cart:</h2>
 </div>
 
-<div *ngIf="message != ''">
+<div *ngIf = "message !== ''">
   <h4>{{ message }}</h4>
 </div>
 
-<div class="card" *ngIf="shoppingCart.flowerOrderDTOs.length > 0 ">
+<div class="card" *ngIf="shoppingCart != null && shoppingCart.flowerOrderDTOs.length > 0 ">
   <div class="card-header" id="headingOne">
     <button
       class="btn btn-success"
@@ -61,7 +61,7 @@
   </div>
 </div>
 
-<div class="card" *ngIf="shoppingCart.occasionalArticleOrderDTOs.length > 0">
+<div class="card" *ngIf="shoppingCart != null && shoppingCart.occasionalArticleOrderDTOs.length > 0">
     <div class="card-header" id="headingOne">
       <button
         class="btn btn-success"
@@ -116,7 +116,7 @@
     </div>
   </div>
 
-  <div class="card" *ngIf="shoppingCart.souvenirOrderDTOs.length > 0">
+  <div class="card" *ngIf="shoppingCart != null && shoppingCart.souvenirOrderDTOs.length > 0">
     <div class="card-header" id="headingOne">
       <button
         class="btn btn-success"
@@ -214,10 +214,9 @@
             <button class="btn btn-block btn-info" [routerLink]="'/products/flower'"  >
               Continue Shopping
             </button>
-
         </div>
-        <div class="col-sm-12 col-md-6 text-right" *ngIf='false'>
-          <button class="btn btn-lg btn-block btn-success text-uppercase">
+        <div class="col-sm-12 col-md-6 text-right" *ngIf='!isEmpty'>
+          <button class="btn btn-block btn-success text-uppercase" [routerLink]="'/order'">
             Checkout
           </button>
         </div>

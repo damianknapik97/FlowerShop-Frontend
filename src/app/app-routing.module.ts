@@ -17,6 +17,9 @@ import { FlowerComponent } from './modules/products/flower/flower.component';
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+import { OrderComponent } from './modules/order/order.component';
+import { DeliveryAddressComponent} from './modules/order/delivery-address/delivery-address.component';
+import { PaymentComponent } from './modules/order/payment/payment.component';
 
 
 const routes: Routes = [
@@ -59,11 +62,19 @@ const routes: Routes = [
     ]
   },
   {
-  path: 'shopping-cart',
-  component: ShoppingCartComponent,
-  canActivate: [AuthenticationGuard]
+    path: 'shopping-cart',
+    component: ShoppingCartComponent,
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'order',
+    component: OrderComponent,
+    canActivate: [AuthenticationGuard],
+    children: [
+      { path: 'delivery-address', component: DeliveryAddressComponent},
+      { path: 'payment', component: PaymentComponent}
+    ]
   }
-
 ];
 
 @NgModule({
