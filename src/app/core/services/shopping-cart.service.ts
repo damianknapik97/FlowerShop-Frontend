@@ -20,8 +20,11 @@ export class ShoppingCartService {
     return this.http.get<ShoppingCartDTO>(this.apiUrl);
   }
 
-  public retrieveTotalNumberOfProducts(): Observable<number> {
-    return this.http.get<number>(this.apiUrl + '/count');
+  public retrieveTotalNumberOfProducts(shoppingCartID: string): Observable<number> {
+    const httpParams = new HttpParams();
+    httpParams.set('id', shoppingCartID);
+
+    return this.http.get<number>(this.apiUrl + '/count', {params: httpParams});
   }
 
   public putFlower(id: string): Observable<MessageResponseDTO> {
@@ -72,6 +75,22 @@ export class ShoppingCartService {
         shoppingCart.souvenirOrderDTOs = [];
       }
     }
+  }
+
+  public isShoppingCartEmpty(shoppingCart: ShoppingCartDTO): boolean {
+    if (shoppingCart == null) {
+      return true;
+    }
+
+    const combinedLength = shoppingCart.flowerOrderDTOs.length +
+    shoppingCart.occasionalArticleOrderDTOs.length +
+    shoppingCart.souvenirOrderDTOs.length;
+
+    if (combinedLength > 0) {
+      return false;
+    }
+
+    return true;
   }
 
   /**
