@@ -1,4 +1,8 @@
-<h3><b>Just a few more steps...</b></h3>
+<h3>
+  <b *ngIf="message !== ''">{{message}}</b>
+  <b *ngIf="message === ''">Just a few more steps...</b>
+</h3>
+<mat-progress-spinner *ngIf="message !== ''"></mat-progress-spinner>
 <div class="d-flex justify-content-center">
   <router-outlet></router-outlet>
 </div>

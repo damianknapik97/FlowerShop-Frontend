@@ -20,8 +20,8 @@ export class OrderService {
     this.apiUrl = environment.apiUrl + '/order';
   }
 
-  public createOrderFromShoppingCart(shoppingCart: ShoppingCartDTO): Observable<OrderDTO> {
-    return this.http.post<OrderDTO>(this.apiUrl, {body: shoppingCart});
+  public createOrderFromCurrentShoppingCart(): Observable<MessageResponseDTO> {
+    return this.http.post<OrderDTO>(this.apiUrl, null);
   }
 
   public updateOrder(orderDTO: OrderDTO): Observable<MessageResponseDTO> {

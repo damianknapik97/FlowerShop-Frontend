@@ -31,6 +31,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { OrderComponent } from './modules/order/order.component';
 import { DeliveryAddressComponent } from './modules/order/delivery-address/delivery-address.component';
 import { PaymentComponent } from './modules/order/payment/payment.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { PaymentComponent } from './modules/order/payment/payment.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     NgbModule
   ],
   providers: [
