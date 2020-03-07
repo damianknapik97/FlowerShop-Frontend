@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-delivery-address',
   templateUrl: './delivery-address.component.html',
-  styles: []
+  styleUrls: ['./delivery-address.component.sass']
 })
 export class DeliveryAddressComponent implements OnInit {
 
