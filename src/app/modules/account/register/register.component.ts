@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountDTO } from 'src/app/core/dto/account';
 import { AccountService } from 'src/app/core/services';
@@ -13,10 +13,8 @@ import { MatSnackBar } from '@angular/material';
 })
 
 export class RegisterComponent implements OnInit {
-
-
-  public checkBoxValue: boolean;
-  public model: AccountDTO = {
+  @Input() public checkBoxValue: boolean;
+  @Input() public model: AccountDTO = {
     name: '',
     email: '',
     password: '',
@@ -35,15 +33,17 @@ export class RegisterComponent implements OnInit {
     this.accService.register(this.model).subscribe(
       result => {
         if (!result.message.toUpperCase().includes('ALREADY EXISTS')) {
-          this.router.navigate(['/account/login']);
+          this.router.navigate(['/account/login']).then(
+            (redirected: boolean) => {
+              this.snackBar.open(result.message, 'Information', {duration: 3000});
+          });
+        } else {
+          this.snackBar.open(result.message, 'Information', {duration: 3000});
         }
-        this.snackBar.open(result.message);
        },
       error => {
-        if (!error) {
-          this.snackBar.open('Error creating account !');
-        }
-        this.snackBar.open(error);
+        console.log(error);
+        this.snackBar.open('Couldn\'t create account for provided details !', 'Error', {duration: 3000});
        }
     );
   }

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class OrderComponent implements OnInit {
   public message = 'Creating your order. Please wait...';
-  private orderID: string;
+  public orderID: string;
 
   constructor(private orderService: OrderService,
               private snackBar: MatSnackBar,
@@ -21,18 +21,29 @@ export class OrderComponent implements OnInit {
 
   ngOnInit() {}
 
+  /**
+   * Sent create order request, assign returned OrderID to orderService,
+   * redirect further to delivery-address creation.
+   *
+   */
   private placeOrder(): void {
-
     this.orderService.createOrderFromCurrentShoppingCart().subscribe(
       result => {
-        this.orderID = result.message;
+        this.orderService.setNewOrderID(result.message);
         this.message = '';
         this.router.navigate(['/order/delivery-address']);
+
       },
       error => {
         this.message = '';
-        this.router.navigate(['/shopping-cart']);
-        this.snackBar.open('Couldn\'t create order from your shopping cart', 'Error', {duration: 1500});
+        this.router.navigate(['/shopping-cart']).then(
+          (navigated: boolean) => {
+            if (navigated) {
+              console.log(error);
+              this.snackBar.open('Couldn\'t create order from your shopping cart', 'Error', {duration: 3000});
+            }
+        });
+
       }
     );
 
