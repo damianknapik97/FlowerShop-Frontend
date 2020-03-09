@@ -6,28 +6,71 @@
   <h4 class="component-title">
     Please enter delivery address details.
   </h4>
+
   <div class="delivery-address-form container-fluid">
-    <form>
+    <form #form="ngForm" (ngSubmit)="form.form.valid">
       <div class="form-group">
-        <label for="inputCityName">City Name</label>
-        <input type="text" class="form-control" id="inputCityName">
-      </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Street Name</label>
-        <input type="text" class="form-control" id="exampleInputPassword1">
+        <label for="input-city-name">City Name</label>
+        <input type="text"
+               class="form-control"
+               id="input-city-name"
+               [(ngModel)]="deliveryAddressDTO.cityName"
+               name="city"
+               #city="ngModel"
+               [ngClass]="{ 'is-invalid': form.submitted && city.invalid }"
+               required="true">
+        <div class="validation-error-message text-danger" *ngIf="form.submitted && city.invalid">City name can not be empty</div>
       </div>
       <div class="form-row">
-        <div class="col">
-          <label for="exampleInputPassword1">House Number</label>
-          <input type="text" class="form-control" id="exampleInputPassword1">
+        <div class="street-name col">
+          <label for="input-street-name">Street Name</label>
+          <input type="text"
+                 class="form-control"
+                 id="input-street-name"
+                 [(ngModel)]="deliveryAddressDTO.streetName"
+                 name="street"
+                 #street="ngModel"
+                 [ngClass]="{ 'is-invalid': form.submitted && street.invalid }"
+                 required="true">
+          <div class="validation-error-message text-danger" *ngIf="form.submitted && street.invalid">Street name can not be empty</div>
         </div>
-        <div class="col">
-          <label for="exampleInputPassword1">Apartment</label>
-          <input type="text" class="form-control" id="exampleInputPassword1">
-          <small class="form-text text-muted">(Optional)</small>
+        <div class="house-number col">
+          <label for="input-house-number">House Number</label>
+          <input type="text"
+                 class="form-control"
+                 id="input-house-number"
+                 [(ngModel)]="deliveryAddressDTO.houseNumber"
+                 name="house"
+                 #house="ngModel"
+                 [ngClass]="{ 'is-invalid': form.submitted && house.invalid }"
+                 required="true" maxlength="5">
+          <div class="validation-error-message text-danger" *ngIf="form.submitted && house.invalid">
+            House number can not be empty
+          </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-success">Continue</button>
+      <div class="form-row">
+        <div class="apartment-number col">
+          <label for="input-apartment">Apartment</label>
+          <input type="text" class="form-control" id="input-apartment" [(ngModel)]="deliveryAddressDTO.apartmentNumber" #apartment="ngModel" maxlength="6">
+          <small class="form-text text-muted">(Optional)</small>
+        </div>
+        <div class="zip-code col">
+          <label for="input-zip-code">Zip Code</label>
+          <input type="text"
+                 class="form-control"
+                 id="input-zip-code"
+                 [(ngModel)]="deliveryAddressDTO.zipCode"
+                 name="postalCode"
+                 #postalCode="ngModel"
+                 [ngClass]="{ 'is-invalid': form.submitted && postalCode.invalid }"
+                 required="true" pattern="^\d{2}(?:[-]\d{3})$">
+          <div class="validation-error-message text-danger" *ngIf="form.submitted && postalCode.invalid">Zip code can not be empty</div>
+        </div>
+      </div>
+      <div class="continue-button">
+        <button type="submit" class="continue-button btn btn-success">Continue</button>
+      </div>
     </form>
   </div>
 </div>
