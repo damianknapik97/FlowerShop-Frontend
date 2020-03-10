@@ -17,6 +17,6 @@ export class DeliveryAddressService {
 
   public createDeliveryAddressForOrder(orderID: string, deliveryAddressDTO: DeliveryAddressDTO): Observable<MessageResponseDTO> {
     const httpParams = new HttpParams().set('id', orderID);
-    return this.http.put<MessageResponseDTO>(this.apiUrl, {body: deliveryAddressDTO}, {params: httpParams});
+    return this.http.post<MessageResponseDTO>(this.apiUrl, deliveryAddressDTO, {params: httpParams});
   }
 }

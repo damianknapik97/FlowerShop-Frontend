@@ -42,12 +42,15 @@ export class DeliveryAddressComponent implements OnInit {
      if (this.orderID == null && this.orderID.length < 0) {
        this.router.navigate(['/']).then(
          () => {
-           this.snackBar.open('No new order created', 'Error', {duration: 300});
+           this.snackBar.open('No new order detected', 'Error', {duration: 3000});
          });
      }
    }
 
 
+   /**
+    * Send request to create Delivery Address and attach it to provided Order by utilizing Order ID passed to this component
+    */
   public addDeliveryAddressToOrder(): void {
     this.service.createDeliveryAddressForOrder(this.orderID, this.deliveryAddressDTO).subscribe(
       result => {

@@ -8,7 +8,7 @@
   </h4>
 
   <div class="delivery-address-form container-fluid">
-    <form #form="ngForm" (ngSubmit)="form.form.valid">
+    <form #form="ngForm" (ngSubmit)="form.form.valid && addDeliveryAddressToOrder()">
       <div class="form-group">
         <label for="input-city-name">City Name</label>
         <input type="text"
