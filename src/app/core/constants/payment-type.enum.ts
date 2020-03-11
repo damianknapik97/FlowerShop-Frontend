@@ -1,4 +1,4 @@
 export enum PaymentType {
-  BLIK_PAYMENT,
+  BANK_TRANSFER,
   BLIK
 }

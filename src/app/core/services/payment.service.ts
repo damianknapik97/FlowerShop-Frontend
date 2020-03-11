@@ -21,4 +21,8 @@ export class PaymentService {
     return this.http.post<MessageResponseDTO>(this.apiUrl, {body: paymentDTO}, {params: httpParams});
   }
 
+  public getAvailablePaymentTypes(): Observable<string[]> {
+    return this.http.get<string[]>(this.apiUrl + '/types');
+  }
+
 }

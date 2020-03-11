@@ -1,1 +1,36 @@
-<p><ngb-progressbar type="success" [striped]="true" [animated]="true" value="{{progressBarValue}}"></ngb-progressbar></p>
+<div class="container-fluid">
+  <ngb-progressbar animated="true" striped="true" type="success" max="100" value="50" ></ngb-progressbar>
+</div>
+<div class="border border-success rounded-lg ">
+  <div class="payment">
+  <h4 class="component-title">
+    Please choose your payment
+  </h4>
+
+  <div class="payment-form container-fluid no-gutters">
+    <form #form="ngForm" (ngSubmit)="form.form.valid">
+      <div class="row justify-content-center">
+        <div class="form-group col-6">
+          <label for="inputPaymentType">Payment Type</label>
+          <select id="inputPaymentType" class="form-control" [(ngModel)]="paymentDTO.paymentType">
+            <option *ngFor="let paymentType of paymentTypes" >{{paymentType}}</option>
+          </select>
+        </div>
+        <div class="total-price col-6">
+          <h4><b>Total Price: 50.00 PLN</b></h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="continue-button col">
+          <button type="submit" class="continue-button btn btn-success">Continue</button>
+      </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+
+
+
