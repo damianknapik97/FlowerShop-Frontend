@@ -13,18 +13,18 @@ import { Observable } from 'rxjs';
 export class ShoppingCartComponent implements OnInit {
   public message = 'Loading...';
   public shoppingCart: ShoppingCartDTO;
-  public shipping: Price = {amount: 0, currency: ''};
+  public shipping: Price = {amount: 5, currency: ''};
   public totalPrice: Price = {amount: 0, currency: ''};
   public totalNumberOfProducts$: Observable<number>;
   public isEmpty = true;
 
   constructor(private service: ShoppingCartService,
-              private snackBar: MatSnackBar) { }
-
-  ngOnInit() {
-    /* TODO: Add shipping */
+              private snackBar: MatSnackBar) {
     this.shipping = {amount: 5, currency: 'PLN'};
     this.retrieveShoppingCartData();
+  }
+
+  ngOnInit() {
   }
 
   private retrieveShoppingCartData(): void {
@@ -44,7 +44,11 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   private recountTotalPrice(): void {
-    this.totalPrice = this.service.countTotalPrice(this.shoppingCart, this.shipping);
+    this.service.countTotalPriceWithDelivery(this.shoppingCart.id, this.shipping).then(
+      (value: Price) => {
+        this.totalPrice = value;
+      }
+    );
   }
 
   public deleteFlowerOrder(flowerOrder: FlowerOrderDTO): void {

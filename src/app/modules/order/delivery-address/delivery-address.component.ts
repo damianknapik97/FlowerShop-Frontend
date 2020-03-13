@@ -25,27 +25,16 @@ export class DeliveryAddressComponent implements OnInit {
               private snackBar: MatSnackBar,
               private router: Router) {
     this.orderID = this.orderService.getNewOrderID();
-    this.validateOrderID();
+    if (!this.orderService.validateOrderID(this.orderID)) {
+      this.router.navigate(['/']).then(
+        () => {
+          this.snackBar.open('No new order detected', 'Error', {duration: 3000});
+        });
+    }
   }
 
   ngOnInit() {
   }
-
-  /**
-   * Check if provided OrderID is a valid string,
-   * return true if provided string is not null and its lenght is greater than 0;
-   *
-   * @param orderID - ID to check
-   */
-
-   private validateOrderID(): void {
-     if (this.orderID == null && this.orderID.length < 0) {
-       this.router.navigate(['/']).then(
-         () => {
-           this.snackBar.open('No new order detected', 'Error', {duration: 3000});
-         });
-     }
-   }
 
 
    /**

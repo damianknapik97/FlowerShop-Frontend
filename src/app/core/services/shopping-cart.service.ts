@@ -58,6 +58,11 @@ export class ShoppingCartService {
     return this.http.delete<MessageResponseDTO>(this.apiUrl + '/souvenir', {params});
   }
 
+  public countTotalPrice(shoppingCartID: string): Observable<Price> {
+    const params = new HttpParams().set('id', shoppingCartID);
+    return this.http.get<Price>(this.apiUrl + '/total-price', {params});
+  }
+
   /**
    * Get rid of null values to avoid errors in console
    */
@@ -99,11 +104,17 @@ export class ShoppingCartService {
    *
    * @param shoppingCart
    */
-  public countTotalPrice(shoppingCart: ShoppingCartDTO, shipping: Price): Price {
-    let totalPrice: number = 0;
-    const currenciesArray = new Array();
+  public countTotalPriceWithDelivery(shoppingCartID: string, shipping: Price): Promise<Price> {
+    let totalPricePromise = this.countTotalPrice(shoppingCartID).toPromise();
+    totalPricePromise = totalPricePromise.then(
+      (value: Price) => {
+        value.amount = Number(value.amount) + Number(shipping.amount);
+        return value;
+    });
 
-    /* Count total price of all avaiable products in shopping cart, taking into account their qunatity */
+    return totalPricePromise;
+
+    /* Count total price of all avaiable products in shopping cart, taking into account their qunatity
     if (shoppingCart.flowerOrderDTOs != null) {
       for (const flowerOrder of shoppingCart.flowerOrderDTOs) {
         totalPrice +=  flowerOrder.flowerDTO.price.amount * flowerOrder.itemCount;
@@ -125,11 +136,14 @@ export class ShoppingCartService {
       }
     }
 
-    /* Add shipping costs */
+    */
+
+    /* Add shipping costs
     totalPrice += shipping.amount;
     currenciesArray.push(shipping.currency);
+    */
 
-    /* Check if currencies are all the same, if not throw error or something */
+    /* Check if currencies are all the same, if not throw error or something
     for (let iterator = 1; iterator < currenciesArray.length ; iterator++) {
       if (currenciesArray[iterator + 1] != null) {
         if (currenciesArray[iterator] !== currenciesArray[iterator + 1]) {
@@ -137,7 +151,8 @@ export class ShoppingCartService {
         }
       }
     }
+    */
 
-    return {amount: totalPrice, currency: currenciesArray[0]};
+    //return {amount: totalPrice, currency: currenciesArray[0]};
   }
 }

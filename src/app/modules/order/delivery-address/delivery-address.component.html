@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <ngb-progressbar animated="true" striped="true" type="success" max="100" value="33" ></ngb-progressbar>
+  <ngb-progressbar animated="true" striped="true" type="success" max="100" value="25" ></ngb-progressbar>
 </div>
 <div class="border border-success rounded-lg ">
   <div class="delivery-address">
@@ -43,7 +43,7 @@
                  name="house"
                  #house="ngModel"
                  [ngClass]="{ 'is-invalid': form.submitted && house.invalid }"
-                 required="true" maxlength="5">
+                 required="true" maxlength="7">
           <div class="validation-error-message text-danger" *ngIf="form.submitted && house.invalid">
             House number can not be empty
           </div>
@@ -52,7 +52,7 @@
       <div class="form-row">
         <div class="apartment-number col">
           <label for="input-apartment">Apartment</label>
-          <input type="text" class="form-control" id="input-apartment" [(ngModel)]="deliveryAddressDTO.apartmentNumber" #apartment="ngModel" maxlength="6">
+          <input type="text" class="form-control" id="input-apartment" [(ngModel)]="deliveryAddressDTO.apartmentNumber" #apartment="ngModel" maxlength="7">
           <small class="form-text text-muted">(Optional)</small>
         </div>
         <div class="zip-code col">
@@ -64,8 +64,12 @@
                  name="postalCode"
                  #postalCode="ngModel"
                  [ngClass]="{ 'is-invalid': form.submitted && postalCode.invalid }"
-                 required="true" pattern="^\d{2}(?:[-]\d{3})$">
-          <div class="validation-error-message text-danger" *ngIf="form.submitted && postalCode.invalid">Zip code can not be empty</div>
+                 required="true" pattern="^\d{2}(?:[-]\d{3})$" maxlength="6">
+          <div class="validation-error-message text-danger" *ngIf="form.submitted && postalCode.invalid">
+            <div *ngIf="postalCode.errors.required">Zip code can not be empty</div>
+            <div *ngIf="postalCode.errors.pattern">Zip code must match the following pattern: XX-XXX</div>
+
+          </div>
         </div>
       </div>
       <div class="continue-button">
