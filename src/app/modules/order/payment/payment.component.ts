@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PaymentService, OrderService } from 'src/app/core/services';
+import { PaymentService, OrderService, ShoppingCartService } from 'src/app/core/services';
 import { PaymentDTO } from 'src/app/core/dto/order/payment.dto';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { PaymentType } from 'src/app/core/constants/payment-type.enum';
+import { Price } from 'src/app/core/dto';
+import { ShippingService } from 'src/app/core/services/shipping.service';
 
 @Component({
   selector: 'app-payment',
@@ -20,23 +22,54 @@ export class PaymentComponent implements OnInit {
   };
 
   constructor(private service: PaymentService,
+              private shoppingCartService: ShoppingCartService,
+              private shippingService: ShippingService,
               private orderService: OrderService,
               private router: Router,
               private snackBar: MatSnackBar) {
-    //this.retrieveOrderID();
+    this.orderID = this.retrieveOrderID();
+    this.retrieveShoppingCartTotalPrice(this.orderID, this.shippingService.getShippingPrice());
     this.retrievePaymentTypes();
    }
 
    ngOnInit() {}
 
-   private retrieveOrderID(): void {
-    this.orderID = this.orderService.getNewOrderID();
-    if (!this.orderService.validateOrderID(this.orderID)) {
+   private retrieveOrderID(): string {
+    const orderID = this.orderService.getNewOrderID();
+    if (!this.orderService.validateOrderID(orderID)) {
       this.router.navigate(['/']).then(
         () => {
           this.snackBar.open('No new order detected', 'Error', {duration: 3000});
         });
     }
+
+    return orderID;
+  }
+
+  private retrieveShoppingCartTotalPrice(orderID: string, shippingPrice: Price): void {
+    this.orderService.retrieveShoppingCartID(orderID).toPromise()
+    .then((shoppingCartID: string) => {
+      this.shoppingCartService.countTotalPriceWithDelivery(shoppingCartID, shippingPrice)
+      .then(
+        (totalPrice: Price) => {
+          this.paymentDTO.totalPrice = totalPrice;
+      })
+      .catch(
+        () => {
+          this.router.navigate(['/']).then(
+            () => {
+              this.snackBar.open('Couldn\'t count total price for your order', 'Error', {duration: 3000});
+          });
+      });
+    })
+    .catch(
+      () => {
+        this.router.navigate(['/']).then(
+          () => {
+            this.snackBar.open('Couldn\'t retrieve shopping cart nested inside your order', 'Error', {duration: 3000});
+          }
+        );
+    });
   }
 
    private retrievePaymentTypes(): void {
@@ -55,8 +88,10 @@ export class PaymentComponent implements OnInit {
    }
 
    public addPaymentToOrder(): void {
+     console.log(this.paymentDTO.paymentType);
      this.service.createPaymentForOrder(this.orderID, this.paymentDTO).subscribe(
        res => {
+         this.snackBar.open('SUCCESS', 'INFO', {duration: 8000});
          // TODO
        },
        err => {
@@ -68,7 +103,6 @@ export class PaymentComponent implements OnInit {
          );
        }
      );
-
    }
 
 }

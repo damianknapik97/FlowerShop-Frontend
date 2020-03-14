@@ -5,7 +5,7 @@ import { ShoppingCartService } from './shopping-cart.service';
 import { OrderDTO } from '../dto/order/order.dto';
 import { Observable } from 'rxjs';
 import { ShoppingCartDTO } from '../dto/order';
-import { MessageResponseDTO, RestPage } from '../dto';
+import { MessageResponseDTO, RestPage, Price } from '../dto';
 
 
 @Injectable({
@@ -32,6 +32,11 @@ export class OrderService {
   public retrieveOrdersPage(page: number): Observable<RestPage<OrderDTO>> {
     const httpParams = new HttpParams().set('page', page.toString());
     return this.http.get<RestPage<OrderDTO>>(this.apiUrl + '/page', {params: httpParams});
+  }
+
+  public retrieveShoppingCartID(orderID: string): Observable<string> {
+    const httpParams = new HttpParams().set('id', orderID);
+    return this.http.get<string>(this.apiUrl + '/shopping-cart', {params: httpParams});
   }
 
   /**

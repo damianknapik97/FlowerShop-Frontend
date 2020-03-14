@@ -18,7 +18,7 @@ export class PaymentService {
 
   public createPaymentForOrder(orderID: string, paymentDTO: PaymentDTO): Observable<MessageResponseDTO> {
     const httpParams = new HttpParams().set('id', orderID);
-    return this.http.post<MessageResponseDTO>(this.apiUrl, {body: paymentDTO}, {params: httpParams});
+    return this.http.post<MessageResponseDTO>(this.apiUrl, paymentDTO, {params: httpParams});
   }
 
   public getAvailablePaymentTypes(): Observable<string[]> {

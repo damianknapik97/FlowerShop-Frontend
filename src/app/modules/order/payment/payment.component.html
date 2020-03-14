@@ -8,16 +8,16 @@
   </h4>
 
   <div class="payment-form container-fluid no-gutters">
-    <form #form="ngForm" (ngSubmit)="form.form.valid">
+    <form #form="ngForm" (ngSubmit)="form.form.valid && addPaymentToOrder()">
       <div class="row justify-content-center">
         <div class="form-group col-6">
           <label for="inputPaymentType">Payment Type</label>
-          <select id="inputPaymentType" class="form-control" [(ngModel)]="paymentDTO.paymentType">
-            <option *ngFor="let paymentType of paymentTypes" >{{paymentType}}</option>
+          <select id="inputPaymentType" class="form-control" [(ngModel)]="paymentDTO.paymentType" name="payment">
+            <option *ngFor="let paymentType of paymentTypes" [value]="paymentType" >{{paymentType}}</option>
           </select>
         </div>
         <div class="total-price col-6">
-          <h4><b>Total Price: 50.00 PLN</b></h4>
+          <h4><b>Total Price: {{paymentDTO.totalPrice.amount}} {{paymentDTO.totalPrice.currency}}</b></h4>
         </div>
       </div>
       <div class="row">
