@@ -52,7 +52,7 @@
       <div class="form-row">
         <div class="apartment-number col">
           <label for="input-apartment">Apartment</label>
-          <input type="text" class="form-control" id="input-apartment" [(ngModel)]="deliveryAddressDTO.apartmentNumber" #apartment="ngModel" maxlength="7">
+          <input type="text" class="form-control" id="input-apartment" [(ngModel)]="deliveryAddressDTO.apartmentNumber" name="apartment" #apartment="ngModel" maxlength="7">
           <small class="form-text text-muted">(Optional)</small>
         </div>
         <div class="zip-code col">

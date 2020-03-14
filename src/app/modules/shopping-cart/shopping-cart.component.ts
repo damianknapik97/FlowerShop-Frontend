@@ -4,6 +4,7 @@ import { ShoppingCartDTO, FlowerOrderDTO, OccasionalArticleOrderDTO, SouvenirOrd
 import { Price, FlowerDTO } from 'src/app/core/dto';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
+import { ShippingService } from 'src/app/core/services/shipping.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -19,8 +20,9 @@ export class ShoppingCartComponent implements OnInit {
   public isEmpty = true;
 
   constructor(private service: ShoppingCartService,
+              private shippingService: ShippingService,
               private snackBar: MatSnackBar) {
-    this.shipping = {amount: 5, currency: 'PLN'};
+    this.shipping = this.shippingService.getShippingPrice();
     this.retrieveShoppingCartData();
   }
 

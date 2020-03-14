@@ -20,6 +20,8 @@ import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.com
 import { OrderComponent } from './modules/order/order.component';
 import { DeliveryAddressComponent} from './modules/order/delivery-address/delivery-address.component';
 import { PaymentComponent } from './modules/order/payment/payment.component';
+import { SummaryComponent } from './modules/order/summary/summary.component';
+import { DetailsComponent } from './modules/order/details/details.component';
 
 
 const routes: Routes = [
@@ -72,7 +74,10 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard],
     children: [
       { path: 'delivery-address', component: DeliveryAddressComponent},
-      { path: 'payment', component: PaymentComponent}
+      { path: 'details', component: DetailsComponent},
+      { path: 'payment', component: PaymentComponent},
+      { path: 'summary', component: SummaryComponent}
+
     ]
   }
 ];
