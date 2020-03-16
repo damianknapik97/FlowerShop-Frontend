@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ShoppingCartService } from './shopping-cart.service';
 import { OrderDTO } from '../dto/order/order.dto';
 import { Observable } from 'rxjs';
-import { ShoppingCartDTO } from '../dto/order';
+import { ShoppingCartDTO, OrderDetailsDTO } from '../dto/order';
 import { MessageResponseDTO, RestPage, Price } from '../dto';
 
 
@@ -37,6 +37,11 @@ export class OrderService {
   public retrieveShoppingCartID(orderID: string): Observable<string> {
     const httpParams = new HttpParams().set('id', orderID);
     return this.http.get<string>(this.apiUrl + '/shopping-cart', {params: httpParams});
+  }
+
+  public updateOrderDetails(orderID: string, orderDetails: OrderDetailsDTO): Observable<MessageResponseDTO> {
+    const httpParams = new HttpParams().set('id', orderID);
+    return this.http.put<MessageResponseDTO>(this.apiUrl + '/details', httpParams, {params: httpParams});
   }
 
   /**
