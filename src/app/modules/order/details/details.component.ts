@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { NgbDateStruct, NgbTimeStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 import { DateTimeDTO } from 'src/app/core/dto/date-time-dto';
+import { FormService } from 'src/app/core/services/form.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-details',
@@ -14,15 +16,19 @@ import { DateTimeDTO } from 'src/app/core/dto/date-time-dto';
 export class DetailsComponent implements OnInit {
   private orderID: string;
   private minimalAheadDays = 6;
-  public minimalDate: NgbDateStruct = {year: 1970, month: 1, day: 1};
   @Input() public date: NgbDateStruct;
-  @Input() public time: NgbTimeStruct;
+  @Input() public time: NgbTimeStruct = {hour: 0, minute: 0, second: 0};
   @Input() public orderDetails: OrderDetailsDTO = {
     message: '',
     deliveryDate: {year: 0, month: 0, day: 0, hour: 0, minute: 0, second: 0},
     additionalNote: ''
   };
+  public minimalDate: NgbDateStruct = {year: 1970, month: 1, day: 1};
+  public shopOpeningHour = environment.shopOpeningHour;
+  public shopClosingHour = environment.shopClosingHour;
+
   constructor(private orderService: OrderService,
+              private formService: FormService,
               public ngbCalendar: NgbCalendar,
               private router: Router,
               private snackBar: MatSnackBar) {
@@ -70,6 +76,7 @@ export class DetailsComponent implements OnInit {
 
   public updateOrderDetails(): void {
     this.orderDetails.deliveryDate = this.setDateTimeToDTO(this.orderDetails.deliveryDate);
+    console.log(this.orderDetails);
     this.orderService.updateOrderDetails(this.orderID, this.orderDetails).subscribe(
       res => {
         this.router.navigate(['/order/payment']);
@@ -78,7 +85,7 @@ export class DetailsComponent implements OnInit {
         console.log(err);
         this.router.navigate(['/']).then(
           () => {
-           this.snackBar.open('Couldn\'t add payment to your order', 'Error', {duration: 3000});
+           this.snackBar.open('Couldn\'t add details to your order', 'Error', {duration: 3000});
           }
         );
       });

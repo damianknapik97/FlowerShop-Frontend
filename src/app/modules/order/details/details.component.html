@@ -1,5 +1,14 @@
+<div class="container-fluid">
+  <ngb-progressbar animated="true" striped="true" type="success" max="100" value="50" ></ngb-progressbar>
+</div>
+<div class="border border-success rounded-lg ">
+  <div class="delivery-address">
+  <h4 class="component-title">
+    Please enter delivery address details.
+  </h4>
+
 <div class="payment-form container-fluid no-gutters">
-  <form #form="ngForm" (ngSubmit)="form.form.valid && ngbCalendar.isValid(date)">
+  <form #form="ngForm" (ngSubmit)="form.form.valid && ngbCalendar.isValid(date) && formService.isDeliveryTimeValid(time) && updateOrderDetails()">
     <div class="form-group">
       <label for="input-message">Note that you would want to attach to your gift</label>
       <input type="text"
@@ -8,7 +17,7 @@
              [(ngModel)]="orderDetails.message"
              name="message"
              #message="ngModel"
-             [ngClass]="{ 'is-invalid': form.submitted && message.invalid }"
+             [ngClass]="formService.determineInputFieldStatus(form.submitted, message.invalid)"
              required="true" maxlength="50">
       <small class="form-text text-muted">(Max 50 characters)</small>
       <div class="validation-error-message text-danger" *ngIf="form.submitted && message.invalid">
@@ -29,21 +38,33 @@
                #datePickerModel="ngModel"
                [minDate]="minimalDate"
                [outsideDays]="'hidden'"
+               [ngClass]="formService.determineInputFieldStatus(form.submitted, datePickerModel.invalid)"
                required="true"
                minDate
                maxlength="10">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary calendar" (click)="datePicker.toggle()" type="button">Select</button>
         </div>
-        <div class="validation-error-message text-danger" *ngIf="form.submitted && datePickerModel.invalid">
-          Minimal delivery date does not match
-          <div class="validation-error-message text-danger" *ngIf="datePickerModel.errors.required">Delivery date can not be empty</div>
-          <div class="validation-error-message text-danger" *ngIf="!ngbCalendar.isValid(date)">Invalid date format</div>
-        </div>
-
+      </div>
+      <div class="time-picker-div input-group col-9">
+        <ngb-timepicker id="time-picker"
+                        name="timePicker"
+                        #timePicker="ngModel"
+                        [(ngModel)]="time"
+                        [spinners]="false"
+                        [meridian]="false"
+                        [ngClass]="formService.determineInputFieldStatus(form.submitted, timePicker.invalid)"
+                        required="true"></ngb-timepicker>
       </div>
     </div>
-    <div class="form-group">
+      <div class="validation-error-message text-danger" *ngIf="form.submitted && (datePickerModel.invalid || !ngbCalendar.isValid(date))">
+        Minimal delivery date does not match
+        <div class="validation-error-message text-danger" *ngIf="datePickerModel.errors.required">Delivery date can not be empty</div>
+        <div class="validation-error-message text-danger" *ngIf="!ngbCalendar.isValid(date)">Invalid date format</div>
+      </div>
+    <div class="validation-error-message text-danger" *ngIf="form.submitted && !formService.isDeliveryTimeValid(time)">Time not in shop working hours, please select any hours between {{shopOpeningHour}} and {{shopClosingHour}}</div>
+
+    <div class="additional-info-div form-group">
       <label for="input-additional-note">Additional informations about your order</label>
       <textarea rows="5"
              type="text"
@@ -52,7 +73,7 @@
              [(ngModel)]="orderDetails.additionalNote"
              name="note"
              #note="ngModel"
-             [ngClass]="{ 'is-invalid': form.submitted && note.invalid }"> </textarea>
+             maxlength="1024"> </textarea>
       <small class="form-text text-muted">(Optional)</small>
     </div>
     <div class="row">
@@ -61,4 +82,5 @@
     </div>
     </div>
   </form>
+</div>
 </div>

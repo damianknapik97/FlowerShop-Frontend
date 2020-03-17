@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080'
+  apiUrl: 'http://localhost:8080',
+  shopOpeningHour: 6,
+  shopClosingHour: 24
 };
 
 /*
