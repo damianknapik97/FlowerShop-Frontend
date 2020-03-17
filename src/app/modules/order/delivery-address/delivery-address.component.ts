@@ -43,7 +43,7 @@ export class DeliveryAddressComponent implements OnInit {
   public addDeliveryAddressToOrder(): void {
     this.service.createDeliveryAddressForOrder(this.orderID, this.deliveryAddressDTO).subscribe(
       result => {
-        this.router.navigate(['/order/payment']);
+        this.router.navigate(['/order/details']);
       },
       error => {
         this.router.navigate(['/']).then(

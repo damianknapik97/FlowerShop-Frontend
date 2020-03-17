@@ -8,4 +8,5 @@ export interface OrderDTO {
   deliveryAddressDTO: DeliveryAddressDTO;
   shoppingCartDTO: ShoppingCartDTO;
   placementDate: string;
+  additionalNote: string;
 }

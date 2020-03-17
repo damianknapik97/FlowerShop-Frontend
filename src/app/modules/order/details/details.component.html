@@ -53,7 +53,7 @@
                         [(ngModel)]="time"
                         [spinners]="false"
                         [meridian]="false"
-                        [ngClass]="formService.determineInputFieldStatus(form.submitted, timePicker.invalid)"
+                        [ngClass]="formService.determineInputFieldStatus(form.submitted, !formService.isDeliveryTimeValid(time))"
                         required="true"></ngb-timepicker>
       </div>
     </div>

@@ -9,6 +9,11 @@ export class FormService {
 
   constructor() {}
 
+  /**
+   * Check if provided time values match the shop open hours
+   *
+   * @param time - time structure to validate.
+   */
   public isDeliveryTimeValid(time: NgbTimeStruct): boolean {
     if (time == null)  {
       return false;
@@ -20,6 +25,12 @@ export class FormService {
     return false;
   }
 
+  /**
+   * Determine if fields are valid or not, and return according class string
+   *
+   * @param isFormSubmitted - param checking if form was subbmited
+   * @param invalid  - param checking if form was subbmited with valid inputs.
+   */
   public determineInputFieldStatus(isFormSubmitted: boolean, invalid: boolean): string {
     if (isFormSubmitted) {
       if (invalid) {

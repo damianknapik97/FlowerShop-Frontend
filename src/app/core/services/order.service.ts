@@ -41,7 +41,7 @@ export class OrderService {
 
   public updateOrderDetails(orderID: string, orderDetails: OrderDetailsDTO): Observable<MessageResponseDTO> {
     const httpParams = new HttpParams().set('id', orderID);
-    return this.http.put<MessageResponseDTO>(this.apiUrl + '/details', httpParams, {params: httpParams});
+    return this.http.put<MessageResponseDTO>(this.apiUrl + '/details', orderDetails, {params: httpParams});
   }
 
   /**

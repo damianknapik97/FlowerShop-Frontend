@@ -7,6 +7,7 @@ import { NgbDateStruct, NgbTimeStruct, NgbCalendar } from '@ng-bootstrap/ng-boot
 import { DateTimeDTO } from 'src/app/core/dto/date-time-dto';
 import { FormService } from 'src/app/core/services/form.service';
 import { environment } from 'src/environments/environment';
+import { NumberUtilities } from 'src/app/core/utilites/number.utilities';
 
 @Component({
   selector: 'app-details',
@@ -15,29 +16,33 @@ import { environment } from 'src/environments/environment';
 })
 export class DetailsComponent implements OnInit {
   private orderID: string;
-  private minimalAheadDays = 6;
-  @Input() public date: NgbDateStruct;
-  @Input() public time: NgbTimeStruct = {hour: 0, minute: 0, second: 0};
-  @Input() public orderDetails: OrderDetailsDTO = {
+  private minimalAheadDays = 6;  // Used to calculate minimal input date
+  @Input() public date: NgbDateStruct;  // Delivery date input model
+  @Input() public time: NgbTimeStruct = {hour: 0, minute: 0, second: 0};  // Delivery time input model
+  @Input() public orderDetails: OrderDetailsDTO = {  // DTO used in request to backend
     message: '',
-    deliveryDate: {year: 0, month: 0, day: 0, hour: 0, minute: 0, second: 0},
+    deliveryDate: '',
     additionalNote: ''
   };
-  public minimalDate: NgbDateStruct = {year: 1970, month: 1, day: 1};
-  public shopOpeningHour = environment.shopOpeningHour;
-  public shopClosingHour = environment.shopClosingHour;
+  public minimalDate: NgbDateStruct = {year: 1970, month: 1, day: 1};  // Used for user input date validaiton
+  public shopOpeningHour = environment.shopOpeningHour;  // Used for user input delivery hours validaiton
+  public shopClosingHour = environment.shopClosingHour;  // Used for user input delivery hours validaiton
 
   constructor(private orderService: OrderService,
-              private formService: FormService,
-              public ngbCalendar: NgbCalendar,
               private router: Router,
-              private snackBar: MatSnackBar) {
-      this.orderID = this.retrieveOrderID();
+              private snackBar: MatSnackBar,
+              private numberUtilities: NumberUtilities,
+              public formService: FormService,
+              public ngbCalendar: NgbCalendar,) {
       this.setMinimalDate(this.countMinimalDate(this.minimalAheadDays));
+      this.orderID = this.retrieveOrderID();
     }
 
   ngOnInit() {}
 
+  /**
+   * Retrieve currently handled Order ID, that user inputs will be added to.
+   */
   private retrieveOrderID(): string {
     const orderID = this.orderService.getNewOrderID();
     if (!this.orderService.validateOrderID(orderID)) {
@@ -49,6 +54,11 @@ export class DetailsComponent implements OnInit {
     return orderID;
   }
 
+  /**
+   * Set minimal date to the user input component allowing input validation.
+   *
+   * @param minimalDate - minimal date to set to user input component.
+   */
   private setMinimalDate(minimalDate: Date): void {
     this.minimalDate.day = minimalDate.getDate();
     this.minimalDate.month = minimalDate.getMonth() + 1;
@@ -56,26 +66,37 @@ export class DetailsComponent implements OnInit {
 
   }
 
+  /**
+   * Create Date object by adding provided number of days to current date to be later used in Date input field as minimum.
+   * Used for date validation.
+   *
+   * @param minimalNumberOfDaysAhead - how many days to add to the currently extracted date.
+   */
   private countMinimalDate(minimalNumberOfDaysAhead: number): Date {
     const currentDate = new Date();
-    console.log(currentDate.getDate());
     currentDate.setDate(currentDate.getDate() + minimalNumberOfDaysAhead);
-    console.log(currentDate.getDate());
     return currentDate;
   }
 
-  private setDateTimeToDTO(dateTimeDTO: DateTimeDTO): DateTimeDTO {
-    dateTimeDTO.year = this.date.year;
-    dateTimeDTO.month = this.date.month;
-    dateTimeDTO.day = this.date.day;
-    dateTimeDTO.hour = this.time.hour;
-    dateTimeDTO.minute = this.time.minute;
-    dateTimeDTO.second = this.time.second;
-    return dateTimeDTO;
+  /**
+   * Create proper string from data and time models, that will be deserializable by backend
+   * Format: YYYY-MM-DD HH:MM
+   *
+   * @param dateTimeString - string to save user input into;
+   */
+  private convertDateTimeToString(dateTimeString: string): string {
+    return this.date.year
+    + '-' + this.numberUtilities.addLeftPaddingZeros(this.date.month, 2)
+    + '-' + this.numberUtilities.addLeftPaddingZeros(this.date.day, 2)
+    + ' ' + this.numberUtilities.addLeftPaddingZeros(this.time.hour, 2)
+    + ':' + this.numberUtilities.addLeftPaddingZeros(this.time.minute, 2);
   }
 
+  /**
+   * Send request to backend to add Order Details into currently handled order and redirect to payment page if successfull.
+   */
   public updateOrderDetails(): void {
-    this.orderDetails.deliveryDate = this.setDateTimeToDTO(this.orderDetails.deliveryDate);
+    this.orderDetails.deliveryDate = this.convertDateTimeToString(this.orderDetails.deliveryDate);
     console.log(this.orderDetails);
     this.orderService.updateOrderDetails(this.orderID, this.orderDetails).subscribe(
       res => {
