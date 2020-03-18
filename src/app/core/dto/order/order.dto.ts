@@ -1,5 +1,6 @@
 import { DeliveryAddressDTO } from './delivery-address.dto';
 import { ShoppingCartDTO } from './shopping-cart.dto';
+import { PaymentDTO } from './payment.dto';
 
 export interface OrderDTO {
   id: string;
@@ -7,6 +8,7 @@ export interface OrderDTO {
   deliveryDate: string;
   deliveryAddressDTO: DeliveryAddressDTO;
   shoppingCartDTO: ShoppingCartDTO;
+  paymentDTO: PaymentDTO;
   placementDate: string;
   additionalNote: string;
 }
