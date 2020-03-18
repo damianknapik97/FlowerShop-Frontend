@@ -34,24 +34,10 @@ export class DetailsComponent implements OnInit {
               public formService: FormService,
               public ngbCalendar: NgbCalendar,) {
       this.setMinimalDate(this.countMinimalDate(this.minimalAheadDays));
-      this.orderID = this.retrieveOrderID();
+      this.orderID = this.orderService.getNewOrderID();
     }
 
   ngOnInit() {}
-
-  /**
-   * Retrieve currently handled Order ID, that user inputs will be added to.
-   */
-  private retrieveOrderID(): string {
-    const orderID = this.orderService.getNewOrderID();
-    if (!this.orderService.validateOrderID(orderID)) {
-      this.router.navigate(['/']).then(
-        () => {
-          this.snackBar.open('No new order detected', 'Error', {duration: 3000});
-        });
-    }
-    return orderID;
-  }
 
   /**
    * Set minimal date to the user input component allowing input validation.

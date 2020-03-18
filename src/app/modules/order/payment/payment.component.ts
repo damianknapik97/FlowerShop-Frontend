@@ -27,24 +27,12 @@ export class PaymentComponent implements OnInit {
               private orderService: OrderService,
               private router: Router,
               private snackBar: MatSnackBar) {
-    this.orderID = this.retrieveOrderID();
+    this.orderID = this.orderService.getNewOrderID();
     this.retrieveShoppingCartTotalPrice(this.orderID, this.shippingService.getShippingPrice());
     this.retrievePaymentTypes();
    }
 
    ngOnInit() {}
-
-   private retrieveOrderID(): string {
-    const orderID = this.orderService.getNewOrderID();
-    if (!this.orderService.validateOrderID(orderID)) {
-      this.router.navigate(['/']).then(
-        () => {
-          this.snackBar.open('No new order detected', 'Error', {duration: 3000});
-        });
-    }
-
-    return orderID;
-  }
 
   private retrieveShoppingCartTotalPrice(orderID: string, shippingPrice: Price): void {
     this.orderService.retrieveShoppingCartID(orderID).toPromise()
@@ -78,6 +66,7 @@ export class PaymentComponent implements OnInit {
         this.paymentTypes = res;
       },
       err => {
+        console.log(err);
         this.router.navigate(['/']).then(
           () => {
             this.snackBar.open('Couldn\'t retrieve available payment types', 'Error', {duration: 3000});
@@ -91,8 +80,7 @@ export class PaymentComponent implements OnInit {
      console.log(this.paymentDTO.paymentType);
      this.service.createPaymentForOrder(this.orderID, this.paymentDTO).subscribe(
        res => {
-         this.snackBar.open('SUCCESS', 'INFO', {duration: 8000});
-         // TODO
+         this.router.navigate(['/order/summary']);
        },
        err => {
          console.log(err);
