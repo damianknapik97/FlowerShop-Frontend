@@ -77,7 +77,6 @@ const routes: Routes = [
       { path: 'details', component: DetailsComponent},
       { path: 'payment', component: PaymentComponent},
       { path: 'summary', component: SummaryComponent}
-
     ]
   }
 ];

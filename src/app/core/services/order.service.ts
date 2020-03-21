@@ -4,8 +4,8 @@ import { environment } from 'src/environments/environment';
 import { ShoppingCartService } from './shopping-cart.service';
 import { OrderDTO } from '../dto/order/order.dto';
 import { Observable } from 'rxjs';
-import { ShoppingCartDTO, OrderDetailsDTO } from '../dto/order';
-import { MessageResponseDTO, RestPage, Price } from '../dto';
+import { OrderDetailsDTO } from '../dto/order';
+import { MessageResponseDTO, RestPage} from '../dto';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
@@ -51,6 +51,11 @@ export class OrderService {
   public retrieveNewOrder(orderID: string): Observable<OrderDTO> {
     const httpParams = new HttpParams().set('id', orderID);
     return this.http.get<OrderDTO>(this.apiUrl, {params: httpParams});
+  }
+
+  public validateOrderAndChangeItsStatus(orderID: string): Observable<MessageResponseDTO> {
+    const httpParams = new HttpParams().set('id', orderID);
+    return this.http.put<MessageResponseDTO>(this.apiUrl + '/validate', httpParams);
   }
 
   /**

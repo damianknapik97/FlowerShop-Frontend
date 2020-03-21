@@ -40,6 +40,11 @@
               <td>{{souvenirOrder.itemCount}}</td>
               <td>{{souvenirOrder.souvenirDTO.price.amount * souvenirOrder.itemCount | number:'1.2-2'}} {{souvenirOrder.souvenirDTO.price.currency}}</td>
             </tr>
+            <tr>
+              <td>Delivery</td>
+              <td></td>
+              <td>{{deliveryPrice.amount}} {{deliveryPrice.currency}}</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -118,7 +123,7 @@
     </div>
     <div class="row">
       <div class="continue-button col">
-        <button type="submit" class="continue-button btn btn-success">Continue</button>
+        <button type="submit" class="continue-button btn btn-success" (click)="validateOrder()">Continue</button>
     </div>
   </div>
 </div>
