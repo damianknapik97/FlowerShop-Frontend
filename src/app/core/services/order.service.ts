@@ -58,6 +58,10 @@ export class OrderService {
     return this.http.put<MessageResponseDTO>(this.apiUrl + '/validate', httpParams);
   }
 
+  public retrieveUnfinishedOrder(): Observable<OrderDTO> {
+    return this.http.get<OrderDTO>(this.apiUrl + '/unfinished');
+  }
+
   /**
    * Check if provided OrderID is a valid string,
    * return true if provided string is not null and its lenght is greater than 0;
