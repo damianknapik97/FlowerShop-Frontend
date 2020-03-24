@@ -3,7 +3,7 @@ import { OrderDetailsDTO } from 'src/app/core/dto/order';
 import { OrderService } from 'src/app/core/services';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { NgbDateStruct, NgbTimeStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbTimeStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { FormService } from 'src/app/core/services/form.service';
 import { environment } from 'src/environments/environment';
 import { NumberUtilities } from 'src/app/core/utilites/number.utilities';
@@ -15,7 +15,7 @@ import { NumberUtilities } from 'src/app/core/utilites/number.utilities';
 })
 export class DetailsComponent implements OnInit {
   private minimalAheadDays = 6;  // Used to calculate minimal input date
-  @Input() public date: NgbDateStruct;  // Delivery date input model
+  @Input() public date: NgbDate;  // Delivery date input model
   @Input() public time: NgbTimeStruct = {hour: 0, minute: 0, second: 0};  // Delivery time input model
   @Input() public orderDetails: OrderDetailsDTO = {  // DTO used in request to backend
     message: '',
