@@ -34,6 +34,7 @@ import { PaymentComponent } from './modules/order/payment/payment.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DetailsComponent } from './modules/order/details/details.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
+import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { SummaryComponent } from './modules/order/summary/summary.component';
     PaymentComponent,
     DetailsComponent,
     SummaryComponent,
+    DisplayOrdersComponent,
   ],
   imports: [
     BrowserModule,

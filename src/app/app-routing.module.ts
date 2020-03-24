@@ -22,6 +22,7 @@ import { DeliveryAddressComponent} from './modules/order/delivery-address/delive
 import { PaymentComponent } from './modules/order/payment/payment.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
 import { DetailsComponent } from './modules/order/details/details.component';
+import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
 
 
 const routes: Routes = [
@@ -44,6 +45,7 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthenticationGuard],
     children: [
+      { path: 'display-orders', component: DisplayOrdersComponent},
       { path: 'manage-details', component: ManageDetailsComponent },
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'delete', component: DeleteComponent }
