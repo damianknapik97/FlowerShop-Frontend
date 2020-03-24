@@ -11,4 +11,5 @@ export interface OrderDTO {
   paymentDTO: PaymentDTO;
   placementDate: string;
   additionalNote: string;
+  orderStatus: string;
 }
