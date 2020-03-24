@@ -15,6 +15,9 @@ export class OrderComponent implements OnInit {
   constructor(private orderService: OrderService,
               private snackBar: MatSnackBar,
               private router: Router) {
+   }
+
+  ngOnInit() {
     this.message = 'Creating your order. Please wait...';
     this.checkForUnfinishedOrder()
     .then<void>(
@@ -32,9 +35,7 @@ export class OrderComponent implements OnInit {
         });
       }
     );
-   }
-
-  ngOnInit() {}
+  }
 
   /**
    * Send request to retrieve unfinished Order Entity from database, and determine which
@@ -47,7 +48,7 @@ export class OrderComponent implements OnInit {
     .then<boolean>(
       (orderDTO: OrderDTO) => {
         /* Check if order was retrieved at all */
-        if (orderDTO != null) {
+        if (orderDTO != null && orderDTO.id.length > 0) {
 
           /* Set orderID for chidlren components and determine which inputs are missing */
           this.orderService.setNewOrderID(orderDTO.id);
@@ -57,7 +58,7 @@ export class OrderComponent implements OnInit {
           /* Redirect to page handling missing information input */
           this.router.navigate([redirectionUrl]).then(
             () => {
-              this.snackBar.open('You have unfinished order in progress', 'Error', {duration: 3000});
+              this.snackBar.open('You have unfinished order in progress', 'Warning', {duration: 3000});
           });
           /* Order was found */
           return true;
@@ -112,5 +113,4 @@ export class OrderComponent implements OnInit {
       }
     );
   }
-
 }

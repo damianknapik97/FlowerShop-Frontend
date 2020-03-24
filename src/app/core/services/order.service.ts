@@ -33,11 +33,6 @@ export class OrderService {
     return this.http.put<MessageResponseDTO>(this.apiUrl, orderDTO);
   }
 
-  public retrieveOrdersPage(page: number): Observable<RestPage<OrderDTO>> {
-    const httpParams = new HttpParams().set('page', page.toString());
-    return this.http.get<RestPage<OrderDTO>>(this.apiUrl + '/page', {params: httpParams});
-  }
-
   public retrieveShoppingCartID(orderID: string): Observable<string> {
     const httpParams = new HttpParams().set('id', orderID);
     return this.http.get<string>(this.apiUrl + '/shopping-cart', {params: httpParams});
@@ -60,6 +55,16 @@ export class OrderService {
 
   public retrieveUnfinishedOrder(): Observable<OrderDTO> {
     return this.http.get<OrderDTO>(this.apiUrl + '/unfinished');
+  }
+
+  public removeOrder(orderID: string): Observable<MessageResponseDTO> {
+    const httpParams = new HttpParams().set('id', orderID);
+    return this.http.delete<MessageResponseDTO>(this.apiUrl, {params: httpParams});
+  }
+
+  public retrieveOrdersPage(pageNumber: number): Observable<RestPage<OrderDTO>> {
+    const httpParams = new HttpParams().set('number', String(pageNumber));
+    return this.http.get<RestPage<OrderDTO>>(this.apiUrl + '/page', {params: httpParams});
   }
 
   /**
@@ -91,5 +96,21 @@ export class OrderService {
         });
     }
     return this.newOrderID;
+  }
+
+  public removeOrderAndRedirect(orderID: string, redirectURL: string, snackBarMessage: string) {
+    this.removeOrder(orderID).subscribe(
+      res => {
+        this.router.navigate([redirectURL]).then(
+          () => {
+            if (snackBarMessage != null && snackBarMessage.length > 0) {
+              this.snackBar.open(snackBarMessage, 'Information', {duration: 3500});
+            }
+          });
+      },
+      err => {
+        console.log(err);
+        this.snackBar.open('Couldn\'t remove your order from database.', 'Error', {duration: 3500});
+      });
   }
 }

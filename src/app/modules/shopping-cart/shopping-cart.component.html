@@ -215,9 +215,9 @@
               Continue Shopping
             </button>
         </div>
-        <div class="col-sm-12 col-md-6 text-right" *ngIf='!isEmpty'>
-          <button class="btn btn-block btn-success text-uppercase" [routerLink]="'/order'">
-            Checkout
+        <div class="col-sm-12 col-md-6 text-right" *ngIf='!continueButtonInvisible'>
+          <button class="btn btn-block text-uppercase {{continueButtonClass}}" [routerLink]="'/order'">
+            {{continueButtonContent}}
           </button>
         </div>
       </div>

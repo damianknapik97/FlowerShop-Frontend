@@ -6,7 +6,6 @@
   <h4 class="component-title">
     Please enter delivery address details.
   </h4>
-
   <div class="delivery-address-form container-fluid">
     <form #form="ngForm" (ngSubmit)="form.form.valid && addDeliveryAddressToOrder()">
       <div class="form-group">
@@ -73,7 +72,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="continue-button col">
+        <div class="button col">
+          <button type="button" class="cancel-button btn btn-danger" (click)='removeOrder()'>Cancel</button>
           <button type="submit" class="continue-button btn btn-success">Continue</button>
         </div>
       </div>

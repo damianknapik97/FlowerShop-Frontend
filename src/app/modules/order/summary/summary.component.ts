@@ -12,7 +12,6 @@ import { ShippingService } from 'src/app/core/services/shipping.service';
   styleUrls: ['./summary.component.sass']
 })
 export class SummaryComponent implements OnInit {
-  private orderID: string;
   @Input() public shoppingCartCollapsed = false;
   @Input() public deliveryAddressCollapsed = false;
   @Input() public detailsCollapsed = false;
@@ -53,12 +52,16 @@ export class SummaryComponent implements OnInit {
               private shippingService: ShippingService,
               private router: Router,
               private snackBar: MatSnackBar) {
-    this.orderID = this.orderService.getNewOrderID();
-    this.deliveryPrice = this.shippingService.getShippingPrice();
-    this.retrieveOrder(this.orderID);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.deliveryPrice = this.shippingService.getShippingPrice();
+    this.retrieveOrder(this.orderService.getNewOrderID());
+  }
+
+  public removeOrder(): void {
+    this.orderService.removeOrderAndRedirect(this.orderService.getNewOrderID(), '/', 'Order removed succesfully');
+  }
 
   private retrieveOrder(orderID: string): void {
     this.orderService.retrieveNewOrder(orderID).subscribe(
@@ -77,7 +80,7 @@ export class SummaryComponent implements OnInit {
   }
 
   public validateOrder(): void {
-    this.orderService.validateOrderAndChangeItsStatus(this.orderID).subscribe(
+    this.orderService.validateOrderAndChangeItsStatus(this.orderService.getNewOrderID()).subscribe(
       res => {
         this.router.navigate(['/']).then(
           () => {

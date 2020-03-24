@@ -10,7 +10,6 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./delivery-address.component.sass']
 })
 export class DeliveryAddressComponent implements OnInit {
-  private orderID: string;
   @Input() public deliveryAddressDTO: DeliveryAddressDTO = {
     id: '',
     cityName: '',
@@ -24,24 +23,20 @@ export class DeliveryAddressComponent implements OnInit {
               private orderService: OrderService,
               private snackBar: MatSnackBar,
               private router: Router) {
-    this.orderID = this.orderService.getNewOrderID();
-    if (!this.orderService.validateOrderID(this.orderID)) {
-      this.router.navigate(['/']).then(
-        () => {
-          this.snackBar.open('No new order detected', 'Error', {duration: 3000});
-        });
-    }
   }
 
   ngOnInit() {
   }
 
+  public removeOrder(): void {
+    this.orderService.removeOrderAndRedirect(this.orderService.getNewOrderID(), '/', 'Order removed succesfully');
+  }
 
    /**
     * Send request to create Delivery Address and attach it to provided Order by utilizing Order ID passed to this component
     */
   public addDeliveryAddressToOrder(): void {
-    this.service.createDeliveryAddressForOrder(this.orderID, this.deliveryAddressDTO).subscribe(
+    this.service.createDeliveryAddressForOrder(this.orderService.getNewOrderID(), this.deliveryAddressDTO).subscribe(
       result => {
         this.router.navigate(['/order/details']);
       },

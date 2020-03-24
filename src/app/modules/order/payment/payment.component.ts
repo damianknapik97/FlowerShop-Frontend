@@ -13,7 +13,6 @@ import { ShippingService } from 'src/app/core/services/shipping.service';
   styleUrls: ['./payment.component.sass']
 })
 export class PaymentComponent implements OnInit {
-  private orderID: string;
   public paymentTypes: string[];
   @Input() public paymentDTO: PaymentDTO = {
     id: '',
@@ -27,12 +26,16 @@ export class PaymentComponent implements OnInit {
               private orderService: OrderService,
               private router: Router,
               private snackBar: MatSnackBar) {
-    this.orderID = this.orderService.getNewOrderID();
-    this.retrieveShoppingCartTotalPrice(this.orderID, this.shippingService.getShippingPrice());
+   }
+
+   ngOnInit() {
+    this.retrieveShoppingCartTotalPrice(this.orderService.getNewOrderID(), this.shippingService.getShippingPrice());
     this.retrievePaymentTypes();
    }
 
-   ngOnInit() {}
+   public removeOrder(): void {
+    this.orderService.removeOrderAndRedirect(this.orderService.getNewOrderID(), '/', 'Order removed succesfully');
+  }
 
   private retrieveShoppingCartTotalPrice(orderID: string, shippingPrice: Price): void {
     this.orderService.retrieveShoppingCartID(orderID).toPromise()
@@ -78,7 +81,7 @@ export class PaymentComponent implements OnInit {
 
    public addPaymentToOrder(): void {
      console.log(this.paymentDTO.paymentType);
-     this.service.createPaymentForOrder(this.orderID, this.paymentDTO).subscribe(
+     this.service.createPaymentForOrder(this.orderService.getNewOrderID(), this.paymentDTO).subscribe(
        res => {
          this.router.navigate(['/order/summary']);
        },

@@ -14,7 +14,6 @@ import { NumberUtilities } from 'src/app/core/utilites/number.utilities';
   styleUrls: ['./details.component.sass']
 })
 export class DetailsComponent implements OnInit {
-  private orderID: string;
   private minimalAheadDays = 6;  // Used to calculate minimal input date
   @Input() public date: NgbDateStruct;  // Delivery date input model
   @Input() public time: NgbTimeStruct = {hour: 0, minute: 0, second: 0};  // Delivery time input model
@@ -32,12 +31,16 @@ export class DetailsComponent implements OnInit {
               private snackBar: MatSnackBar,
               private numberUtilities: NumberUtilities,
               public formService: FormService,
-              public ngbCalendar: NgbCalendar,) {
-      this.setMinimalDate(this.countMinimalDate(this.minimalAheadDays));
-      this.orderID = this.orderService.getNewOrderID();
+              public ngbCalendar: NgbCalendar) {
     }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.setMinimalDate(this.countMinimalDate(this.minimalAheadDays));
+  }
+
+  public removeOrder(): void {
+    this.orderService.removeOrderAndRedirect(this.orderService.getNewOrderID(), '/', 'Order removed succesfully');
+  }
 
   /**
    * Set minimal date to the user input component allowing input validation.
@@ -83,7 +86,7 @@ export class DetailsComponent implements OnInit {
   public updateOrderDetails(): void {
     this.orderDetails.deliveryDate = this.convertDateTimeToString(this.orderDetails.deliveryDate);
     console.log(this.orderDetails);
-    this.orderService.updateOrderDetails(this.orderID, this.orderDetails).subscribe(
+    this.orderService.updateOrderDetails(this.orderService.getNewOrderID(), this.orderDetails).subscribe(
       res => {
         this.router.navigate(['/order/payment']);
       },
