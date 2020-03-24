@@ -1,7 +1,4 @@
 <form class="accountForm" name="form" #f="ngForm" (ngSubmit)="f.form.valid && updateInformations()">
-
-  <p>{{message}}</p>
-
   <div class="form-group account-details-form">
     <label for="RegisterEmail">Email address</label>
     <input type="email"
@@ -20,5 +17,5 @@
     </div>
   </div>
   </div>
-  <button type="submit" class="btn btn-primary submit-button">Submit</button>
+  <button type="submit" class="btn btn-success submit-button w-100">Submit</button>
 </form>

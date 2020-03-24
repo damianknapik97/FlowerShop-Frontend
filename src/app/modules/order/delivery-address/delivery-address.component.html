@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <ngb-progressbar animated="true" striped="true" type="success" max="100" value="25" ></ngb-progressbar>
+</div>
+<div class="border border-success rounded-lg ">
+  <div class="delivery-address">
+  <h4 class="component-title">
+    Please enter delivery address details.
+  </h4>
+  <div class="delivery-address-form container-fluid">
+    <form #form="ngForm" (ngSubmit)="form.form.valid && addDeliveryAddressToOrder()">
+      <div class="form-group">
+        <label for="input-city-name">City Name</label>
+        <input type="text"
+               class="form-control"
+               id="input-city-name"
+               [(ngModel)]="deliveryAddressDTO.cityName"
+               name="city"
+               #city="ngModel"
+               [ngClass]="{ 'is-invalid': form.submitted && city.invalid }"
+               required="true">
+        <div class="validation-error-message text-danger" *ngIf="form.submitted && city.invalid">City name can not be empty</div>
+      </div>
+      <div class="form-row">
+        <div class="street-name col">
+          <label for="input-street-name">Street Name</label>
+          <input type="text"
+                 class="form-control"
+                 id="input-street-name"
+                 [(ngModel)]="deliveryAddressDTO.streetName"
+                 name="street"
+                 #street="ngModel"
+                 [ngClass]="{ 'is-invalid': form.submitted && street.invalid }"
+                 required="true">
+          <div class="validation-error-message text-danger" *ngIf="form.submitted && street.invalid">Street name can not be empty</div>
+        </div>
+        <div class="house-number col">
+          <label for="input-house-number">House Number</label>
+          <input type="text"
+                 class="form-control"
+                 id="input-house-number"
+                 [(ngModel)]="deliveryAddressDTO.houseNumber"
+                 name="house"
+                 #house="ngModel"
+                 [ngClass]="{ 'is-invalid': form.submitted && house.invalid }"
+                 required="true" maxlength="7">
+          <div class="validation-error-message text-danger" *ngIf="form.submitted && house.invalid">
+            House number can not be empty
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="apartment-number col">
+          <label for="input-apartment">Apartment</label>
+          <input type="text" class="form-control" id="input-apartment" [(ngModel)]="deliveryAddressDTO.apartmentNumber" name="apartment" #apartment="ngModel" maxlength="7">
+          <small class="form-text text-muted">(Optional)</small>
+        </div>
+        <div class="zip-code col">
+          <label for="input-zip-code">Zip Code</label>
+          <input type="text"
+                 class="form-control"
+                 id="input-zip-code"
+                 [(ngModel)]="deliveryAddressDTO.zipCode"
+                 name="postalCode"
+                 #postalCode="ngModel"
+                 [ngClass]="{ 'is-invalid': form.submitted && postalCode.invalid }"
+                 required="true" pattern="^\d{2}(?:[-]\d{3})$" maxlength="6">
+          <div class="validation-error-message text-danger" *ngIf="form.submitted && postalCode.invalid">
+            <div *ngIf="postalCode.errors.required">Zip code can not be empty</div>
+            <div *ngIf="postalCode.errors.pattern">Zip code must match the following pattern: XX-XXX</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="button col">
+          <button type="button" class="cancel-button btn btn-danger" (click)='removeOrder()'>Cancel</button>
+          <button type="submit" class="continue-button btn btn-success">Continue</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+
+
+

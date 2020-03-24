@@ -1,0 +1,139 @@
+<div class="container-fluid">
+  <ngb-progressbar animated="true" striped="true" type="success" max="100" value="100" ></ngb-progressbar>
+</div>
+<div class="border border-success rounded-lg ">
+  <div class="payment">
+  <h4 class="component-title">
+    Please confirm if everything in your order is correct
+  </h4>
+  <div id="summary">
+    <div class="row justify-content-center" *ngIf="!resourcesLoaded">
+      <div class="spinner-border text-success"  role="status" style="width: 10rem; height: 10rem;">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div *ngIf="resourcesLoaded">
+
+
+    <div class="summary-component">
+      <button type="button"
+              class="summary-component-button btn btn-success"
+              (click)="shoppingCartCollapsed = !shoppingCartCollapsed"
+              [attr.aria-expanded]="!shoppingCartCollapsed"
+              aria-controls="shopping-cart">
+        Products
+      </button>
+      <div id="shopping-cart" class="border border-success rounded-lg" [ngbCollapse]="shoppingCartCollapsed">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let flowerOrder of orderDTO.shoppingCartDTO.flowerOrderDTOs">
+              <td>{{flowerOrder.flowerDTO.name}}</td>
+              <td>{{flowerOrder.itemCount}}</td>
+              <td>{{flowerOrder.flowerDTO.price.amount * flowerOrder.itemCount | number:'1.2-2'}} {{flowerOrder.flowerDTO.price.currency}}</td>
+            </tr>
+            <tr *ngFor="let occasionalArticleOrder of orderDTO.shoppingCartDTO.occasionalArticleOrderDTOs">
+              <td>{{occasionalArticleOrder.occasionalArticleDTO.name}}</td>
+              <td>{{occasionalArticleOrder.itemCount}}</td>
+              <td>{{occasionalArticleOrder.occasionalArticleDTO.price.amount * occasionalArticleOrder.itemCount | number:'1.2-2'}} {{occasionalArticleOrder.occasionalArticleDTO.price.currency}}</td>
+            </tr>
+            <tr *ngFor="let souvenirOrder of orderDTO.shoppingCartDTO.souvenirOrderDTOs">
+              <td>{{souvenirOrder.souvenirDTO.name}}</td>
+              <td>{{souvenirOrder.itemCount}}</td>
+              <td>{{souvenirOrder.souvenirDTO.price.amount * souvenirOrder.itemCount | number:'1.2-2'}} {{souvenirOrder.souvenirDTO.price.currency}}</td>
+            </tr>
+            <tr>
+              <td>Delivery</td>
+              <td></td>
+              <td>{{deliveryPrice.amount | number:'1.2-2'}} {{deliveryPrice.currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="summary-component">
+      <button type="button"
+              class="summary-component-button btn btn-success"
+              (click)="deliveryAddressCollapsed = !deliveryAddressCollapsed"
+              [attr.aria-expanded]="!deliveryAddressCollapsed"
+              aria-controls="delivery-address">
+        Delivery Address
+      </button>
+      <div id="delivery-address" class="border border-success rounded-lg" [ngbCollapse]="deliveryAddressCollapsed">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td class="param-name">City:</td>
+              <td>{{orderDTO.deliveryAddressDTO.cityName}}</td>
+            </tr>
+            <tr>
+              <td class="param-name">Zip code:</td>
+              <td>{{orderDTO.deliveryAddressDTO.zipCode}}</td>
+            </tr>
+            <tr>
+              <td class="param-name">Street:</td>
+              <td>{{orderDTO.deliveryAddressDTO.streetName}}</td>
+            </tr>
+            <tr>
+              <td class="param-name">House number:</td>
+              <td>{{orderDTO.deliveryAddressDTO.houseNumber}}</td>
+            </tr>
+            <tr>
+              <td class="param-name">Apartment:</td>
+              <td>{{orderDTO.deliveryAddressDTO.apartmentNumber}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="summary-component">
+      <button type="button"
+              class="summary-component-button btn btn-success"
+              (click)="detailsCollapsed = !detailsCollapsed"
+              [attr.aria-expanded]="!detailsCollapsed"
+              aria-controls="details">
+        Details
+      </button>
+      <div id="details" class="border border-success rounded-lg" [ngbCollapse]="detailsCollapsed">
+        <label for="message">Attached message</label>
+        <input id="message" type="text" class="form-control" placeholder="{{orderDTO.message}}" readonly>
+        <label for="delivery-date">Delivery date</label>
+        <input id="delivery-date" type="text" class="form-control" placeholder="{{orderDTO.deliveryDate}}" readonly>
+        <label for="additional-info">Additional information about order</label>
+        <textarea id="additional-info" type="text" class="form-control" placeholder="{{orderDTO.additionalNote}}" readonly></textarea>
+      </div>
+    </div>
+    <div class="summary-component">
+      <button type="button"
+              class="summary-component-button btn btn-success"
+              (click)="paymentCollapsed = !paymentCollapsed"
+              [attr.aria-expanded]="!paymentCollapsed"
+              aria-controls="payment">
+        Payment
+      </button>
+      <div id="payment" class="border border-success rounded-lg" [ngbCollapse]="paymentCollapsed">
+        <div class="row">
+        <div class="col-6">
+          <label for="payment-type">Payment type</label>
+          <input id="payment-type" type="text" class="form-control" placeholder="{{orderDTO.paymentDTO.paymentType}}" readonly>
+        </div>
+        <div class="total-price col-12">
+          <h4><b>Total Price: {{orderDTO.paymentDTO.totalPrice.amount | number:'1.2-2'}} {{orderDTO.paymentDTO.totalPrice.currency}}</b></h4>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="button col">
+        <button type="button" class="cancel-button btn btn-danger" (click)='removeOrder()'>Cancel</button>
+        <button type="button" class="continue-button btn btn-success" (click)="validateOrder()">Continue</button>
+    </div>
+  </div>
+</div>
+</div>

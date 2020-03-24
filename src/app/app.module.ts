@@ -11,7 +11,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { RegisterComponent } from './modules/account/register/register.component';
 import { AccountComponent } from './modules/account/account.component';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbProgressbar} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationService, AuthenticationGuard } from './core/security';
 import { ErrorInterceptor, JwtInterceptor } from './core/interceptors';
@@ -28,6 +28,13 @@ import { SouvenirComponent } from './modules/products/souvenir/souvenir.componen
 import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { OrderComponent } from './modules/order/order.component';
+import { DeliveryAddressComponent } from './modules/order/delivery-address/delivery-address.component';
+import { PaymentComponent } from './modules/order/payment/payment.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DetailsComponent } from './modules/order/details/details.component';
+import { SummaryComponent } from './modules/order/summary/summary.component';
+import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
 
 
 @NgModule({
@@ -49,7 +56,13 @@ import { FooterComponent } from './shared/footer/footer.component';
     SouvenirComponent,
     OccasionalArticleComponent,
     ShoppingCartComponent,
-    FooterComponent
+    FooterComponent,
+    OrderComponent,
+    DeliveryAddressComponent,
+    PaymentComponent,
+    DetailsComponent,
+    SummaryComponent,
+    DisplayOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +71,7 @@ import { FooterComponent } from './shared/footer/footer.component';
     HttpClientModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     NgbModule
   ],
   providers: [

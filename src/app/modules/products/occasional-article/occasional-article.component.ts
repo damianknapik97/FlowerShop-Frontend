@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OccasionalArticleDTO, RestPage } from 'src/app/core/dto';
+import { OccasionalArticleDTO, RestPage, MessageResponseDTO } from 'src/app/core/dto';
 import { OccasionalArticleService } from 'src/app/core/services';
 import { ArrayUtilities } from 'src/app/core/utilites';
 import { MatSnackBar } from '@angular/material';
@@ -11,7 +11,7 @@ import { AuthenticationGuard } from 'src/app/core/security';
   styleUrls: ['./occasional-article.component.sass']
 })
 export class OccasionalArticleComponent implements OnInit {
-  public message = 'Waiting for products to load...';
+  public resourcesLoaded = false;
   public viewModel: OccasionalArticleDTO[][];
   public elemntsInRow = 3;
   @Input() page = 1;
@@ -34,28 +34,31 @@ export class OccasionalArticleComponent implements OnInit {
   private getOccasionalArticlesPage(pageNumber: number): void {
     let page: RestPage<OccasionalArticleDTO>;
     this.service.retrievePage(pageNumber - 1).subscribe(
-      result => {
+      (result: RestPage<OccasionalArticleDTO>) => {
         page = result;
-        this.message = '';
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
         this.viewModel = this.arrayUtils.convertToTwoDimensions(
           page.content as object[],
           this.elemntsInRow
         ) as OccasionalArticleDTO[][];
+        this.resourcesLoaded = true;
       },
-      error => {
-        this.message = error;
+      (error: any) => {
+        console.log(error);
+        this.snackBar.open('Couldn\'t load resources', 'Error', {duration: 3000});
+        this.resourcesLoaded = true;
       }
     );
   }
 
   public addToShoppingCart(id: string) {
     this.service.addToShoppingCart(id).subscribe(
-      result => {
+      (result: MessageResponseDTO) => {
         this.snackBar.open(result.message, '', {duration: 1500});
       },
-      error => {
+      (error: any) => {
+        console.log(error);
         this.snackBar.open(error, '', {duration: 1500});
       }
     );

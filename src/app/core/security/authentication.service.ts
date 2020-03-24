@@ -49,12 +49,12 @@ export class AuthenticationService {
             this.currentUserSubject.next(JSON.parse(localStorage.getItem(this.storageItemName)));
             location.reload();
           } else {
-           this.snackBar.open('Login failed, please check your credentials');
+           this.snackBar.open('Login failed, please check your credentials', 'Warning', {duration: 3000});
           }
 
         },
         error => {
-          this.snackBar.open('Login failed, please check your credentials');
+          this.snackBar.open('Login failed, please check your credentials', 'Warning', {duration: 3000});
         }
 
       );
@@ -70,7 +70,7 @@ export class AuthenticationService {
         localStorage.removeItem(this.storageItemName);
         this.currentUserSubject.next(null);
         location.reload();
-        this.snackBar.open("Logged out !");
+        this.snackBar.open("Logged out !", 'Information', {duration: 3000});
       }
     );
    }

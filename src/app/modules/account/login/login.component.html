@@ -2,7 +2,7 @@
 
   <div class="form-group">
     <label for="loginInput">Login</label>
-    <input type="text" 
+    <input type="text"
            class="form-control"
            id="loginInput"
            aria-describedby="loginHelp"
@@ -15,7 +15,7 @@
   </div>
   <div class="form-group">
     <label for="passwordInput">Password</label>
-    <input type="password" 
+    <input type="password"
            class="form-control"
            id="passwordInput"
            [(ngModel)]="model.password"
@@ -25,5 +25,5 @@
     <div class="text-danger" *ngIf="f.submitted && password.invalid"> Password can not be empty</div>
 
   </div>
-  <button type="submit" class="btn btn-primary submit-button">Submit</button>
+  <button type="submit" class="btn btn-success submit-button">Submit</button>
 </form>

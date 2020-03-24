@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <ngb-progressbar animated="true" striped="true" type="success" max="100" value="75" ></ngb-progressbar>
+</div>
+<div class="border border-success rounded-lg ">
+  <div class="payment">
+  <h4 class="component-title">
+    Please choose your payment
+  </h4>
+
+
+  <div class="payment-form container-fluid no-gutters" >
+    <div class="row justify-content-center" *ngIf="!resourcesLoaded">
+      <div class="spinner-border text-success"  role="status" style="width: 10rem; height: 10rem;">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <form #form="ngForm" (ngSubmit)="form.form.valid && addPaymentToOrder()" *ngIf="resourcesLoaded">
+      <div class="row justify-content-center">
+        <div class="form-group col-6">
+          <label for="inputPaymentType">Payment Type</label>
+          <select id="inputPaymentType" class="form-control" [(ngModel)]="paymentDTO.paymentType" name="payment">
+            <option *ngFor="let paymentType of paymentTypes" [value]="paymentType" >{{paymentType}}</option>
+          </select>
+        </div>
+        <div class="total-price col-6">
+          <h4><b>Total Price: {{paymentDTO.totalPrice.amount | number:'1.2-2'}} {{paymentDTO.totalPrice.currency}}</b></h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="button col">
+          <button type="button" class="cancel-button btn btn-danger" (click)='removeOrder()'>Cancel</button>
+          <button type="submit" class="continue-button btn btn-success">Continue</button>
+      </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+
+
+

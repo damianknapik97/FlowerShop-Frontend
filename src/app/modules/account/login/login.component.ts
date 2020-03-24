@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LoginDTO } from 'src/app/core/dto/account';
 import { AccountService } from 'src/app/core/services';
 
@@ -9,7 +9,7 @@ import { AccountService } from 'src/app/core/services';
 })
 export class LoginComponent implements OnInit {
 
-  public model: LoginDTO = {
+  @Input() public model: LoginDTO = {
     username: '',
     password: ''
   };

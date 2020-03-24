@@ -17,6 +17,12 @@ import { FlowerComponent } from './modules/products/flower/flower.component';
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+import { OrderComponent } from './modules/order/order.component';
+import { DeliveryAddressComponent} from './modules/order/delivery-address/delivery-address.component';
+import { PaymentComponent } from './modules/order/payment/payment.component';
+import { SummaryComponent } from './modules/order/summary/summary.component';
+import { DetailsComponent } from './modules/order/details/details.component';
+import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
 
 
 const routes: Routes = [
@@ -39,6 +45,7 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthenticationGuard],
     children: [
+      { path: 'display-orders', component: DisplayOrdersComponent},
       { path: 'manage-details', component: ManageDetailsComponent },
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'delete', component: DeleteComponent }
@@ -59,11 +66,21 @@ const routes: Routes = [
     ]
   },
   {
-  path: 'shopping-cart',
-  component: ShoppingCartComponent,
-  canActivate: [AuthenticationGuard]
+    path: 'shopping-cart',
+    component: ShoppingCartComponent,
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'order',
+    component: OrderComponent,
+    canActivate: [AuthenticationGuard],
+    children: [
+      { path: 'delivery-address', component: DeliveryAddressComponent},
+      { path: 'details', component: DetailsComponent},
+      { path: 'payment', component: PaymentComponent},
+      { path: 'summary', component: SummaryComponent}
+    ]
   }
-
 ];
 
 @NgModule({

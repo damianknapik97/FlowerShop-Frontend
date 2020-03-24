@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountDetailsDTO } from 'src/app/core/dto/account';
 import { AuthenticationService } from 'src/app/core/security';
 import { AccountService } from 'src/app/core/services';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-manage-details',
@@ -9,34 +10,37 @@ import { AccountService } from 'src/app/core/services';
   styleUrls: ['./manage-details.component.sass']
 })
 export class ManageDetailsComponent implements OnInit {
-
-  public message: string = '';
   public model: AccountDetailsDTO = {
     email: ''
   };
 
   constructor(private authService: AuthenticationService,
-              private accService: AccountService) { }
+              private accService: AccountService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.accService.getDetails().subscribe(
-      result => {
-        this.model = result;
-      },
-      error => {
-        this.message = error;
-      }
-    )
+    this.retrieveAccountDetails();
   }
 
   public updateInformations(): void {
     this.accService.updateDetails(this.model).subscribe(
       result => {
-        this.message = "Account updated succesfully!"
+        this.retrieveAccountDetails();
+        this.snackBar.open('Account updated successfully', 'Information', {duration: 3000});
       },
       error => {
-        this.message = "Account updated failed !"
+        this.snackBar.open('Account updated failed', 'Error', {duration: 3000});
       }
     );
+  }
+
+  private retrieveAccountDetails(): void {
+    this.accService.getDetails().subscribe(
+      result => {
+        this.model = result;
+      },
+      error => {
+        this.snackBar.open('Couldn\'t retrieve your account details', 'Error', {duration: 3000});
+      });
   }
 }
