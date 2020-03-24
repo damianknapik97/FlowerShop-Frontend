@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     name: '',
     email: '',
     password: '',
-    role: 'USER',
+    role: 'ROLE_USER',
   };
 
   constructor(private router: Router,
