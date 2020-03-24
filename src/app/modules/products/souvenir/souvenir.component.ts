@@ -5,6 +5,7 @@ import { ArrayUtilities } from 'src/app/core/utilites';
 import { RestPage } from 'src/app/core/dto/rest-page';
 import { MatSnackBar } from '@angular/material';
 import { AuthenticationGuard } from 'src/app/core/security';
+import { MessageResponseDTO } from 'src/app/core/dto';
 
 @Component({
   selector: 'app-souvenir',
@@ -12,7 +13,7 @@ import { AuthenticationGuard } from 'src/app/core/security';
   styleUrls: ['./souvenir.component.sass']
 })
 export class SouvenirComponent implements OnInit {
-  public message = 'Waiting for products to load...';
+  public resourcesLoaded = false;
   public viewModel: SouvenirDTO[][];
   public elemntsInRow = 3;
   @Input() page = 1;
@@ -36,25 +37,27 @@ export class SouvenirComponent implements OnInit {
   private getSouvenirsPage(pageNumber: number): void {
     let page: RestPage<SouvenirDTO>;
     this.service.retrievePage(pageNumber - 1).subscribe(
-      result => {
+      (result: RestPage<SouvenirDTO>) => {
         page = result;
-        this.message = '';
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
         this.viewModel = this.arrayUtils.convertToTwoDimensions(page.content as object[], this.elemntsInRow) as SouvenirDTO[][];
+        this.resourcesLoaded = true;
       },
-      error => {
-        this.message = error;
+      (error: any) => {
+        console.log(error);
+        this.snackBar.open('Couldn\'t load resources', 'Error', {duration: 3000});
+        this.resourcesLoaded = true;
       }
     );
   }
 
   public addToShoppingCart(id: string) {
     this.service.addToShoppingCart(id).subscribe(
-      result => {
+      (result: MessageResponseDTO) => {
         this.snackBar.open(result.message, '', {duration: 1500});
       },
-      error => {
+      (error: any) => {
         this.snackBar.open(error, '', {duration: 1500});
       }
     );

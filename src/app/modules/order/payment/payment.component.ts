@@ -13,11 +13,13 @@ import { ShippingService } from 'src/app/core/services/shipping.service';
   styleUrls: ['./payment.component.sass']
 })
 export class PaymentComponent implements OnInit {
+  public resourcesLoaded = false;
   public paymentTypes: string[];
   @Input() public paymentDTO: PaymentDTO = {
     id: '',
     totalPrice: {amount: 0, currency: 'Undefined'},
-    paymentType: ''
+    paymentType: '',
+    wasPaid: false
   };
 
   constructor(private service: PaymentService,
@@ -67,6 +69,7 @@ export class PaymentComponent implements OnInit {
     this.service.getAvailablePaymentTypes().subscribe(
       res => {
         this.paymentTypes = res;
+        this.resourcesLoaded = true;
       },
       err => {
         console.log(err);

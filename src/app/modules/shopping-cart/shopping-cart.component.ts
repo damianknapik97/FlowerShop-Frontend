@@ -13,7 +13,7 @@ import { OrderService } from 'src/app/core/services';
   styleUrls: ['./shopping-cart.component.sass']
 })
 export class ShoppingCartComponent implements OnInit {
-  public message = 'Loading...';
+  public dataLoaded = false;
   public shoppingCart: ShoppingCartDTO;
   public shipping: Price = {amount: 5, currency: ''};
   public totalPrice: Price = {amount: 0, currency: ''};
@@ -35,6 +35,7 @@ export class ShoppingCartComponent implements OnInit {
     .then(
       () => {
         this.checkIfThereIsUnfinishedOrder();
+        this.dataLoaded = true;
       }
     )
     .catch(
@@ -63,7 +64,6 @@ export class ShoppingCartComponent implements OnInit {
   private retrieveShoppingCartData(): Promise<void> {
     return this.service.getShoppingCart().toPromise().then(
       (result: ShoppingCartDTO) => {
-        this.message = '';
         this.service.initializeMissingArrays(result);
         this.shoppingCart = result;
         this.recountTotalPrice();

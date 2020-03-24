@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FlowerService } from 'src/app/core/services';
-import { FlowerDTO } from 'src/app/core/dto';
+import { FlowerDTO, MessageResponseDTO } from 'src/app/core/dto';
 import { ArrayUtilities } from 'src/app/core/utilites';
 import { RestPage } from 'src/app/core/dto/rest-page';
 import { MatSnackBar } from '@angular/material';
@@ -12,7 +12,7 @@ import { AuthenticationGuard } from 'src/app/core/security';
   styleUrls: ['./flower.component.sass']
 })
 export class FlowerComponent implements OnInit {
-  public message = 'Waiting for products to load...';
+  public resourcesLoaded = false;
   public viewModel: FlowerDTO[][];
   public elemntsInRow = 3;
   @Input() page = 1;
@@ -36,15 +36,17 @@ export class FlowerComponent implements OnInit {
   private getFlowersPage(pageNumber: number): void {
     let page: RestPage<FlowerDTO>;
     this.flowerService.retrievFlowerPage(pageNumber - 1).subscribe(
-      result => {
+      (result: RestPage<FlowerDTO>) => {
         page = result;
-        this.message = '';
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
         this.viewModel = this.arrayUtils.convertToTwoDimensions(page.content as object[], this.elemntsInRow) as FlowerDTO[][];
+        this.resourcesLoaded = true;
       },
-      error => {
-        this.message = error;
+      (error: any) => {
+        console.log(error);
+        this.snackBar.open('Couldn\'t load resources', 'Error', {duration: 3000});
+        this.resourcesLoaded = true;
       }
 
     );
@@ -52,10 +54,10 @@ export class FlowerComponent implements OnInit {
 
   public addToShoppingCart(id: string) {
     this.flowerService.addToShoppingCart(id).subscribe(
-      result => {
+      (result: MessageResponseDTO) => {
         this.snackBar.open(result.message, '', {duration: 1500});
       },
-      error => {
+      (error: any) => {
         this.snackBar.open(error, '', {duration: 1500});
       }
     );

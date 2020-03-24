@@ -12,6 +12,7 @@ import { ShippingService } from 'src/app/core/services/shipping.service';
   styleUrls: ['./summary.component.sass']
 })
 export class SummaryComponent implements OnInit {
+  public resourcesLoaded = false;
   @Input() public shoppingCartCollapsed = false;
   @Input() public deliveryAddressCollapsed = false;
   @Input() public detailsCollapsed = false;
@@ -42,10 +43,12 @@ export class SummaryComponent implements OnInit {
       totalPrice: {
         amount: 0,
         currency: 'Undefined'
-      }
+      },
+      wasPaid: false
     },
     placementDate: '',
-    additionalNote: ''
+    additionalNote: '',
+    orderStatus: 'CREATED'
   };
 
   constructor(private orderService: OrderService,
@@ -67,6 +70,7 @@ export class SummaryComponent implements OnInit {
     this.orderService.retrieveNewOrder(orderID).subscribe(
       res => {
         this.orderDTO = res;
+        this.resourcesLoaded = true;
       },
       err => {
         this.router.navigate(['/']).then(
@@ -82,7 +86,7 @@ export class SummaryComponent implements OnInit {
   public validateOrder(): void {
     this.orderService.validateOrderAndChangeItsStatus(this.orderService.getNewOrderID()).subscribe(
       res => {
-        this.router.navigate(['/']).then(
+        this.router.navigate(['/profile/display-orders']).then(
           () => {
             this.snackBar.open('New order submited succesfully', 'Information', {duration: 3000});
           });

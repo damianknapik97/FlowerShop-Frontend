@@ -19,7 +19,7 @@ export class FormService {
       return false;
     }
 
-    if (time.hour > environment.shopOpeningHour && time.hour < environment.shopClosingHour) {
+    if (time.hour >= environment.shopOpeningHour && time.hour < environment.shopClosingHour) {
       return true;
     }
     return false;

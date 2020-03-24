@@ -7,8 +7,14 @@
     Please choose your payment
   </h4>
 
-  <div class="payment-form container-fluid no-gutters">
-    <form #form="ngForm" (ngSubmit)="form.form.valid && addPaymentToOrder()">
+
+  <div class="payment-form container-fluid no-gutters" >
+    <div class="row justify-content-center" *ngIf="!resourcesLoaded">
+      <div class="spinner-border text-success"  role="status" style="width: 10rem; height: 10rem;">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <form #form="ngForm" (ngSubmit)="form.form.valid && addPaymentToOrder()" *ngIf="resourcesLoaded">
       <div class="row justify-content-center">
         <div class="form-group col-6">
           <label for="inputPaymentType">Payment Type</label>
