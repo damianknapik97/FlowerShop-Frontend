@@ -13,10 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             let errorMsg = '';
 
             if (err.status === 401) {
-                // Auto logout if 401 response returned from api
-                this.authenticationService.logout();
-                errorMsg = 'You do not have required privileges to perform that action';
-
+               errorMsg = 'Insufficient privileges';
             } else if ( err.status === 404 || err.status === 101) {
                 errorMsg = 'Service not found!';
             } else {

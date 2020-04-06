@@ -27,21 +27,6 @@ export class AccountService {
 
     public delete(password: string): Observable<string> {
         const params = new HttpParams().set('password', password);
-
-        /*
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'DELETE',
-                'Access-Control-Allow-Origin': '*'
-            }),
-            body: {
-                password
-            }
-        }
-        */
-
         return this.http.delete<string>(environment.apiUrl + '/account', {params});
     }
 
@@ -50,7 +35,7 @@ export class AccountService {
     }
 
     public updatePassword(model: PasswordChangeDTO): Observable<string> {
-        return this.http.put<string>(environment.apiUrl + '/account/password', model)
+        return this.http.put<string>(environment.apiUrl + '/account/password', model);
     }
 
     public getDetails(): Observable<AccountDetailsDTO> {
