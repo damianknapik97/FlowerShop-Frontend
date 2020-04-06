@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthenticationService } from '../security';
 import { environment } from 'src/environments/environment';
 
 import { LoginDTO, AccountDTO, AccountDetailsDTO, PasswordChangeDTO } from '../dto/account';
 import { MessageResponseDTO } from '../dto';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
     providedIn: 'root'

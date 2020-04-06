@@ -23,6 +23,7 @@ import { PaymentComponent } from './modules/order/payment/payment.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
 import { DetailsComponent } from './modules/order/details/details.component';
 import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
+import { LoginGuard } from './core/security/login.guard';
 
 
 const routes: Routes = [
@@ -34,10 +35,10 @@ const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
-    canActivate: [AuthenticationGuard],
+    canActivate: [LoginGuard],
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent  }
+      { path: 'login', component: LoginComponent},
+      { path: 'register', component: RegisterComponent}
     ]
   },
   {
@@ -50,10 +51,6 @@ const routes: Routes = [
       { path: 'change-password', component: ChangePasswordComponent },
       { path: 'delete', component: DeleteComponent }
     ]
-  },
-  {
-    path: 'login',
-    component: LoginComponent
   },
   {
     path: 'products',

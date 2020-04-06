@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AccountDTO } from 'src/app/core/dto/account';
 import { AccountService } from 'src/app/core/services';
 import { MatSnackBar } from '@angular/material';
+import { AccountRole } from 'src/app/core/constants/account-role.enum';
 
 
 
@@ -18,7 +19,7 @@ export class RegisterComponent implements OnInit {
     name: '',
     email: '',
     password: '',
-    role: 'ROLE_USER',
+    role: AccountRole.ROLE_USER,
   };
 
   constructor(private router: Router,
