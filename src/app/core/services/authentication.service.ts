@@ -28,7 +28,7 @@ export class AuthenticationService {
    }
 
    public get currentUserID(): string {
-     if(this.currentUserValue != null){
+     if (this.currentUserValue != null){
       const toReturn: string = this.currentUserValue.accId;
       if (toReturn != null) {
         return toReturn;
@@ -37,6 +37,11 @@ export class AuthenticationService {
      return '';
    }
 
+   /**
+    * Sends request to backend in order ro recive JWT Token and account role, and saves it to local storage.
+    *
+    * @param loginViewModel - Login credentials
+    */
    public login(loginViewModel: LoginDTO): void {
       this.http.post<void>(environment.apiUrl + '/login', loginViewModel, {observe: 'response'}).subscribe(
         (response: HttpResponse<void>) => {
@@ -61,6 +66,9 @@ export class AuthenticationService {
       );
    }
 
+   /**
+    * Sends request to backend in order to remove JWT Token, and cleans local storage together with all currently used variables.
+    */
    public logout(): void {
     this.http.post(environment.apiUrl + '/logout', null).subscribe().add(
       () => {
@@ -71,11 +79,21 @@ export class AuthenticationService {
     );
    }
 
-   private redirectToMainPage(snackBarMessage?: string): void {
+   /**
+    * Utilizes router to navigate to the maing page.
+    *
+    * @param snackBarMessage - Adding this paramter displays Snack Bar after redirection, contianing provided information
+    * @param snackBarTitle - Adding this paramter allows to change snack bar title from 'Information' to provided one
+    */
+   public redirectToMainPage(snackBarMessage?: string , snackBarTitle?: string ): void {
     this.router.navigate(['/']).then(
       () => {
         if (snackBarMessage != null) {
-          this.snackBar.open(snackBarMessage, 'Information', {duration: 3000});
+          if (snackBarTitle != null) {
+            this.snackBar.open(snackBarMessage, snackBarTitle, {duration: 3000});
+          } else {
+            this.snackBar.open(snackBarMessage, 'Information', {duration: 3000});
+          }
         }
     });
    }

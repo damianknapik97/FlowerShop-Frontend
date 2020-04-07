@@ -8,7 +8,7 @@ import { AuthenticationService } from '../services/authentication.service';
   providedIn: 'root'
 })
 export class AuthenticationGuard implements CanActivate {
-  constructor(private authenticationService: AuthenticationService, private router: Router, private snackBar: MatSnackBar) {}
+  constructor(private authenticationService: AuthenticationService, private snackBar: MatSnackBar) {}
 
   /**
    * Check if user has saved details in local storage, and if the token and role are not null.
@@ -19,12 +19,9 @@ export class AuthenticationGuard implements CanActivate {
     if (this.isAuthenticated()) {
       return true;
     } else {
-      this.router.navigate(['/']).then(
-        () => {
-          this.snackBar.open('You need to be authenticated for such action', 'Warning', {duration: 3500});
-        }
-      );
+      this.authenticationService.redirectToMainPage('You need to be authenticated for such action', 'Error');
     }
+    return false;
   }
 
   /**

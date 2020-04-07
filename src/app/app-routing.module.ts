@@ -24,6 +24,10 @@ import { SummaryComponent } from './modules/order/summary/summary.component';
 import { DetailsComponent } from './modules/order/details/details.component';
 import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
 import { LoginGuard } from './core/security/login.guard';
+import { AdminComponent } from './modules/admin/admin.component';
+import { AdminGuard } from './core/security/admin.guard';
+import { EmployeeGuard } from './core/security/employee.guard';
+import { EmployeeComponent } from './modules/employee/employee.component';
 
 
 const routes: Routes = [
@@ -77,6 +81,16 @@ const routes: Routes = [
       { path: 'payment', component: PaymentComponent},
       { path: 'summary', component: SummaryComponent}
     ]
+  },
+  {
+    path: 'employee',
+    component: EmployeeComponent,
+    canActivate: [EmployeeGuard]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AdminGuard]
   }
 ];
 
