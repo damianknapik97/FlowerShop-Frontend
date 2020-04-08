@@ -5,4 +5,7 @@ export interface SouvenirDTO {
   name: string;
   price: Price;
   description: string;
+  imageLarge: string;
+  imageMedium: string;
+  imageSmall: string;
 }

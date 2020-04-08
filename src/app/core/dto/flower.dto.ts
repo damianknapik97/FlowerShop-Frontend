@@ -6,4 +6,7 @@ export interface FlowerDTO {
     price: Price;
     description: string;
     height: number;
+    imageLarge: string;
+    imageMedium: string;
+    imageSmall: string;
 }
