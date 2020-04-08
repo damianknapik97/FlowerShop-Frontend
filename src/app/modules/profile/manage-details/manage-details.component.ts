@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountDetailsDTO } from 'src/app/core/dto/account';
-import { AuthenticationService } from 'src/app/core/security';
 import { AccountService } from 'src/app/core/services';
 import { MatSnackBar } from '@angular/material';
 
@@ -14,8 +13,7 @@ export class ManageDetailsComponent implements OnInit {
     email: ''
   };
 
-  constructor(private authService: AuthenticationService,
-              private accService: AccountService,
+  constructor(private accService: AccountService,
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {

@@ -5,6 +5,7 @@
                     [collectionSize]="collectionSize"
                     [directionLinks]="true"
                     [maxSize]="8"
+                    [ellipses]="false"
                     [pageSize]="pageSize"
                     [rotate]="true"
                     (pageChange)="retrieveOrdersPage(page)"
@@ -19,7 +20,7 @@
     <table class="table table-bordered table-hover content w-100">
       <thead class="thead">
         <tr>
-          <th></th>
+          <th>#</th>
           <th scope="col">Order ID</th>
           <th scope="col">Placement Date</th>
           <th scope="col">Delivery Date</th>
@@ -39,7 +40,6 @@
           <td>{{order.orderStatus}}</td>
         </tr>
       </tbody>
-
     </table>
   </div>
 </div>

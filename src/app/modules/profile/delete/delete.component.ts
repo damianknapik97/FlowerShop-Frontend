@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/core/services';
-import { AuthenticationService } from 'src/app/core/security';
 import { MatSnackBar } from '@angular/material';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 
 @Component({
   selector: 'app-delete',
@@ -10,8 +10,8 @@ import { MatSnackBar } from '@angular/material';
 })
 export class DeleteComponent implements OnInit {
 
-  public message: string = '';
-  public modelPassword: string = '';
+  public message = '';
+  public modelPassword = '';
 
   constructor(private accService: AccountService,
               private authService: AuthenticationService,

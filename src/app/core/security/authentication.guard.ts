@@ -1,52 +1,40 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { AuthenticationService } from './authentication.service';
-import { UserDTO } from '../dto/account';
+import { MatSnackBar } from '@angular/material';
+import { AuthenticationService } from '../services/authentication.service';
 
-/*tslint:disable */
-@Injectable()
+
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationGuard implements CanActivate {
-	private user: UserDTO;
+  constructor(private authenticationService: AuthenticationService, private snackBar: MatSnackBar) {}
 
-	constructor(private authenticationService: AuthenticationService, private router: Router) {
-		this.user = this.authenticationService.currentUserValue;
-	}
+  /**
+   * Check if user has saved details in local storage, and if the token and role are not null.
+   * If this check fails, user is redirected to the main page with snack bar popping up informing him about the problem.
+   *
+   */
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.isAuthenticated()) {
+      return true;
+    } else {
+      this.authenticationService.redirectToMainPage('You need to be authenticated for such action', 'Error');
+    }
+    return false;
+  }
 
-	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-
-		this.user = this.authenticationService.currentUserValue;
-
-		let firstPathSegment: String = route.url.find(
-			index => 1
-		).path;
-
-		let canActivateLogin = this.canActivateLogin(firstPathSegment);
-		if(canActivateLogin != null) {
-			return canActivateLogin;
-		}
-
- 		if(this.isAuthenticated()) {
-			return true;
-		} else {
-			this.router.navigate(['/']);
-			return false
-		}
-	}
-
-	canActivateLogin(route: String): boolean {
-		if(route === 'account' && this.user == null) {
-			return true;
-		} else if(route === 'account' && this.user != null) {
-			return false;
-		}
-		return null;
-	}
-
-	isAuthenticated(): boolean {
-		if(this.user != null) {
-			return true;
-		}
-		return false;
-
-	}
+  /**
+   * Actual logic used for checking if user role is authenticated on current page.
+   * This method is reused in Navigator component for determining which menu position should user be able to view.
+   */
+  isAuthenticated(): boolean {
+    const user = this.authenticationService.currentUserValue;
+    if (user != null) {
+      if (user.role != null && user.token != null) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

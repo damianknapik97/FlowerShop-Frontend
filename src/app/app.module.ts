@@ -13,7 +13,7 @@ import { AccountComponent } from './modules/account/account.component';
 
 import {NgbModule, NgbProgressbar} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthenticationService, AuthenticationGuard } from './core/security';
+import { AuthenticationGuard } from './core/security';
 import { ErrorInterceptor, JwtInterceptor } from './core/interceptors';
 import { MatchStringValidatorDirective } from './core/directives/match-string.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,6 +35,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DetailsComponent } from './modules/order/details/details.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
 import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
+import { AuthenticationService } from './core/services/authentication.service';
+import { AdminComponent } from './modules/admin/admin.component';
+import { EmployeeComponent } from './modules/employee/employee.component';
 
 
 @NgModule({
@@ -63,6 +66,8 @@ import { DisplayOrdersComponent } from './modules/profile/display-orders/display
     DetailsComponent,
     SummaryComponent,
     DisplayOrdersComponent,
+    AdminComponent,
+    EmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,8 +82,6 @@ import { DisplayOrdersComponent } from './modules/profile/display-orders/display
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    AuthenticationGuard,
-    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

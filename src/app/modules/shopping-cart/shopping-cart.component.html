@@ -40,14 +40,14 @@
                 <tbody >
                   <tr *ngFor="let flowerOrder of shoppingCart.flowerOrderDTOs">
                     <td>
-                      <img src="https://dummyimage.com/50x50/55595c/fff" />
+                      <img class="product-img" src="{{flowerOrder.flowerDTO.imageSmall}}"/>
                     </td>
-                    <td>{{flowerOrder.flowerDTO.name}}</td>
-                    <td>
+                    <td class="product-column">{{flowerOrder.flowerDTO.name}}</td>
+                    <td class="product-column">
                       {{flowerOrder.itemCount}}
                     </td>
-                    <td class="text-right">{{flowerOrder.flowerDTO.price.amount | number:'1.2-2'}} {{flowerOrder.flowerDTO.price.currency}}</td>
-                    <td class="text-right">
+                    <td class="product-column text-right">{{flowerOrder.flowerDTO.price.amount | number:'1.2-2'}} {{flowerOrder.flowerDTO.price.currency}}</td>
+                    <td class="product-column text-right">
                       <button class="btn btn-sm btn-danger" (click)="deleteFlowerOrder(flowerOrder)">
                         <i class="fa fa-trash"></i>
                       </button>
@@ -95,14 +95,12 @@
                   <tbody>
                     <tr *ngFor="let occasionalArticle of shoppingCart.occasionalArticleOrderDTOs">
                       <td>
-                        <img src="https://dummyimage.com/50x50/55595c/fff" />
+                        <img class="product-img" src="{{occasionalArticle.occasionalArticleDTO.imageSmall}}" />
                       </td>
-                      <td>{{occasionalArticle.occasionalArticleDTO.name}}</td>
-                      <td>
-                       {{occasionalArticle.itemCount}}
-                      </td>
-                      <td class="text-right">{{occasionalArticle.occasionalArticleDTO.price.amount | number:'1.2-2'}} {{occasionalArticle.occasionalArticleDTO.price.currency}}</td>
-                      <td class="text-right">
+                      <td class="product-column">{{occasionalArticle.occasionalArticleDTO.name}}</td>
+                      <td class="product-column">{{occasionalArticle.itemCount}}</td>
+                      <td class="product-column text-right">{{occasionalArticle.occasionalArticleDTO.price.amount | number:'1.2-2'}} {{occasionalArticle.occasionalArticleDTO.price.currency}}</td>
+                      <td class="product-column text-right">
                         <button class="btn btn-sm btn-danger" (click)="deleteOccasionalArticleOrder(occasionalArticle)">
                           <i class="fa fa-trash"></i>
                         </button>
@@ -150,14 +148,13 @@
                   <tbody>
                     <tr *ngFor="let souvenirOrder of shoppingCart.souvenirOrderDTOs">
                       <td>
-                        <img src="https://dummyimage.com/50x50/55595c/fff" />
+
+                        <img class="product-img" src="{{souvenirOrder.souvenirDTO.imageSmall}}" />
                       </td>
-                      <td>{{souvenirOrder.souvenirDTO.name}}</td>
-                      <td>
-                        {{souvenirOrder.itemCount}}
-                      </td>
-                      <td class="text-right">{{souvenirOrder.souvenirDTO.price.amount | number: '1.2-2'}} {{souvenirOrder.souvenirDTO.price.currency}}</td>
-                      <td class="text-right">
+                      <td class="product-column">{{souvenirOrder.souvenirDTO.name}}</td>
+                      <td class="product-column">{{souvenirOrder.itemCount}}</td>
+                      <td class="product-column text-right">{{souvenirOrder.souvenirDTO.price.amount | number: '1.2-2'}} {{souvenirOrder.souvenirDTO.price.currency}}</td>
+                      <td class="product-column text-right">
                         <button class="btn btn-sm btn-danger" (click)="deleteSouvenirOrder(souvenirOrder)">
                           <i class="fa fa-trash"></i>
                         </button>

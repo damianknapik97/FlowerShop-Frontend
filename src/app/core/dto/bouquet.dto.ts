@@ -3,4 +3,7 @@ export interface BouquetDTO {
     name: string;
     amount: number;
     currency: string;
+    imageLarge: string;
+    imageMedium: string;
+    imageSmall: string;
 }

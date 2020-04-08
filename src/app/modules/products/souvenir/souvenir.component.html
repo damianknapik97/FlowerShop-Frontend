@@ -5,6 +5,9 @@
       size="lg"
       [(page)]="page"
       [pageSize]="pageSize"
+      [maxSize]="5"
+      [rotate]="true"
+      [ellipses]="false"
       [collectionSize]="collectionSize"
       (pageChange)="onChangePage(page)"
     ></ngb-pagination>
@@ -20,30 +23,30 @@
   <div class="row products-row" *ngFor="let row of viewModel">
     <div
       class="card products-column"
-      style="width: 18rem;"
+      style="width: 20rem;"
       *ngFor="let product of row"
     >
       <img
         class="card-img-top"
-        src="https://res.cloudinary.com/teepublic/image/private/s--SGRNbp7E--/c_crop,x_10,y_10/c_fit,h_799/c_crop,g_north_west,h_1051,w_1051,x_-153,y_-126/l_upload:v1507037314:production:blanks:gbajnunp66ec7xftnpq1/fl_layer_apply,g_north_west,x_-258,y_-225/b_rgb:ffffff/c_limit,f_jpg,h_630,q_90,w_630/v1521105002/production/designs/2473230_0.jpg"
+        src="{{product.imageMedium}}"
         alt="Card image cap"
       />
-      <div class="card-body">
+      <div class="card-body title">
         <h5 class="card-title">{{ product.name }}</h5>
         <p class="card-text ">
           <small>ID: {{ product.id }} </small>
         </p>
       </div>
-      <ul class="list-group list-group-flush">
+      <ul class="list-group list-group-flush description">
         <li class="list-group-item">{{ product.description }}</li>
       </ul>
       <div class="card-body">
-        <p class="price">
+        <p class="price float-left">
           {{ product.price.amount }} {{ product.price.currency }}
-          <button type="button" class="btn btn-success float-right" *ngIf="authenticationGuard.isAuthenticated()" (click)="addToShoppingCart(product.id)">
-            Add to cart
-          </button>
         </p>
+        <button type="button" class="btn btn-success float-right" *ngIf="authenticationGuard.isAuthenticated()" (click)="addToShoppingCart(product.id)">
+          Add to cart
+        </button>
       </div>
     </div>
   </div>
@@ -54,6 +57,9 @@
       size="lg"
       [(page)]="page"
       [pageSize]="pageSize"
+      [maxSize]="5"
+      [rotate]="true"
+      [ellipses]="false"
       [collectionSize]="collectionSize"
       (pageChange)="onChangePage(page)"
     ></ngb-pagination>

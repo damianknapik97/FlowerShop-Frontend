@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AuthenticationService } from 'src/app/core/security';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AccountRole } from '../constants/account-role.enum';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -17,7 +18,8 @@ export class JwtInterceptor implements HttpInterceptor {
         if (currentUser != null && isApiUrl) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: currentUser.token
+                    Authorization: currentUser.token,
+                    Role: AccountRole[currentUser.role]
                 }
             });
         }

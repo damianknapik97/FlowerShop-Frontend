@@ -6,4 +6,7 @@ export interface OccasionalArticleDTO {
   price: Price;
   description: string;
   theme: string;
+  imageLarge: string;
+  imageMedium: string;
+  imageSmall: string;
 }

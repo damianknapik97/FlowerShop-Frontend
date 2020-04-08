@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { AuthenticationService } from 'src/app/core/security';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -13,10 +13,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             let errorMsg = '';
 
             if (err.status === 401) {
-                // Auto logout if 401 response returned from api
-                this.authenticationService.logout();
-                errorMsg = 'You do not have required privileges to perform that action';
-
+               errorMsg = 'Insufficient privileges';
             } else if ( err.status === 404 || err.status === 101) {
                 errorMsg = 'Service not found!';
             } else {
