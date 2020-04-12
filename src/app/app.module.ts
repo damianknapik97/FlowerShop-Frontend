@@ -38,6 +38,7 @@ import { DisplayOrdersComponent } from './modules/profile/display-orders/display
 import { AuthenticationService } from './core/services/authentication.service';
 import { AdminComponent } from './modules/admin/admin.component';
 import { EmployeeComponent } from './modules/employee/employee.component';
+import { OrderAdministrationComponent } from './modules/employee/order-administration/order-administration.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { EmployeeComponent } from './modules/employee/employee.component';
     DisplayOrdersComponent,
     AdminComponent,
     EmployeeComponent,
+    OrderAdministrationComponent,
   ],
   imports: [
     BrowserModule,

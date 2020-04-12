@@ -28,6 +28,7 @@ import { AdminComponent } from './modules/admin/admin.component';
 import { AdminGuard } from './core/security/admin.guard';
 import { EmployeeGuard } from './core/security/employee.guard';
 import { EmployeeComponent } from './modules/employee/employee.component';
+import { OrderAdministrationComponent } from './modules/employee/order-administration/order-administration.component';
 
 
 const routes: Routes = [
@@ -85,7 +86,10 @@ const routes: Routes = [
   {
     path: 'employee',
     component: EmployeeComponent,
-    canActivate: [EmployeeGuard]
+    canActivate: [EmployeeGuard],
+    children: [
+      { path: 'order-administration', component: OrderAdministrationComponent}
+    ]
   },
   {
     path: 'admin',
