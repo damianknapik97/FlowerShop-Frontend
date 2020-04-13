@@ -18,7 +18,7 @@ import { SouvenirComponent } from './modules/products/souvenir/souvenir.componen
 import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { OrderComponent } from './modules/order/order.component';
-import { DeliveryAddressComponent} from './modules/order/delivery-address/delivery-address.component';
+import { DeliveryAddressComponent } from './modules/order/delivery-address/delivery-address.component';
 import { PaymentComponent } from './modules/order/payment/payment.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
 import { DetailsComponent } from './modules/order/details/details.component';
@@ -30,76 +30,75 @@ import { EmployeeGuard } from './core/security/employee.guard';
 import { EmployeeComponent } from './modules/employee/employee.component';
 import { OrderAdministrationComponent } from './modules/employee/order-administration/order-administration.component';
 
-
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'account',
     component: AccountComponent,
     canActivate: [LoginGuard],
     children: [
-      { path: 'login', component: LoginComponent},
-      { path: 'register', component: RegisterComponent}
-    ]
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
   },
   {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthenticationGuard],
     children: [
-      { path: 'display-orders', component: DisplayOrdersComponent},
+      { path: 'display-orders', component: DisplayOrdersComponent },
       { path: 'manage-details', component: ManageDetailsComponent },
       { path: 'change-password', component: ChangePasswordComponent },
-      { path: 'delete', component: DeleteComponent }
-    ]
+      { path: 'delete', component: DeleteComponent },
+    ],
   },
   {
     path: 'products',
     component: ProductsComponent,
     children: [
       { path: 'flower', component: FlowerComponent },
-      { path: 'occasional-article', component: OccasionalArticleComponent},
+      { path: 'occasional-article', component: OccasionalArticleComponent },
       { path: 'souvenir', component: SouvenirComponent },
-      { path: 'bouquet', component: BouquetComponent }
-    ]
+      { path: 'bouquet', component: BouquetComponent },
+    ],
   },
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent,
-    canActivate: [AuthenticationGuard]
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'order',
     component: OrderComponent,
     canActivate: [AuthenticationGuard],
     children: [
-      { path: 'delivery-address', component: DeliveryAddressComponent},
-      { path: 'details', component: DetailsComponent},
-      { path: 'payment', component: PaymentComponent},
-      { path: 'summary', component: SummaryComponent}
-    ]
+      { path: 'delivery-address', component: DeliveryAddressComponent },
+      { path: 'details', component: DetailsComponent },
+      { path: 'payment', component: PaymentComponent },
+      { path: 'summary', component: SummaryComponent },
+    ],
   },
   {
     path: 'employee',
     component: EmployeeComponent,
     canActivate: [EmployeeGuard],
     children: [
-      { path: 'order-administration', component: OrderAdministrationComponent}
-    ]
+      { path: 'order-administration', component: OrderAdministrationComponent },
+    ],
   },
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AdminGuard]
-  }
+    canActivate: [AdminGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

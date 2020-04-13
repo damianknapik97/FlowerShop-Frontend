@@ -11,7 +11,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { RegisterComponent } from './modules/account/register/register.component';
 import { AccountComponent } from './modules/account/account.component';
 
-import {NgbModule, NgbProgressbar} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbProgressbar } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthenticationGuard } from './core/security';
 import { ErrorInterceptor, JwtInterceptor } from './core/interceptors';
@@ -39,7 +39,6 @@ import { AuthenticationService } from './core/services/authentication.service';
 import { AdminComponent } from './modules/admin/admin.component';
 import { EmployeeComponent } from './modules/employee/employee.component';
 import { OrderAdministrationComponent } from './modules/employee/order-administration/order-administration.component';
-
 
 @NgModule({
   declarations: [
@@ -79,12 +78,12 @@ import { OrderAdministrationComponent } from './modules/employee/order-administr
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
