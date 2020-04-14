@@ -16,5 +16,8 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.configPath": ".prettierrc"
+  "prettier.configPath": ".prettierrc",
+  "prettier.disableLanguages": ["sass", "less", "css", "scss"],
+  "sass.lint.enable": true,
+  "sass.format.enabled": false
 }
