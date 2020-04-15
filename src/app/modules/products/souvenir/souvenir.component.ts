@@ -1,16 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { ArrayUtilities } from 'src/app/core/utilites';
+import { AuthenticationGuard } from 'src/app/core/security';
+import { MatSnackBar } from '@angular/material';
+import { MessageResponseDTO } from 'src/app/core/dto';
+import { RestPage } from 'src/app/core/dto/rest-page';
 import { SouvenirDTO } from 'src/app/core/dto/souvenir.dto';
 import { SouvenirService } from 'src/app/core/services';
-import { ArrayUtilities } from 'src/app/core/utilites';
-import { RestPage } from 'src/app/core/dto/rest-page';
-import { MatSnackBar } from '@angular/material';
-import { AuthenticationGuard } from 'src/app/core/security';
-import { MessageResponseDTO } from 'src/app/core/dto';
 
 @Component({
   selector: 'app-souvenir',
   templateUrl: 'souvenir.component.html',
-  styleUrls: ['./souvenir.component.sass']
+  styleUrls: ['./souvenir.component.sass'],
 })
 export class SouvenirComponent implements OnInit {
   public resourcesLoaded = false;
@@ -20,14 +21,15 @@ export class SouvenirComponent implements OnInit {
   @Input() pageSize;
   @Input() collectionSize;
 
-  constructor(private service: SouvenirService,
-              private arrayUtils: ArrayUtilities,
-              private snackBar: MatSnackBar,
-              public authenticationGuard: AuthenticationGuard) { }
+  constructor(
+    private service: SouvenirService,
+    private arrayUtils: ArrayUtilities,
+    private snackBar: MatSnackBar,
+    public authenticationGuard: AuthenticationGuard
+  ) {}
 
   ngOnInit() {
     this.getSouvenirsPage(this.page);
-
   }
 
   public onChangePage(pageNumber: number) {
@@ -41,12 +43,17 @@ export class SouvenirComponent implements OnInit {
         page = result;
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
-        this.viewModel = this.arrayUtils.convertToTwoDimensions(page.content as object[], this.elemntsInRow) as SouvenirDTO[][];
+        this.viewModel = this.arrayUtils.convertToTwoDimensions(
+          page.content as object[],
+          this.elemntsInRow
+        ) as SouvenirDTO[][];
         this.resourcesLoaded = true;
       },
       (error: any) => {
         console.log(error);
-        this.snackBar.open('Couldn\'t load resources', 'Error', {duration: 3000});
+        this.snackBar.open("Couldn't load resources", 'Error', {
+          duration: 3000,
+        });
         this.resourcesLoaded = true;
       }
     );
@@ -55,10 +62,10 @@ export class SouvenirComponent implements OnInit {
   public addToShoppingCart(id: string) {
     this.service.addToShoppingCart(id).subscribe(
       (result: MessageResponseDTO) => {
-        this.snackBar.open(result.message, '', {duration: 1500});
+        this.snackBar.open(result.message, '', { duration: 1500 });
       },
       (error: any) => {
-        this.snackBar.open(error, '', {duration: 1500});
+        this.snackBar.open(error, '', { duration: 1500 });
       }
     );
   }

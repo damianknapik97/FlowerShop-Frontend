@@ -18,6 +18,6 @@
   },
   "prettier.configPath": ".prettierrc",
   "prettier.disableLanguages": ["sass", "less", "css", "scss"],
-  "sass.lint.enable": true,
+  "sass.lint.enable": false,
   "sass.format.enabled": false
 }

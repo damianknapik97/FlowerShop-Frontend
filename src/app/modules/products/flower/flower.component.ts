@@ -1,15 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FlowerService } from 'src/app/core/services';
+import { Component, Input, OnInit } from '@angular/core';
 import { FlowerDTO, MessageResponseDTO } from 'src/app/core/dto';
+
 import { ArrayUtilities } from 'src/app/core/utilites';
-import { RestPage } from 'src/app/core/dto/rest-page';
-import { MatSnackBar } from '@angular/material';
 import { AuthenticationGuard } from 'src/app/core/security';
+import { FlowerService } from 'src/app/core/services';
+import { MatSnackBar } from '@angular/material';
+import { RestPage } from 'src/app/core/dto/rest-page';
 
 @Component({
   selector: 'app-flower',
   templateUrl: 'flower.component.html',
-  styleUrls: ['./flower.component.sass']
+  styleUrls: ['./flower.component.sass'],
 })
 export class FlowerComponent implements OnInit {
   public resourcesLoaded = false;
@@ -19,14 +20,15 @@ export class FlowerComponent implements OnInit {
   @Input() pageSize;
   @Input() collectionSize;
 
-  constructor(private flowerService: FlowerService,
-              private arrayUtils: ArrayUtilities,
-              private snackBar: MatSnackBar,
-              public authenticationGuard: AuthenticationGuard) { }
+  constructor(
+    private flowerService: FlowerService,
+    private arrayUtils: ArrayUtilities,
+    private snackBar: MatSnackBar,
+    public authenticationGuard: AuthenticationGuard
+  ) {}
 
   ngOnInit() {
     this.getFlowersPage(this.page);
-
   }
 
   public onChangePage(pageNumber: number) {
@@ -40,25 +42,29 @@ export class FlowerComponent implements OnInit {
         page = result;
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
-        this.viewModel = this.arrayUtils.convertToTwoDimensions(page.content as object[], this.elemntsInRow) as FlowerDTO[][];
+        this.viewModel = this.arrayUtils.convertToTwoDimensions(
+          page.content as object[],
+          this.elemntsInRow
+        ) as FlowerDTO[][];
         this.resourcesLoaded = true;
       },
       (error: any) => {
         console.log(error);
-        this.snackBar.open('Couldn\'t load resources', 'Error', {duration: 3000});
+        this.snackBar.open("Couldn't load resources", 'Error', {
+          duration: 3000,
+        });
         this.resourcesLoaded = true;
       }
-
     );
   }
 
   public addToShoppingCart(id: string) {
     this.flowerService.addToShoppingCart(id).subscribe(
       (result: MessageResponseDTO) => {
-        this.snackBar.open(result.message, '', {duration: 1500});
+        this.snackBar.open(result.message, '', { duration: 1500 });
       },
       (error: any) => {
-        this.snackBar.open(error, '', {duration: 1500});
+        this.snackBar.open(error, '', { duration: 1500 });
       }
     );
   }
