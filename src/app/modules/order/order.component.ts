@@ -7,34 +7,33 @@ import { OrderDTO } from 'src/app/core/dto/order';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styles: []
+  styleUrls: ['./order.component.sass'],
 })
 export class OrderComponent implements OnInit {
   public message = 'Creating your order. Please wait...';
 
-  constructor(private orderService: OrderService,
-              private snackBar: MatSnackBar,
-              private router: Router) {
-   }
+  constructor(
+    private orderService: OrderService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.message = 'Creating your order. Please wait...';
     this.checkForUnfinishedOrder()
-    .then<void>(
-      (unfinishedOrderDetected: boolean) => {
+      .then<void>((unfinishedOrderDetected: boolean) => {
         if (!unfinishedOrderDetected) {
           this.placeOrder();
         }
       })
-    .catch<void>(
-      (reason: any) => {
+      .catch<void>((reason: any) => {
         console.log(reason);
-        this.router.navigate(['/']).then(
-          () => {
-            this.snackBar.open('Couldn\'t check for existing orders...', 'Error', {duration: 3000});
+        this.router.navigate(['/']).then(() => {
+          this.snackBar.open("Couldn't check for existing orders...", 'Error', {
+            duration: 3000,
+          });
         });
-      }
-    );
+      });
   }
 
   /**
@@ -44,21 +43,26 @@ export class OrderComponent implements OnInit {
    * revolving around Order retrieving status.
    */
   private checkForUnfinishedOrder(): Promise<boolean> {
-    return this.orderService.retrieveUnfinishedOrder().toPromise<OrderDTO>()
-    .then<boolean>(
-      (orderDTO: OrderDTO) => {
+    return this.orderService
+      .retrieveUnfinishedOrder()
+      .toPromise<OrderDTO>()
+      .then<boolean>((orderDTO: OrderDTO) => {
         /* Check if order was retrieved at all */
         if (orderDTO != null && orderDTO.id.length > 0) {
-
           /* Set orderID for chidlren components and determine which inputs are missing */
           this.orderService.setNewOrderID(orderDTO.id);
-          this.message = 'You have unfinished Order ! Please finish or cancel this order first.';
-          const redirectionUrl = '/order/' + this.determineMissingComponents(orderDTO);
+          this.message =
+            'You have unfinished Order ! Please finish or cancel this order first.';
+          const redirectionUrl =
+            '/order/' + this.determineMissingComponents(orderDTO);
 
           /* Redirect to page handling missing information input */
-          this.router.navigate([redirectionUrl]).then(
-            () => {
-              this.snackBar.open('You have unfinished order in progress', 'Warning', {duration: 3000});
+          this.router.navigate([redirectionUrl]).then(() => {
+            this.snackBar.open(
+              'You have unfinished order in progress',
+              'Warning',
+              { duration: 3000 }
+            );
           });
           /* Order was found */
           return true;
@@ -78,15 +82,18 @@ export class OrderComponent implements OnInit {
   private determineMissingComponents(orderDTO: OrderDTO): string {
     if (orderDTO.deliveryAddressDTO == null) {
       return 'delivery-address';
-    } else if ((orderDTO.message == null || orderDTO.message.length <= 0)
-     || (orderDTO.deliveryDate == null || orderDTO.deliveryDate.length <= 0 )) {
+    } else if (
+      orderDTO.message == null ||
+      orderDTO.message.length <= 0 ||
+      orderDTO.deliveryDate == null ||
+      orderDTO.deliveryDate.length <= 0
+    ) {
       return 'details';
     } else if (orderDTO.paymentDTO == null) {
       return 'payment';
     } else {
       return 'summary';
     }
-
   }
 
   /**
@@ -96,19 +103,22 @@ export class OrderComponent implements OnInit {
    */
   private placeOrder(): void {
     this.orderService.createOrderFromCurrentShoppingCart().subscribe(
-      result => {
+      (result) => {
         this.orderService.setNewOrderID(result.message);
         this.message = '';
         this.router.navigate(['/order/delivery-address']);
       },
-      error => {
+      (error) => {
         this.message = '';
-        this.router.navigate(['/shopping-cart']).then(
-          (navigated: boolean) => {
-            if (navigated) {
-              console.log(error);
-              this.snackBar.open('Couldn\'t create order from your shopping cart', 'Error', {duration: 3000});
-            }
+        this.router.navigate(['/shopping-cart']).then((navigated: boolean) => {
+          if (navigated) {
+            console.log(error);
+            this.snackBar.open(
+              "Couldn't create order from your shopping cart",
+              'Error',
+              { duration: 3000 }
+            );
+          }
         });
       }
     );

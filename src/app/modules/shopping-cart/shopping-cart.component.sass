@@ -1,7 +1,42 @@
 .product-img
-  width: 64px !important
-  height: 64px !important
+  width: 64px
+  height: 64px
   border-radius: 50%
 
 .product-column
   padding-top: 32px
+
+.cart-button
+  color: white
+
+@media screen and (max-width: 767px)
+  .title
+    font-size: 1.4em
+  .btn
+    font-size: 0.7em
+  .table
+      font-size: 0.65rem
+  .table>tbody>tr>td
+      padding: 4px
+  .table>thead>tr>th
+      padding: 4px
+  .product-img
+    width: 24px
+    height: 24px
+  .cancel-btn
+    padding: .15em .5em
+  .cart-button
+    margin-bottom: 0.15em
+
+
+@media (min-width: 768px) and (max-width: 991px)
+  .title
+    font-size: 1.6em
+
+@media (min-width: 991px) and (max-width: 1450px)
+  .title
+    font-size: 1.8em
+
+@media (min-width: 1451px) and (max-width: 1676px)
+  .title
+    font-size: 2em
