@@ -40,9 +40,43 @@
   margin-top: 3%
 
 .button>button
-  min-width: 200px
+  min-width: 14em
 
 .continue-button
   float: right
 
+@media screen and (max-width: 767px)
+  .component-title
+    font-size: 1em
+  #summary
+    font-size: 0.65em
+  .button>button
+    font-size: 0.9em
+    margin-top: 0.1em
+    margin-bottom: 0.1em
+    min-width: auto
+    width: 100%
+  .summary-component-button
+    font-size: 0.9em
+    width: 8em
+  .total-price>h4>b
+    font-size: 0.6em
+  #payment-type
+    width: fit-content
+    font-size: 0.95em
+  input
+    font-size: 0.85em
+    
+
+@media (min-width: 768px) and (max-width: 991px)
+  .component-title
+    font-size: 1.2em
+
+@media (min-width: 991px) and (max-width: 1450px)
+  .component-title
+    font-size: 1.4em
+
+@media (min-width: 1451px) and (max-width: 1676px)
+  .component-title
+    font-size: 1.5em
 
