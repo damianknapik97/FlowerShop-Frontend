@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { OrderAdministrationService } from 'src/app/core/services/administration/order-administration.service';
 import { OrderDTO } from 'src/app/core/dto/order';
 import { RestPage } from 'src/app/core/dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-administration',
@@ -20,7 +21,8 @@ export class OrderAdministrationComponent implements OnInit {
 
   constructor(
     private service: OrderAdministrationService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -30,6 +32,16 @@ export class OrderAdministrationComponent implements OnInit {
       this.pageSize,
       this.sortingProperties[0]
     );
+  }
+
+  public navigate(orderID: string): void {
+    console.log('test');
+    this.router.navigate([
+      '/employee',
+      'order-administration',
+      'order-details',
+      orderID,
+    ]);
   }
 
   public retrieveSortingProperties(): void {

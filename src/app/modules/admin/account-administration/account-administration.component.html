@@ -1,0 +1,112 @@
+<!--
+<div class="container content w-100">
+  <div>
+    <ngb-pagination
+      class="d-flex justify-content-center"
+      *ngIf="dataLoaded"
+      [boundaryLinks]="true"
+      [collectionSize]="collectionSize"
+      [directionLinks]="true"
+      [maxSize]="8"
+      [ellipses]="false"
+      [pageSize]="pageSize"
+      [rotate]="true"
+      (pageChange)="retrieveOrdersPage(page)"
+    ></ngb-pagination>
+  </div>
+  <div class="row justify-content-center" *ngIf="!dataLoaded">
+    <div
+      class="spinner-border text-success"
+      role="status"
+      style="width: 10rem; height: 10rem;"
+    >
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div
+    class="table-responsive page-content w-100 table-container"
+    *ngIf="dataLoaded"
+  >
+    <table class="table table-bordered table-hover table-content w-100">
+      <thead class="thead">
+        <tr>
+          <th scope="row text-center">#</th>
+          <th scope="col text-center">Order ID</th>
+          <th scope="col text-center">Placement Date</th>
+          <th scope="col text-center">Delivery Date</th>
+          <th scope="col text-center">Total price</th>
+          <th scope="col text-center">Paid</th>
+          <th scope="col text-center">Current Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of content; let i = index" [attr.data-index]="i">
+          <td>
+            <span>{{ i + 1 + page * pageSize }}</span>
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control text-center"
+              readonly="true"
+              [(ngModel)]="order.id"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control text-center"
+              readonly="true"
+              [(ngModel)]="order.placementDate"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control text-center"
+              readonly="true"
+              [(ngModel)]="order.deliveryDate"
+            />
+          </td>
+          <td>
+            <div class="container-fluid">
+              <input
+                type="number"
+                class="form-control text-center input-price"
+                readonly="true"
+                [(ngModel)]="order.paymentDTO.totalPrice.amount"
+                min="0"
+                step="0.01"
+              />
+              <input
+                type="text"
+                class="form-control text-center input-currency"
+                readonly="true"
+                [(ngModel)]="order.paymentDTO.totalPrice.currency"
+                maxlength="3"
+                minlength="3"
+              />
+            </div>
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              class="form-control text-center"
+              disabled="true"
+              [(ngModel)]="order.paymentDTO.wasPaid"
+            />
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              class="form-control text-center"
+              disabled="true"
+              [(ngModel)]="order.orderStatus"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+-->

@@ -39,7 +39,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of content; let i = index" [attr.data-index]="i">
+        <tr
+          *ngFor="let order of content; let i = index"
+          [attr.data-index]="i"
+          (click)="navigate(order.id)"
+        >
           <td>{{ i + 1 + page * pageSize }}</td>
           <td>{{ order.id }}</td>
           <td>{{ order.placementDate }}</td>
@@ -54,4 +58,12 @@
       </tbody>
     </table>
   </div>
+</div>
+
+<br />
+<hr class="solid" />
+<br />
+
+<div class="container w-100">
+  <router-outlet></router-outlet>
 </div>
