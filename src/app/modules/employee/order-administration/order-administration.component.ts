@@ -35,7 +35,6 @@ export class OrderAdministrationComponent implements OnInit {
   }
 
   public navigate(orderID: string): void {
-    console.log('test');
     this.router.navigate([
       '/employee',
       'order-administration',

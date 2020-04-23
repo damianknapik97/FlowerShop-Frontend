@@ -1,5 +1,7 @@
+import { ActivatedRoute, PRIMARY_OUTLET, Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 
+import { OrderAdministrationService } from 'src/app/core/services/administration/order-administration.service';
 import { OrderDTO } from 'src/app/core/dto/order';
 import { Price } from 'src/app/core/dto';
 import { ShippingService } from 'src/app/core/services/shipping.service';
@@ -10,6 +12,7 @@ import { ShippingService } from 'src/app/core/services/shipping.service';
   styleUrls: ['/order-details.component.sass'],
 })
 export class OrderDetailsComponent implements OnInit {
+  @Input() public clientDetailsCollapsed = false;
   @Input() public shoppingCartCollapsed = false;
   @Input() public deliveryAddressCollapsed = false;
   @Input() public detailsCollapsed = false;
@@ -49,11 +52,22 @@ export class OrderDetailsComponent implements OnInit {
   };
   public resourcesLoaded = true;
 
-  constructor(private shippingService: ShippingService) {}
+  constructor(
+    private shippingService: ShippingService,
+    private activatedRoute: ActivatedRoute,
+    private orderAdministrationService: OrderAdministrationService
+  ) {}
 
   ngOnInit() {
+    const orderID = this.activatedRoute.snapshot.url[1].path;
     this.deliveryPrice = this.shippingService.getShippingPrice();
+    this.retrieveClientDetails(orderID);
+    this.retrieveOrderDetails(orderID);
   }
 
   public updateDetails(): void {}
+
+  private retrieveClientDetails(orderID: string): void {}
+
+  private retrieveOrderDetails(orderID: string): void {}
 }

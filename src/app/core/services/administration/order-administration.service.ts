@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { MessageResponseDTO, RestPage } from '../../dto';
 
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderDTO } from '../../dto/order';
-import { RestPage } from '../../dto';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class OrderAdministrationService {
       .set('page', page.toString())
       .set('elements', numberOfElements.toString())
       .set('sorting', sortingProperty);
-    return this.http.get<RestPage<OrderDTO>>(this.apiUrl, {
+    return this.http.get<RestPage<OrderDTO>>(this.apiUrl + '/page', {
       params: httpParams,
     });
   }
@@ -49,5 +49,14 @@ export class OrderAdministrationService {
       ordersPage,
       { params: httpParams }
     );
+  }
+
+  retrieveOrder(id: string): Observable<OrderDTO> {
+    const httpParams = new HttpParams().set('id', id.toString());
+    return this.http.get<OrderDTO>(this.apiUrl, { params: httpParams });
+  }
+
+  updateOrder(orderDTO: OrderDTO): Observable<MessageResponseDTO> {
+    return this.http.put<MessageResponseDTO>(this.apiUrl, orderDTO);
   }
 }

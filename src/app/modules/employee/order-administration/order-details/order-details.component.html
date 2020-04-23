@@ -13,6 +13,36 @@
       <button
         type="button"
         class="summary-component-button btn btn-success"
+        (click)="clientDetailsCollapsed = !clientDetailsCollapsed"
+        [attr.aria-expanded]="!clientDetailsCollapsed"
+        aria-controls="client-details"
+      >
+        Client Details
+      </button>
+      <div
+        id="client-details"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="clientDetailsCollapsed"
+      >
+        <table class="table table-bordered">
+          <thead></thead>
+          <tbody>
+            <tr>
+              <td class="param-name">Account Name</td>
+              <td>Test123</td>
+            </tr>
+            <tr>
+              <td class="param-name">Email</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="summary-component">
+      <button
+        type="button"
+        class="summary-component-button btn btn-success"
         (click)="shoppingCartCollapsed = !shoppingCartCollapsed"
         [attr.aria-expanded]="!shoppingCartCollapsed"
         aria-controls="shopping-cart"
@@ -112,7 +142,7 @@
               <td class="param-name">City:</td>
               <td>
                 <input
-                  id="delivery-date"
+                  id="city"
                   type="text"
                   class="form-control"
                   [(ngModel)]="orderDTO.deliveryAddressDTO.cityName"
@@ -123,7 +153,7 @@
               <td class="param-name">Zip code:</td>
               <td>
                 <input
-                  id="delivery-date"
+                  id="zip-code"
                   type="text"
                   class="form-control"
                   [(ngModel)]="orderDTO.deliveryAddressDTO.zipCode"
@@ -134,7 +164,7 @@
               <td class="param-name">Street:</td>
               <td>
                 <input
-                  id="delivery-date"
+                  id="street"
                   type="text"
                   class="form-control"
                   [(ngModel)]="orderDTO.deliveryAddressDTO.streetName"
@@ -145,7 +175,7 @@
               <td class="param-name">House number:</td>
               <td>
                 <input
-                  id="delivery-date"
+                  id="house-number"
                   type="text"
                   class="form-control"
                   [(ngModel)]="orderDTO.deliveryAddressDTO.houseNumber"
@@ -156,7 +186,7 @@
               <td class="param-name">Apartment:</td>
               <td>
                 <input
-                  id="delivery-date"
+                  id="apratment"
                   type="text"
                   class="form-control"
                   [(ngModel)]="orderDTO.deliveryAddressDTO.apartmentNumber"
