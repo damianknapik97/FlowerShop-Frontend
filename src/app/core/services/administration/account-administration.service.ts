@@ -21,7 +21,9 @@ export class AccountAdministrationService {
     orderID: string
   ): Observable<AccountEmployeeDetailsDTO> {
     const httpParams = new HttpParams().set('id', orderID);
-    return this.http.get<AccountEmployeeDetailsDTO>(this.apiUrl + '/order');
+    return this.http.get<AccountEmployeeDetailsDTO>(this.apiUrl + '/order', {
+      params: httpParams,
+    });
   }
 
   retrieveAccountsPage(

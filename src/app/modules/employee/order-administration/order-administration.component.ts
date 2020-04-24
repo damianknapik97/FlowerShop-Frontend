@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class OrderAdministrationComponent implements OnInit {
   @Input() public page = 0;
-  @Input() public pageSize = 20;
+  @Input() public pageSize = 10;
   @Input() public collectionSize = 0;
   @Input() public sortingProperties: string[] = ['NONE'];
   public dataLoaded = false;
