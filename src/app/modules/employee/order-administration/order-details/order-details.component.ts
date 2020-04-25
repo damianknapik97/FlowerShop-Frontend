@@ -16,7 +16,7 @@ import { ShippingService } from 'src/app/core/services/shipping.service';
   styleUrls: ['/order-details.component.sass'],
 })
 export class OrderDetailsComponent implements OnInit {
-  @Input() public clientDetailsCollapsed = true;
+  @Input() public clientDetailsCollapsed = false;
   @Input() public shoppingCartCollapsed = false;
   @Input() public deliveryAddressCollapsed = false;
   @Input() public deliveryAddressEditable = false;
@@ -95,9 +95,13 @@ export class OrderDetailsComponent implements OnInit {
       },
       (err: any) => {
         console.log(err);
-        this.snackBar.open("Couldn't update provided order.", 'Error', {
-          duration: 3500,
-        });
+        this.snackBar.open(
+          "Couldn't update order - invalid properties.",
+          'Error',
+          {
+            duration: 3500,
+          }
+        );
         this.retrieveDisplayData();
       }
     );
