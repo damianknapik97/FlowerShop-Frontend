@@ -26,7 +26,7 @@ export class OrderAdministrationService {
     sortingProperty: string
   ): Observable<RestPage<OrderDTO>> {
     const httpParams = new HttpParams()
-      .set('page', page.toString())
+      .set('page', (page - 1).toString())
       .set('elements', numberOfElements.toString())
       .set('sorting', sortingProperty);
     return this.http.get<RestPage<OrderDTO>>(this.apiUrl + '/page', {

@@ -3,6 +3,7 @@
     <ngb-pagination
       class="d-flex justify-content-center"
       *ngIf="dataLoaded"
+      [(page)]="page"
       [boundaryLinks]="true"
       [collectionSize]="collectionSize"
       [directionLinks]="true"
@@ -37,7 +38,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of content; let i = index" [attr.data-index]="i">
-          <td>{{ i + 1 + page * pageSize }}</td>
+          <td>{{ i + 1 + (page - 1) * pageSize }}</td>
           <td>{{ order.id }}</td>
           <td>{{ order.placementDate }}</td>
           <td>{{ order.deliveryDate }}</td>

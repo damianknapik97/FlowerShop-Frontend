@@ -81,10 +81,6 @@ export class OrderDetailsComponent implements OnInit {
 
   public cancelChanges(): void {
     this.retrieveDisplayData();
-    this.detailsEditable = false;
-    this.paymentEditable = false;
-    this.deliveryAddressEditable = false;
-    this.changesAvailableForProcessing = false;
     this.snackBar.open('Changes discarded.', 'Information', { duration: 3500 });
   }
 
@@ -142,9 +138,19 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   private retrieveDisplayData() {
+    this.resetBooleanIndicators();
     const orderID = this.activatedRoute.snapshot.url[1].path;
     this.deliveryPrice = this.shippingService.getShippingPrice();
     this.retrieveClientDetails(orderID);
     this.retrieveOrderDetails(orderID);
+  }
+
+  private resetBooleanIndicators() {
+    this.orderResourcesLoaded = false;
+    this.clientDetailsCollapsed = false;
+    this.detailsEditable = false;
+    this.paymentEditable = false;
+    this.deliveryAddressEditable = false;
+    this.changesAvailableForProcessing = false;
   }
 }

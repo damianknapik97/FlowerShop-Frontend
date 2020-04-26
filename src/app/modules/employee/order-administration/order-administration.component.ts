@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./order-administration.component.sass'],
 })
 export class OrderAdministrationComponent implements OnInit {
-  @Input() public page = 0;
+  @Input() public page = 1;
   @Input() public pageSize = 10;
   @Input() public collectionSize = 0;
   @Input() public sortingProperties: string[] = ['NONE'];
@@ -56,10 +56,9 @@ export class OrderAdministrationComponent implements OnInit {
   ): void {
     this.service.retrieveOrdersPage(page, pageSize, sortingProperty).subscribe(
       (result: RestPage<OrderDTO>) => {
-        this.page = result.number;
         this.pageSize = pageSize;
         this.content = result.content;
-        this.collectionSize = result.size;
+        this.collectionSize = result.totalElements;
         this.dataLoaded = true;
       },
       (err: any) => {

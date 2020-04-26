@@ -3,6 +3,7 @@
     <ngb-pagination
       class="d-flex justify-content-center"
       *ngIf="dataLoaded"
+      [(page)]="page"
       [boundaryLinks]="true"
       [collectionSize]="collectionSize"
       [directionLinks]="true"
@@ -10,7 +11,7 @@
       [ellipses]="false"
       [pageSize]="pageSize"
       [rotate]="true"
-      (pageChange)="retrieveOrdersPage(page)"
+      (pageChange)="retrieveOrdersPage(page, pageSize, sortingProperties[0])"
     ></ngb-pagination>
   </div>
   <div class="row justify-content-center" *ngIf="!dataLoaded">
@@ -44,7 +45,7 @@
           [attr.data-index]="i"
           (click)="navigate(order.id)"
         >
-          <td>{{ i + 1 + page * pageSize }}</td>
+          <td>{{ i + 1 + (page - 1) * pageSize }}</td>
           <td>{{ order.id }}</td>
           <td>{{ order.placementDate }}</td>
           <td>{{ order.deliveryDate }}</td>
