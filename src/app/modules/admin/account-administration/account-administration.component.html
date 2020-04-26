@@ -1,9 +1,9 @@
-<!--
 <div class="container content w-100">
   <div>
     <ngb-pagination
       class="d-flex justify-content-center"
       *ngIf="dataLoaded"
+      [(page)]="page"
       [boundaryLinks]="true"
       [collectionSize]="collectionSize"
       [directionLinks]="true"
@@ -11,7 +11,7 @@
       [ellipses]="false"
       [pageSize]="pageSize"
       [rotate]="true"
-      (pageChange)="retrieveOrdersPage(page)"
+      (pageChange)="retrieveContent(page, pageSize, sortingProperties[0])"
     ></ngb-pagination>
   </div>
   <div class="row justify-content-center" *ngIf="!dataLoaded">
@@ -30,83 +30,36 @@
     <table class="table table-bordered table-hover table-content w-100">
       <thead class="thead">
         <tr>
-          <th scope="row text-center">#</th>
-          <th scope="col text-center">Order ID</th>
-          <th scope="col text-center">Placement Date</th>
-          <th scope="col text-center">Delivery Date</th>
-          <th scope="col text-center">Total price</th>
-          <th scope="col text-center">Paid</th>
-          <th scope="col text-center">Current Status</th>
+          <th scope="row">#</th>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Creation Date</th>
+          <th scope="col">Role</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of content; let i = index" [attr.data-index]="i">
-          <td>
-            <span>{{ i + 1 + page * pageSize }}</span>
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control text-center"
-              readonly="true"
-              [(ngModel)]="order.id"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control text-center"
-              readonly="true"
-              [(ngModel)]="order.placementDate"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="form-control text-center"
-              readonly="true"
-              [(ngModel)]="order.deliveryDate"
-            />
-          </td>
-          <td>
-            <div class="container-fluid">
-              <input
-                type="number"
-                class="form-control text-center input-price"
-                readonly="true"
-                [(ngModel)]="order.paymentDTO.totalPrice.amount"
-                min="0"
-                step="0.01"
-              />
-              <input
-                type="text"
-                class="form-control text-center input-currency"
-                readonly="true"
-                [(ngModel)]="order.paymentDTO.totalPrice.currency"
-                maxlength="3"
-                minlength="3"
-              />
-            </div>
-          </td>
-          <td>
-            <input
-              type="checkbox"
-              class="form-control text-center"
-              disabled="true"
-              [(ngModel)]="order.paymentDTO.wasPaid"
-            />
-          </td>
-          <td>
-            <input
-              type="checkbox"
-              class="form-control text-center"
-              disabled="true"
-              [(ngModel)]="order.orderStatus"
-            />
-          </td>
+        <tr
+          *ngFor="let account of content; let i = index"
+          [attr.data-index]="i"
+          (click)="navigate(account.id)"
+        >
+          <td>{{ i + 1 + (page - 1) * pageSize }}</td>
+          <td>{{ account.id }}</td>
+          <td>{{ account.name }}</td>
+          <td>{{ account.email }}</td>
+          <td>{{ account.creationDate }}</td>
+          <td>{{ account.role }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
--->
+
+<br />
+<hr class="solid" />
+<br />
+
+<div class="container w-100">
+  <router-outlet></router-outlet>
+</div>

@@ -1,25 +1,16 @@
 ngb-pagination ::ng-deep ul > li.active > a
     background-color: #1e7e34 !important
     
-.thead
+thead
   color: white
   background-color: #1e7e34 !important
 
-.table-content
-    min-width: max-content
-
-.input-price
-    display: inline-block
-    width: 10em
-
-.input-currency   
-    display: inline-block
-    width: 5em
-
+tr
+    cursor: pointer
+   
 @media screen and (max-width: 767px)
     .table-content
         font-size: 0.55rem
-        min-width: max-content
     .table-content>tbody>tr>td
         padding: 2.5px
     .table-content>thead>tr>th
@@ -28,13 +19,10 @@ ngb-pagination ::ng-deep ul > li.active > a
         padding: .25rem .5rem
         font-size: .875rem
         line-height: 1.5
-    input
-        font-size: 0.55rem
 
 @media (min-width: 768px) and (max-width: 991px)
     .table-content
         font-size: 0.65rem
-        min-width: max-content
     .table-content>tbody>tr>td
         padding: 4px
     .table-content>thead>tr>th
@@ -47,7 +35,6 @@ ngb-pagination ::ng-deep ul > li.active > a
 @media (min-width: 991px) and (max-width: 1450px)
     .table-content
         font-size: 0.9rem
-        min-width: max-content
     .table-content>tbody>tr>td
         padding: 8px
     .table-content>thead>tr>th
@@ -60,7 +47,6 @@ ngb-pagination ::ng-deep ul > li.active > a
 @media (min-width: 1451px) and (max-width: 1676px)
     .table-content
         font-size: 0.9rem
-        min-width: max-content
     .table-content>tbody>tr>td
         padding: 8px
     .table-content>thead>tr>th
@@ -74,7 +60,6 @@ ngb-pagination ::ng-deep ul > li.active > a
 @media screen and (min-width: 1677px)
     .table-content
         font-size: 1rem
-        min-width: max-content
     .table-content>tbody>tr>td
         padding: 12px
     .table-content>thead>tr>th

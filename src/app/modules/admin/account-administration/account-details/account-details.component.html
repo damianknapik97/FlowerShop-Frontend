@@ -1,0 +1,112 @@
+<div id="account-details">
+  <div class="row justify-content-center" *ngIf="!contentLoaded">
+    <div
+      class="spinner-border text-success"
+      role="status"
+      style="width: 10rem; height: 10rem;"
+    ></div>
+  </div>
+  <div *ngIf="contentLoaded">
+    <div class="account-details-component">
+      <button
+        type="button"
+        class="account-details-component-button btn btn-success"
+        (click)="accountDetailsCollapsed = !accountDetailsCollapsed"
+        [attr.aria-expanded]="!accountDetailsCollapsed"
+        aria-controls="account-details"
+      >
+        Account Details
+      </button>
+      <button
+        type="button"
+        class="account-details-component-button edit-button btn btn-warning"
+        (click)="
+          (accountDetailsEditable = !accountDetailsEditable) &&
+            (changesAvailableForProcessing = true)
+        "
+        aria-controls="account-details"
+      >
+        Edit
+      </button>
+      <div
+        id="account-details"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="accountDetailsCollapsed"
+      >
+        <div class="row">
+          <div class="col">
+            <label for="name">Account name</label>
+            <input
+              id="name"
+              class="form-control"
+              type="text"
+              [readonly]="!accountDetailsEditable"
+              [(ngModel)]="accountDetails.name"
+            />
+          </div>
+          <div class="col">
+            <label for="password">
+              Password
+            </label>
+            <input
+              id="password"
+              class="form-control"
+              type="text"
+              [readonly]="!accountDetailsEditable"
+              [(ngModel)]="accountDetails.password"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              class="form-control"
+              type="text"
+              [readonly]="!accountDetailsEditable"
+              [(ngModel)]="accountDetails.email"
+            />
+          </div>
+          <div class="col">
+            <label for="role">Role</label>
+            <input
+              id="role"
+              class="form-control"
+              type="text"
+              [readonly]="!accountDetailsEditable"
+              [(ngModel)]="accountDetails.role"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p id="creation-date">
+              Creation Date: {{ accountDetails.creationDate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="button-col col">
+          <button
+            type="button"
+            class="btn btn-danger changes-descision-button"
+            [disabled]="!changesAvailableForProcessing"
+            (click)="discardChanges()"
+          >
+            Discard changes
+          </button>
+          <button
+            type="button"
+            class="btn btn-success changes-descision-button"
+            [disabled]="!changesAvailableForProcessing"
+            (click)="saveChanges()"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

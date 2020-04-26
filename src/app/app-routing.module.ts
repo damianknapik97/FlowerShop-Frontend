@@ -1,6 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AccountAdministrationComponent } from './modules/admin/account-administration/account-administration.component';
 import { AccountComponent } from './modules/account/account.component';
+import { AccountDetailsComponent } from './modules/admin/account-administration/account-details/account-details.component';
 import { AdminComponent } from './modules/admin/admin.component';
 import { AdminGuard } from './core/security/admin.guard';
 import { AuthenticationGuard } from './core/security';
@@ -103,6 +105,18 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     canActivate: [AdminGuard],
+    children: [
+      {
+        path: 'account-administration',
+        component: AccountAdministrationComponent,
+        children: [
+          {
+            path: 'account-details/:id',
+            component: AccountDetailsComponent,
+          },
+        ],
+      },
+    ],
   },
 ];
 

@@ -38,6 +38,7 @@ import { RegisterComponent } from './modules/account/register/register.component
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
+import { AccountDetailsComponent } from './modules/admin/account-administration/account-details/account-details.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { SummaryComponent } from './modules/order/summary/summary.component';
     OrderAdministrationComponent,
     AccountAdministrationComponent,
     OrderDetailsComponent,
+    AccountDetailsComponent,
   ],
   imports: [
     BrowserModule,

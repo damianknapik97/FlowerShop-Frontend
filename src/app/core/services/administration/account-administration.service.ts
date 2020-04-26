@@ -32,13 +32,22 @@ export class AccountAdministrationService {
     sorting: string
   ): Observable<RestPage<AccountAdministrativeDetailsDTO>> {
     const httpParams = new HttpParams()
-      .set('page', page.toString())
+      .set('page', (page - 1).toString())
       .set('numberOfElements', numberOfElements.toString())
       .set('sorting', sorting);
     return this.http.get<RestPage<AccountAdministrativeDetailsDTO>>(
       this.apiUrl + '/page',
       { params: httpParams }
     );
+  }
+
+  retrieveAccountAdministrativeDetails(
+    accountID: string
+  ): Observable<AccountAdministrativeDetailsDTO> {
+    const httpParams = new HttpParams().set('id', accountID.toString());
+    return this.http.get<AccountAdministrativeDetailsDTO>(this.apiUrl, {
+      params: httpParams,
+    });
   }
 
   updateAccountAdministrativeDetails(
