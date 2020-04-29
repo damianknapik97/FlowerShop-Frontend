@@ -23,10 +23,20 @@
       <span class="sr-only">Loading...</span>
     </div>
   </div>
+
   <div
     class="table-responsive page-content w-100 table-container"
     *ngIf="dataLoaded"
   >
+    <div class="table-buttons-row">
+      <button
+        class="btn btn-success"
+        (click)="reloadConent(page, pageSize, currentSorting)"
+      >
+        Refresh
+      </button>
+    </div>
+
     <table class="table table-bordered table-hover table-content w-100">
       <thead class="thead">
         <tr>

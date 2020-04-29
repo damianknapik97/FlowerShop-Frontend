@@ -40,7 +40,8 @@
               id="name"
               class="form-control"
               type="text"
-              [readonly]="!accountDetailsEditable"
+              matTooltip="Info about the action"
+              readonly="true"
               [(ngModel)]="accountDetails.name"
             />
           </div>
@@ -70,13 +71,19 @@
           </div>
           <div class="col">
             <label for="role">Role</label>
-            <input
+            <select
               id="role"
               class="form-control"
-              type="text"
-              [readonly]="!accountDetailsEditable"
               [(ngModel)]="accountDetails.role"
-            />
+              [disabled]="!accountDetailsEditable"
+              name="role"
+            >
+              <option
+                *ngFor="let accountRole of accountRoles"
+                [value]="accountRole"
+                >{{ accountRole }}</option
+              >
+            </select>
           </div>
         </div>
         <div class="row">

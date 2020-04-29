@@ -25,6 +25,7 @@ export class OrderDetailsComponent implements OnInit {
   @Input() public paymentCollapsed = false;
   @Input() public paymentEditable = false;
   @Input() public changesAvailableForProcessing = false;
+  public paymentTypes: string[];
   public deliveryPrice: Price;
   @Input() public orderDTO: OrderDTO = {
     id: '',
@@ -72,6 +73,7 @@ export class OrderDetailsComponent implements OnInit {
     private accountAdministrationService: AccountAdministrationService,
     private snackBar: MatSnackBar
   ) {
+    this.paymentTypes = activatedRoute.snapshot.data['paymentTypes'];
     activatedRoute.params.subscribe((val) => {
       this.retrieveDisplayData();
     });

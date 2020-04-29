@@ -16,6 +16,7 @@ export class OrderAdministrationComponent implements OnInit {
   @Input() public pageSize = 10;
   @Input() public collectionSize = 0;
   @Input() public sortingProperties: string[] = ['NONE'];
+  @Input() public currentSorting = 'NONE';
   public dataLoaded = false;
   public content: OrderDTO[];
 
@@ -27,11 +28,14 @@ export class OrderAdministrationComponent implements OnInit {
 
   ngOnInit() {
     this.retrieveSortingProperties();
-    this.retrieveOrdersPage(
-      this.page,
-      this.pageSize,
-      this.sortingProperties[0]
-    );
+    this.retrieveOrdersPage(this.page, this.pageSize, this.currentSorting);
+  }
+
+  public reloadConent(page: number, pageSize: number, sortingProperty: string) {
+    this.retrieveOrdersPage(page, pageSize, sortingProperty);
+    this.snackBar.open('Table data refreshed', 'Information', {
+      duration: 2500,
+    });
   }
 
   public navigate(orderID: string): void {

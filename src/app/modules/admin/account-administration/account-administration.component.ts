@@ -16,6 +16,7 @@ export class AccountAdministrationComponent implements OnInit {
   @Input() public pageSize = 10;
   @Input() public collectionSize = 0;
   @Input() public sortingProperties: string[] = ['NONE'];
+  @Input() public currentSorting = 'NONE';
   public dataLoaded = false;
   public content: AccountAdministrativeDetailsDTO[];
 
@@ -26,7 +27,7 @@ export class AccountAdministrationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.retrieveContent(this.page, this.pageSize, this.sortingProperties[0]);
+    this.retrieveContent(this.page, this.pageSize, this.currentSorting);
   }
 
   public navigate(accountID: string) {
@@ -36,6 +37,13 @@ export class AccountAdministrationComponent implements OnInit {
       'account-details',
       accountID,
     ]);
+  }
+
+  public reloadConent(page: number, pageSize: number, sortingProperty: string) {
+    this.retrieveContent(page, pageSize, sortingProperty);
+    this.snackBar.open('Table data refreshed', 'Information', {
+      duration: 2500,
+    });
   }
 
   public retrieveContent(

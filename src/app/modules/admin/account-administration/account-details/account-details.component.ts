@@ -7,7 +7,6 @@ import { MatSnackBar } from '@angular/material';
 import { MessageResponseDTO } from 'src/app/core/dto';
 
 // TODO: Updating currently logged user account, causes backend to crash
-// TODO: Table needs refresh after update
 
 @Component({
   selector: 'app-account-details',
@@ -19,6 +18,7 @@ export class AccountDetailsComponent implements OnInit {
   private accountDetailsCollapsed = false;
   private accountDetailsEditable = false;
   private changesAvailableForProcessing = false;
+  private accountRoles: string[];
   private accountDetails: AccountAdministrativeDetailsDTO = {
     id: '',
     name: '',
@@ -33,6 +33,7 @@ export class AccountDetailsComponent implements OnInit {
     private snackBar: MatSnackBar,
     private accountAdministrativeService: AccountAdministrationService
   ) {
+    this.accountRoles = this.activatedRoute.snapshot.data['accountRoles'];
     activatedRoute.params.subscribe((result: any) => {
       this.retrieveAccountDetails();
     });

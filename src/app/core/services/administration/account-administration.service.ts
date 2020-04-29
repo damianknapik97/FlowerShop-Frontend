@@ -17,7 +17,7 @@ export class AccountAdministrationService {
     this.apiUrl = environment.apiUrl + '/account-administration';
   }
 
-  retrieveEmployeAccDetails(
+  public retrieveEmployeAccDetails(
     orderID: string
   ): Observable<AccountEmployeeDetailsDTO> {
     const httpParams = new HttpParams().set('id', orderID);
@@ -26,7 +26,7 @@ export class AccountAdministrationService {
     });
   }
 
-  retrieveAccountsPage(
+  public retrieveAccountsPage(
     page: number,
     numberOfElements: number,
     sorting: string
@@ -41,7 +41,7 @@ export class AccountAdministrationService {
     );
   }
 
-  retrieveAccountAdministrativeDetails(
+  public retrieveAccountAdministrativeDetails(
     accountID: string
   ): Observable<AccountAdministrativeDetailsDTO> {
     const httpParams = new HttpParams().set('id', accountID.toString());
@@ -50,7 +50,7 @@ export class AccountAdministrationService {
     });
   }
 
-  updateAccountAdministrativeDetails(
+  public updateAccountAdministrativeDetails(
     accountAdministrativeDetails: AccountAdministrativeDetailsDTO
   ): Observable<MessageResponseDTO> {
     return this.http.put<MessageResponseDTO>(
@@ -59,7 +59,11 @@ export class AccountAdministrationService {
     );
   }
 
-  retrieveSortingProperties(): Observable<string[]> {
+  public retrieveSortingProperties(): Observable<string[]> {
     return this.http.get<string[]>(this.apiUrl + '/sorting');
+  }
+
+  public retrieveAccountRoles(): Observable<string[]> {
+    return this.http.get<string[]>(this.apiUrl + '/roles');
   }
 }

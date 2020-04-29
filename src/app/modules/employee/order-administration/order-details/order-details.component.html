@@ -297,14 +297,19 @@
         <div class="row">
           <div class="col-6">
             <label for="payment-type">Payment type</label>
-            <input
+            <select
               id="payment-type"
-              type="text"
               class="form-control"
-              [readOnly]="!paymentEditable"
               [(ngModel)]="orderDTO.paymentDTO.paymentType"
-              readonly
-            />
+              [disabled]="!paymentEditable"
+              name="role"
+            >
+              <option
+                *ngFor="let paymentType of paymentTypes"
+                [value]="paymentType"
+                >{{ paymentType }}</option
+              >
+            </select>
           </div>
           <div>
             <label id="was-paid-label" for="was-paid">Paid</label>
