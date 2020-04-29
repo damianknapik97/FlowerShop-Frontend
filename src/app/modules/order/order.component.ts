@@ -1,8 +1,9 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from 'src/app/core/services';
+
 import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
 import { OrderDTO } from 'src/app/core/dto/order';
+import { OrderService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-order',
@@ -11,65 +12,48 @@ import { OrderDTO } from 'src/app/core/dto/order';
 })
 export class OrderComponent implements OnInit {
   public message = 'Creating your order. Please wait...';
+  private unfinishedOrder: OrderDTO;
 
   constructor(
     private orderService: OrderService,
     private snackBar: MatSnackBar,
-    private router: Router
-  ) {}
-
-  ngOnInit() {
-    this.message = 'Creating your order. Please wait...';
-    this.checkForUnfinishedOrder()
-      .then<void>((unfinishedOrderDetected: boolean) => {
-        if (!unfinishedOrderDetected) {
-          this.placeOrder();
-        }
-      })
-      .catch<void>((reason: any) => {
-        console.log(reason);
-        this.router.navigate(['/']).then(() => {
-          this.snackBar.open("Couldn't check for existing orders...", 'Error', {
-            duration: 3000,
-          });
-        });
-      });
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    const unfinishedOrder = activatedRoute.snapshot.data['unfinishedOrder'];
+    if (!this.checkForUnfinishedOrder(unfinishedOrder)) {
+      this.placeOrder();
+    }
   }
 
-  /**
-   * Send request to retrieve unfinished Order Entity from database, and determine which
-   * components are missing, if they are missing at all. After that, redirect to
-   * according page or return Promise containing boolean value with information
-   * revolving around Order retrieving status.
-   */
-  private checkForUnfinishedOrder(): Promise<boolean> {
-    return this.orderService
-      .retrieveUnfinishedOrder()
-      .toPromise<OrderDTO>()
-      .then<boolean>((orderDTO: OrderDTO) => {
-        /* Check if order was retrieved at all */
-        if (orderDTO != null && orderDTO.id.length > 0) {
-          /* Set orderID for chidlren components and determine which inputs are missing */
-          this.orderService.setNewOrderID(orderDTO.id);
-          this.message =
-            'You have unfinished Order ! Please finish or cancel this order first.';
-          const redirectionUrl =
-            '/order/' + this.determineMissingComponents(orderDTO);
+  ngOnInit() {}
 
-          /* Redirect to page handling missing information input */
-          this.router.navigate([redirectionUrl]).then(() => {
-            this.snackBar.open(
-              'You have unfinished order in progress',
-              'Warning',
-              { duration: 3000 }
-            );
-          });
-          /* Order was found */
-          return true;
-        }
-        /* Order not found, progressing */
-        return false;
+  /**
+   * Determine which components are missing in provided OrderDTO,
+   * if they are missing at all. After that, redirect to according page
+   * or return boolean value with information revolving around Order retrieving status.
+   */
+  private checkForUnfinishedOrder(orderDTO: OrderDTO): boolean {
+    /* Check if order was retrieved at all */
+    if (orderDTO != null && orderDTO.id.length > 0) {
+      /* Set orderID for chidlren components and determine which inputs are missing */
+      this.orderService.setNewOrderID(orderDTO.id);
+      this.message =
+        'You have unfinished Order ! Please finish or cancel this order first.';
+      const redirectionUrl =
+        '/order/' + this.determineMissingComponents(orderDTO);
+
+      /* Redirect to page handling missing information input */
+      this.router.navigate([redirectionUrl]).then(() => {
+        this.snackBar.open('You have unfinished order in progress', 'Warning', {
+          duration: 3000,
+        });
       });
+      /* Order was found */
+      return true;
+    }
+    /* Order not found, progressing */
+    return false;
   }
 
   /**

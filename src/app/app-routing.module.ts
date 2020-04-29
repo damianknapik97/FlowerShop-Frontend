@@ -33,6 +33,7 @@ import { RegisterComponent } from './modules/account/register/register.component
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
+import { UnfinishedOrderResolve } from './core/resolvers/order/unfinished-order.resolve';
 import { resolve } from 'url';
 
 const routes: Routes = [
@@ -80,12 +81,14 @@ const routes: Routes = [
     path: 'order',
     component: OrderComponent,
     canActivate: [AuthenticationGuard],
+    resolve: { unfinishedOrder: UnfinishedOrderResolve },
     children: [
       { path: 'delivery-address', component: DeliveryAddressComponent },
       { path: 'details', component: DetailsComponent },
       {
         path: 'payment',
         component: PaymentComponent,
+        resolve: { paymentTypes: PaymentTypeResolve },
       },
       { path: 'summary', component: SummaryComponent },
     ],
