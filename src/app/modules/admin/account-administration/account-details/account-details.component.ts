@@ -14,12 +14,12 @@ import { MessageResponseDTO } from 'src/app/core/dto';
   styleUrls: ['./account-details.component.sass'],
 })
 export class AccountDetailsComponent implements OnInit {
-  private contentLoaded = true;
-  private accountDetailsCollapsed = false;
-  private accountDetailsEditable = false;
-  private changesAvailableForProcessing = false;
-  private accountRoles: string[];
-  private accountDetails: AccountAdministrativeDetailsDTO = {
+  public contentLoaded = true;
+  public accountDetailsCollapsed = false;
+  public accountDetailsEditable = false;
+  public changesAvailableForProcessing = false;
+  public accountRoles: string[];
+  public accountDetails: AccountAdministrativeDetailsDTO = {
     id: '',
     name: '',
     creationDate: '',
