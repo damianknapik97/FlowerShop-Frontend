@@ -16,11 +16,11 @@ export class OrderAdministrationService {
     this.apiUrl = environment.apiUrl + '/order-administration';
   }
 
-  retriveSortingProperties(): Observable<string[]> {
+  public retriveSortingProperties(): Observable<string[]> {
     return this.http.get<string[]>(this.apiUrl + '/page/sorting-properties');
   }
 
-  retrieveOrdersPage(
+  public retrieveOrdersPage(
     page: number,
     numberOfElements: number,
     sortingProperty: string
@@ -34,7 +34,7 @@ export class OrderAdministrationService {
     });
   }
 
-  updateOrdersPage(
+  public updateOrdersPage(
     page: number,
     numberOfElements: number,
     sortingProperty: string,
@@ -51,12 +51,28 @@ export class OrderAdministrationService {
     );
   }
 
-  retrieveOrder(id: string): Observable<OrderDTO> {
+  /**
+   * Sends request with id as a param, and retrieves whole OrderDTO
+   * related to mentioned id.
+   */
+  public retrieveOrder(id: string): Observable<OrderDTO> {
     const httpParams = new HttpParams().set('id', id.toString());
     return this.http.get<OrderDTO>(this.apiUrl, { params: httpParams });
   }
 
-  updateOrder(orderDTO: OrderDTO): Observable<MessageResponseDTO> {
+  /**
+   * Sends request containing OrderDTO inside body. Mentioned entity after ensuring
+   * correctness of provided details, will be updated and saved in database.
+   */
+  public updateOrder(orderDTO: OrderDTO): Observable<MessageResponseDTO> {
     return this.http.put<MessageResponseDTO>(this.apiUrl, orderDTO);
+  }
+
+  /**
+   * Retrieves array of strings containing all possible statuses that
+   * can be assigned to an existing order entity.
+   */
+  public retrieveOrderStatuses() {
+    return this.http.get<string[]>(this.apiUrl + '/statuses');
   }
 }

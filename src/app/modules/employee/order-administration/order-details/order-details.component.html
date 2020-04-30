@@ -302,7 +302,7 @@
               class="form-control"
               [(ngModel)]="orderDTO.paymentDTO.paymentType"
               [disabled]="!paymentEditable"
-              name="role"
+              name="payment-type"
             >
               <option
                 *ngFor="let paymentType of paymentTypes"
@@ -334,6 +334,58 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="summary-component">
+      <button
+        type="button"
+        class="summary-component-button btn btn-success"
+        (click)="employeeDetailsCollapsed = !employeeDetailsCollapsed"
+        [attr.aria-expanded]="!employeeDetailsCollapsed"
+        aria-controls="employee-details"
+      >
+        Employee Details
+      </button>
+      <button
+        type="button"
+        class="summary-component-button edit-button btn btn-warning"
+        (click)="
+          (employeeDetailsEditable = !employeeDetailsEditable) &&
+            (changesAvailableForProcessing = true)
+        "
+        aria-controls="employee-details"
+      >
+        Edit
+      </button>
+      <div
+        id="employee-details"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="employeeDetailsCollapsed"
+      >
+        <div class="row">
+          <div class="col-6">
+            <label for="order-status">
+              Current order preparation status
+            </label>
+            <select
+              id="order-status"
+              class="form-control"
+              [(ngModel)]="orderDTO.orderStatus"
+              [disabled]="!employeeDetailsEditable"
+              name="order-status"
+            >
+              <option
+                *ngFor="let orderStatus of orderStatuses"
+                [value]="orderStatus"
+                >{{ orderStatus }}</option
+              >
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-component">
       <div class="row">
         <div class="button col">
           <button

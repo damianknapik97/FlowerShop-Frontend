@@ -25,7 +25,10 @@ export class OrderDetailsComponent implements OnInit {
   @Input() public paymentCollapsed = false;
   @Input() public paymentEditable = false;
   @Input() public changesAvailableForProcessing = false;
+  @Input() public employeeDetailsCollapsed = false;
+  @Input() public employeeDetailsEditable = false;
   public paymentTypes: string[];
+  public orderStatuses: string[];
   public deliveryPrice: Price;
   @Input() public orderDTO: OrderDTO = {
     id: '',
@@ -74,6 +77,7 @@ export class OrderDetailsComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.paymentTypes = activatedRoute.snapshot.data['paymentTypes'];
+    this.orderStatuses = activatedRoute.snapshot.data['orderStatuses'];
     activatedRoute.params.subscribe((val) => {
       this.retrieveDisplayData();
     });
@@ -103,10 +107,7 @@ export class OrderDetailsComponent implements OnInit {
         this.retrieveDisplayData();
       }
     );
-    this.detailsEditable = false;
-    this.paymentEditable = false;
-    this.deliveryAddressEditable = false;
-    this.changesAvailableForProcessing = false;
+    this.resetEditableBooleanIndicators();
   }
 
   private retrieveClientDetails(orderID: string): void {
@@ -140,19 +141,19 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   private retrieveDisplayData() {
-    this.resetBooleanIndicators();
+    this.orderResourcesLoaded = false;
+    this.resetEditableBooleanIndicators();
     const orderID = this.activatedRoute.snapshot.url[1].path;
     this.deliveryPrice = this.shippingService.getShippingPrice();
     this.retrieveClientDetails(orderID);
     this.retrieveOrderDetails(orderID);
   }
 
-  private resetBooleanIndicators() {
-    this.orderResourcesLoaded = false;
-    this.clientDetailsCollapsed = false;
+  private resetEditableBooleanIndicators() {
+    this.changesAvailableForProcessing = false;
     this.detailsEditable = false;
     this.paymentEditable = false;
     this.deliveryAddressEditable = false;
-    this.changesAvailableForProcessing = false;
+    this.employeeDetailsEditable = false;
   }
 }

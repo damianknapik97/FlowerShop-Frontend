@@ -25,6 +25,7 @@ import { OccasionalArticleComponent } from './modules/products/occasional-articl
 import { OrderAdministrationComponent } from './modules/employee/order-administration/order-administration.component';
 import { OrderComponent } from './modules/order/order.component';
 import { OrderDetailsComponent } from './modules/employee/order-administration/order-details/order-details.component';
+import { OrderStatusesResolver } from './core/resolvers/administration/order-statuses.resolve';
 import { PaymentComponent } from './modules/order/payment/payment.component';
 import { PaymentTypeResolve } from './core/resolvers/order/payment-type.resolve';
 import { ProductsComponent } from './modules/products/products.component';
@@ -105,7 +106,10 @@ const routes: Routes = [
           {
             path: 'order-details/:id',
             component: OrderDetailsComponent,
-            resolve: { paymentTypes: PaymentTypeResolve },
+            resolve: {
+              paymentTypes: PaymentTypeResolve,
+              orderStatuses: OrderStatusesResolver,
+            },
           },
         ],
       },
