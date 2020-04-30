@@ -1,9 +1,9 @@
-import { ActivatedRoute, PRIMARY_OUTLET, Router } from '@angular/router';
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MessageResponseDTO, Price } from 'src/app/core/dto';
 
 import { AccountAdministrationService } from 'src/app/core/services/administration/account-administration.service';
 import { AccountEmployeeDetailsDTO } from 'src/app/core/dto/administration/account-employee-details.dto';
+import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { OrderAdministrationService } from 'src/app/core/services/administration/order-administration.service';
 import { OrderDTO } from 'src/app/core/dto/order';
@@ -13,7 +13,7 @@ import { ShippingService } from 'src/app/core/services/shipping.service';
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
-  styleUrls: ['/order-details.component.sass'],
+  styleUrls: ['./order-details.component.sass'],
 })
 export class OrderDetailsComponent implements OnInit {
   @Input() public clientDetailsCollapsed = false;
