@@ -1,7 +1,7 @@
-<div class="container" >
+<div class="container">
   <div>
     <ngb-pagination
-      class="d-flex justify-content-center "
+      class="d-flex justify-content-center"
       size="lg"
       [(page)]="page"
       [pageSize]="pageSize"
@@ -14,55 +14,65 @@
   </div>
 
   <div class="row justify-content-center" *ngIf="!resourcesLoaded">
-    <div class="spinner-border text-success"  role="status" style="width: 10rem; height: 10rem;">
+    <div
+      class="spinner-border text-success"
+      role="status"
+      style="width: 10rem; height: 10rem;"
+    >
       <span class="sr-only">Loading...</span>
     </div>
   </div>
 
- <div *ngIf="resourcesLoaded">
-  <div class="row products-row" *ngFor="let row of viewModel">
-    <div
-      class="card products-column"
-      style="width: 20rem;"
-      *ngFor="let product of row"
-    >
-      <img
-        class="card-img-top"
-        src="{{product.imageMedium}}"
-        alt="Card image cap"
-      />
-      <div class="card-body title">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text ">
-          <small>ID: {{ product.id }} </small>
-        </p>
-      </div>
-      <ul class="list-group list-group-flush description">
-        <li class="list-group-item">Theme: {{ product.theme }}</li>
-        <li class="list-group-item">{{ product.description }}</li>
-      </ul>
-      <div class="card-body">
-        <p class="price float-left">
-          {{ product.price.amount }} {{ product.price.currency }}
-        </p>
-        <button type="button" class="btn btn-success float-right" *ngIf="authenticationGuard.isAuthenticated()" (click)="addToShoppingCart(product.id)">
-          Add to cart
-        </button>
+  <div *ngIf="resourcesLoaded">
+    <div class="card-deck" *ngFor="let row of viewModel">
+      <div class="card border-success" *ngFor="let product of row">
+        <img
+          class="card-img-top"
+          src="{{ product.imageMedium }}"
+          alt="Image Product"
+        />
+        <div class="card-header">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text card-under-title">
+            <small class="text-muted">ID: {{ product.id }} </small>
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item card-text">Theme: {{ product.theme }}</li>
+        </ul>
+        <div class="card-body bg-transparent border-success">
+          <p class="card-text .text-justify">
+            {{ product.description }}
+          </p>
+        </div>
+        <div class="card-footer bg-transparent border-success">
+          <p class="price float-left card-text">
+            {{ product.price.amount }} {{ product.price.currency }}
+          </p>
+          <button
+            type="button"
+            class="btn btn-success float-right card-text"
+            *ngIf="authenticationGuard.isAuthenticated()"
+            (click)="addToShoppingCart(product.id)"
+          >
+            Add to cart
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-  <div>
-    <ngb-pagination
-      class="d-flex justify-content-center "
-      size="lg"
-      [(page)]="page"
-      [pageSize]="pageSize"
-      [maxSize]="5"
-      [rotate]="true"
-      [ellipses]="false"
-      [collectionSize]="collectionSize"
-      (pageChange)="onChangePage(page)"
-    ></ngb-pagination>
+
+    <div>
+      <ngb-pagination
+        class="d-flex justify-content-center"
+        size="lg"
+        [(page)]="page"
+        [pageSize]="pageSize"
+        [maxSize]="5"
+        [rotate]="true"
+        [ellipses]="false"
+        [collectionSize]="collectionSize"
+        (pageChange)="onChangePage(page)"
+      ></ngb-pagination>
+    </div>
   </div>
 </div>

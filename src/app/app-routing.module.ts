@@ -1,101 +1,142 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
+import { AccountAdministrationComponent } from './modules/admin/account-administration/account-administration.component';
 import { AccountComponent } from './modules/account/account.component';
-import { ProfileComponent } from './modules/profile/profile.component';
-import { HomeComponent } from './modules/home/home.component';
-import { LoginComponent } from './modules/account/login/login.component';
-import { RegisterComponent } from './modules/account/register/register.component';
-import { ManageDetailsComponent } from './modules/profile/manage-details/manage-details.component';
-
-import { AuthenticationGuard } from './core/security';
-import { ChangePasswordComponent } from './modules/profile/change-password/change-password.component';
-import { DeleteComponent } from './modules/profile/delete/delete.component';
-import { ProductsComponent } from './modules/products/products.component';
-import { BouquetComponent } from './modules/products/bouquet/bouquet.component';
-import { FlowerComponent } from './modules/products/flower/flower.component';
-import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
-import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
-import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
-import { OrderComponent } from './modules/order/order.component';
-import { DeliveryAddressComponent} from './modules/order/delivery-address/delivery-address.component';
-import { PaymentComponent } from './modules/order/payment/payment.component';
-import { SummaryComponent } from './modules/order/summary/summary.component';
-import { DetailsComponent } from './modules/order/details/details.component';
-import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
-import { LoginGuard } from './core/security/login.guard';
+import { AccountDetailsComponent } from './modules/admin/account-administration/account-details/account-details.component';
+import { AccountRolesResolve } from './core/resolvers/administration/account-roles.resolve';
 import { AdminComponent } from './modules/admin/admin.component';
 import { AdminGuard } from './core/security/admin.guard';
-import { EmployeeGuard } from './core/security/employee.guard';
+import { AuthenticationGuard } from './core/security';
+import { BouquetComponent } from './modules/products/bouquet/bouquet.component';
+import { ChangePasswordComponent } from './modules/profile/change-password/change-password.component';
+import { DeleteComponent } from './modules/profile/delete/delete.component';
+import { DeliveryAddressComponent } from './modules/order/delivery-address/delivery-address.component';
+import { DetailsComponent } from './modules/order/details/details.component';
+import { DisplayOrdersComponent } from './modules/profile/display-orders/display-orders.component';
 import { EmployeeComponent } from './modules/employee/employee.component';
-
+import { EmployeeGuard } from './core/security/employee.guard';
+import { FlowerComponent } from './modules/products/flower/flower.component';
+import { HomeComponent } from './modules/home/home.component';
+import { LoginComponent } from './modules/account/login/login.component';
+import { LoginGuard } from './core/security/login.guard';
+import { ManageDetailsComponent } from './modules/profile/manage-details/manage-details.component';
+import { NgModule } from '@angular/core';
+import { OccasionalArticleComponent } from './modules/products/occasional-article/occasional-article.component';
+import { OrderAdministrationComponent } from './modules/employee/order-administration/order-administration.component';
+import { OrderComponent } from './modules/order/order.component';
+import { OrderDetailsComponent } from './modules/employee/order-administration/order-details/order-details.component';
+import { OrderStatusesResolver } from './core/resolvers/administration/order-statuses.resolve';
+import { PaymentComponent } from './modules/order/payment/payment.component';
+import { PaymentTypeResolve } from './core/resolvers/order/payment-type.resolve';
+import { ProductsComponent } from './modules/products/products.component';
+import { ProfileComponent } from './modules/profile/profile.component';
+import { RegisterComponent } from './modules/account/register/register.component';
+import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
+import { SummaryComponent } from './modules/order/summary/summary.component';
+import { UnfinishedOrderResolve } from './core/resolvers/order/unfinished-order.resolve';
+import { resolve } from 'url';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'account',
     component: AccountComponent,
     canActivate: [LoginGuard],
     children: [
-      { path: 'login', component: LoginComponent},
-      { path: 'register', component: RegisterComponent}
-    ]
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+    ],
   },
   {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthenticationGuard],
     children: [
-      { path: 'display-orders', component: DisplayOrdersComponent},
+      { path: 'display-orders', component: DisplayOrdersComponent },
       { path: 'manage-details', component: ManageDetailsComponent },
       { path: 'change-password', component: ChangePasswordComponent },
-      { path: 'delete', component: DeleteComponent }
-    ]
+      { path: 'delete', component: DeleteComponent },
+    ],
   },
   {
     path: 'products',
     component: ProductsComponent,
     children: [
       { path: 'flower', component: FlowerComponent },
-      { path: 'occasional-article', component: OccasionalArticleComponent},
+      { path: 'occasional-article', component: OccasionalArticleComponent },
       { path: 'souvenir', component: SouvenirComponent },
-      { path: 'bouquet', component: BouquetComponent }
-    ]
+      { path: 'bouquet', component: BouquetComponent },
+    ],
   },
   {
     path: 'shopping-cart',
     component: ShoppingCartComponent,
-    canActivate: [AuthenticationGuard]
+    canActivate: [AuthenticationGuard],
   },
   {
     path: 'order',
     component: OrderComponent,
     canActivate: [AuthenticationGuard],
+    resolve: { unfinishedOrder: UnfinishedOrderResolve },
     children: [
-      { path: 'delivery-address', component: DeliveryAddressComponent},
-      { path: 'details', component: DetailsComponent},
-      { path: 'payment', component: PaymentComponent},
-      { path: 'summary', component: SummaryComponent}
-    ]
+      { path: 'delivery-address', component: DeliveryAddressComponent },
+      { path: 'details', component: DetailsComponent },
+      {
+        path: 'payment',
+        component: PaymentComponent,
+        resolve: { paymentTypes: PaymentTypeResolve },
+      },
+      { path: 'summary', component: SummaryComponent },
+    ],
   },
   {
     path: 'employee',
     component: EmployeeComponent,
-    canActivate: [EmployeeGuard]
+    canActivate: [EmployeeGuard],
+    children: [
+      {
+        path: 'order-administration',
+        component: OrderAdministrationComponent,
+        children: [
+          {
+            path: 'order-details/:id',
+            component: OrderDetailsComponent,
+            resolve: {
+              paymentTypes: PaymentTypeResolve,
+              orderStatuses: OrderStatusesResolver,
+            },
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate: [AdminGuard]
-  }
+    canActivate: [AdminGuard],
+    children: [
+      {
+        path: 'account-administration',
+        component: AccountAdministrationComponent,
+        children: [
+          {
+            path: 'account-details/:id',
+            component: AccountDetailsComponent,
+            resolve: { accountRoles: AccountRolesResolve },
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

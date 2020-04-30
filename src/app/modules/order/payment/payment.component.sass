@@ -23,5 +23,34 @@
 .continue-button
   float: right
 
+@media screen and (max-width: 767px)
+  .component-title
+    font-size: 1em
+  .payment-form
+    font-size: 0.75em
+  .button>button
+    font-size: 0.9em
+    margin-top: 0.1em
+    margin-bottom: 0.1em
+    width: 100%
+  .total-price
+    flex-basis: auto
+  .total-price>h4>b
+    font-size: 0.7em
+    float: none
+  #inputPaymentType
+    width: fit-content
+    font-size: 0.95em
+    
 
+@media (min-width: 768px) and (max-width: 991px)
+  .component-title
+    font-size: 1.2em
 
+@media (min-width: 991px) and (max-width: 1450px)
+  .component-title
+    font-size: 1.4em
+
+@media (min-width: 1451px) and (max-width: 1676px)
+  .component-title
+    font-size: 1.5em

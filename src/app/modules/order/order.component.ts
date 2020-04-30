@@ -1,71 +1,59 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from 'src/app/core/services';
+
 import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
 import { OrderDTO } from 'src/app/core/dto/order';
+import { OrderService } from 'src/app/core/services';
 
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styles: []
+  styleUrls: ['./order.component.sass'],
 })
 export class OrderComponent implements OnInit {
   public message = 'Creating your order. Please wait...';
+  private unfinishedOrder: OrderDTO;
 
-  constructor(private orderService: OrderService,
-              private snackBar: MatSnackBar,
-              private router: Router) {
-   }
-
-  ngOnInit() {
-    this.message = 'Creating your order. Please wait...';
-    this.checkForUnfinishedOrder()
-    .then<void>(
-      (unfinishedOrderDetected: boolean) => {
-        if (!unfinishedOrderDetected) {
-          this.placeOrder();
-        }
-      })
-    .catch<void>(
-      (reason: any) => {
-        console.log(reason);
-        this.router.navigate(['/']).then(
-          () => {
-            this.snackBar.open('Couldn\'t check for existing orders...', 'Error', {duration: 3000});
-        });
-      }
-    );
+  constructor(
+    private orderService: OrderService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    const unfinishedOrder = activatedRoute.snapshot.data['unfinishedOrder'];
+    if (!this.checkForUnfinishedOrder(unfinishedOrder)) {
+      this.placeOrder();
+    }
   }
 
+  ngOnInit() {}
+
   /**
-   * Send request to retrieve unfinished Order Entity from database, and determine which
-   * components are missing, if they are missing at all. After that, redirect to
-   * according page or return Promise containing boolean value with information
-   * revolving around Order retrieving status.
+   * Determine which components are missing in provided OrderDTO,
+   * if they are missing at all. After that, redirect to according page
+   * or return boolean value with information revolving around Order retrieving status.
    */
-  private checkForUnfinishedOrder(): Promise<boolean> {
-    return this.orderService.retrieveUnfinishedOrder().toPromise<OrderDTO>()
-    .then<boolean>(
-      (orderDTO: OrderDTO) => {
-        /* Check if order was retrieved at all */
-        if (orderDTO != null && orderDTO.id.length > 0) {
+  private checkForUnfinishedOrder(orderDTO: OrderDTO): boolean {
+    /* Check if order was retrieved at all */
+    if (orderDTO != null && orderDTO.id.length > 0) {
+      /* Set orderID for chidlren components and determine which inputs are missing */
+      this.orderService.setNewOrderID(orderDTO.id);
+      this.message =
+        'You have unfinished Order ! Please finish or cancel this order first.';
+      const redirectionUrl =
+        '/order/' + this.determineMissingComponents(orderDTO);
 
-          /* Set orderID for chidlren components and determine which inputs are missing */
-          this.orderService.setNewOrderID(orderDTO.id);
-          this.message = 'You have unfinished Order ! Please finish or cancel this order first.';
-          const redirectionUrl = '/order/' + this.determineMissingComponents(orderDTO);
-
-          /* Redirect to page handling missing information input */
-          this.router.navigate([redirectionUrl]).then(
-            () => {
-              this.snackBar.open('You have unfinished order in progress', 'Warning', {duration: 3000});
-          });
-          /* Order was found */
-          return true;
-        }
-        /* Order not found, progressing */
-        return false;
+      /* Redirect to page handling missing information input */
+      this.router.navigate([redirectionUrl]).then(() => {
+        this.snackBar.open('You have unfinished order in progress', 'Warning', {
+          duration: 3000,
+        });
       });
+      /* Order was found */
+      return true;
+    }
+    /* Order not found, progressing */
+    return false;
   }
 
   /**
@@ -78,15 +66,18 @@ export class OrderComponent implements OnInit {
   private determineMissingComponents(orderDTO: OrderDTO): string {
     if (orderDTO.deliveryAddressDTO == null) {
       return 'delivery-address';
-    } else if ((orderDTO.message == null || orderDTO.message.length <= 0)
-     || (orderDTO.deliveryDate == null || orderDTO.deliveryDate.length <= 0 )) {
+    } else if (
+      orderDTO.message == null ||
+      orderDTO.message.length <= 0 ||
+      orderDTO.deliveryDate == null ||
+      orderDTO.deliveryDate.length <= 0
+    ) {
       return 'details';
     } else if (orderDTO.paymentDTO == null) {
       return 'payment';
     } else {
       return 'summary';
     }
-
   }
 
   /**
@@ -96,19 +87,22 @@ export class OrderComponent implements OnInit {
    */
   private placeOrder(): void {
     this.orderService.createOrderFromCurrentShoppingCart().subscribe(
-      result => {
+      (result) => {
         this.orderService.setNewOrderID(result.message);
         this.message = '';
         this.router.navigate(['/order/delivery-address']);
       },
-      error => {
+      (error) => {
         this.message = '';
-        this.router.navigate(['/shopping-cart']).then(
-          (navigated: boolean) => {
-            if (navigated) {
-              console.log(error);
-              this.snackBar.open('Couldn\'t create order from your shopping cart', 'Error', {duration: 3000});
-            }
+        this.router.navigate(['/shopping-cart']).then((navigated: boolean) => {
+          if (navigated) {
+            console.log(error);
+            this.snackBar.open(
+              "Couldn't create order from your shopping cart",
+              'Error',
+              { duration: 3000 }
+            );
+          }
         });
       }
     );

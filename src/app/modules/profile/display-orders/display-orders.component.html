@@ -1,23 +1,30 @@
 <div class="container content w-100">
   <div>
-    <ngb-pagination class="d-flex justify-content-center" *ngIf="dataLoaded"
-                    [boundaryLinks]="true"
-                    [collectionSize]="collectionSize"
-                    [directionLinks]="true"
-                    [maxSize]="8"
-                    [ellipses]="false"
-                    [pageSize]="pageSize"
-                    [rotate]="true"
-                    (pageChange)="retrieveOrdersPage(page)"
-                    ></ngb-pagination>
+    <ngb-pagination
+      class="d-flex justify-content-center"
+      *ngIf="dataLoaded"
+      [(page)]="page"
+      [boundaryLinks]="true"
+      [collectionSize]="collectionSize"
+      [directionLinks]="true"
+      [maxSize]="8"
+      [ellipses]="false"
+      [pageSize]="pageSize"
+      [rotate]="true"
+      (pageChange)="retrieveOrdersPage(page)"
+    ></ngb-pagination>
   </div>
   <div class="row justify-content-center" *ngIf="!dataLoaded">
-    <div class="spinner-border text-success" role="status" style="width: 10rem; height: 10rem;">
+    <div
+      class="spinner-border text-success table-container"
+      role="status"
+      style="width: 10rem; height: 10rem;"
+    >
       <span class="sr-only">Loading...</span>
     </div>
   </div>
   <div class="page-content w-100" *ngIf="dataLoaded">
-    <table class="table table-bordered table-hover content w-100">
+    <table class="table table-bordered table-hover table-content w-100">
       <thead class="thead">
         <tr>
           <th>#</th>
@@ -31,13 +38,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of content; let i = index" [attr.data-index]="i">
-          <td>{{(i + 1) + (page) * pageSize}}</td>
-          <td>{{order.id}}</td>
-          <td>{{order.placementDate}}</td>
-          <td>{{order.deliveryDate}}</td>
-          <td>{{order.paymentDTO.totalPrice.amount | number:'1.2-2'}} {{order.paymentDTO.totalPrice.currency}}</td>
-          <td>{{order.paymentDTO.wasPaid}}</td>
-          <td>{{order.orderStatus}}</td>
+          <td>{{ i + 1 + (page - 1) * pageSize }}</td>
+          <td>{{ order.id }}</td>
+          <td>{{ order.placementDate }}</td>
+          <td>{{ order.deliveryDate }}</td>
+          <td>
+            {{ order.paymentDTO.totalPrice.amount | number: '1.2-2' }}
+            {{ order.paymentDTO.totalPrice.currency }}
+          </td>
+          <td>{{ order.paymentDTO.wasPaid }}</td>
+          <td>{{ order.orderStatus }}</td>
         </tr>
       </tbody>
     </table>

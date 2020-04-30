@@ -1,0 +1,411 @@
+<div id="summary">
+  <div
+    class="row justify-content-center"
+    *ngIf="!orderResourcesLoaded || !accountResourcesLoaded"
+  >
+    <div
+      class="spinner-border text-success"
+      role="status"
+      style="width: 10rem; height: 10rem;"
+    >
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div *ngIf="orderResourcesLoaded && accountResourcesLoaded">
+    <div class="summary-component">
+      <button
+        type="button"
+        class="summary-component-button btn btn-success"
+        (click)="clientDetailsCollapsed = !clientDetailsCollapsed"
+        [attr.aria-expanded]="!clientDetailsCollapsed"
+        aria-controls="client-details"
+      >
+        Client Details
+      </button>
+      <div
+        id="client-details"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="clientDetailsCollapsed"
+      >
+        <table class="table table-bordered">
+          <thead></thead>
+          <tbody>
+            <tr>
+              <td class="param-name">Account Name</td>
+              <td>{{ accountDetails.accountName }}</td>
+            </tr>
+            <tr>
+              <td class="param-name">Email</td>
+              <td>{{ accountDetails.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="summary-component">
+      <button
+        type="button"
+        class="summary-component-button btn btn-success"
+        (click)="shoppingCartCollapsed = !shoppingCartCollapsed"
+        [attr.aria-expanded]="!shoppingCartCollapsed"
+        aria-controls="shopping-cart"
+      >
+        Products
+      </button>
+      <div
+        id="shopping-cart"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="shoppingCartCollapsed"
+      >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let flowerOrder of orderDTO.shoppingCartDTO.flowerOrderDTOs
+              "
+            >
+              <td>{{ flowerOrder.flowerDTO.name }}</td>
+              <td>{{ flowerOrder.itemCount }}</td>
+              <td>
+                {{
+                  flowerOrder.flowerDTO.price.amount * flowerOrder.itemCount
+                    | number: '1.2-2'
+                }}
+                {{ flowerOrder.flowerDTO.price.currency }}
+              </td>
+            </tr>
+            <tr
+              *ngFor="
+                let occasionalArticleOrder of orderDTO.shoppingCartDTO
+                  .occasionalArticleOrderDTOs
+              "
+            >
+              <td>{{ occasionalArticleOrder.occasionalArticleDTO.name }}</td>
+              <td>{{ occasionalArticleOrder.itemCount }}</td>
+              <td>
+                {{
+                  occasionalArticleOrder.occasionalArticleDTO.price.amount *
+                    occasionalArticleOrder.itemCount | number: '1.2-2'
+                }}
+                {{ occasionalArticleOrder.occasionalArticleDTO.price.currency }}
+              </td>
+            </tr>
+            <tr
+              *ngFor="
+                let souvenirOrder of orderDTO.shoppingCartDTO.souvenirOrderDTOs
+              "
+            >
+              <td>{{ souvenirOrder.souvenirDTO.name }}</td>
+              <td>{{ souvenirOrder.itemCount }}</td>
+              <td>
+                {{
+                  souvenirOrder.souvenirDTO.price.amount *
+                    souvenirOrder.itemCount | number: '1.2-2'
+                }}
+                {{ souvenirOrder.souvenirDTO.price.currency }}
+              </td>
+            </tr>
+            <tr>
+              <td>Delivery</td>
+              <td></td>
+              <td>
+                {{ deliveryPrice.amount | number: '1.2-2' }}
+                {{ deliveryPrice.currency }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="summary-component">
+      <button
+        type="button"
+        class="summary-component-button btn btn-success"
+        (click)="deliveryAddressCollapsed = !deliveryAddressCollapsed"
+        [attr.aria-expanded]="!deliveryAddressCollapsed"
+        aria-controls="delivery-address"
+      >
+        Delivery Address
+      </button>
+      <button
+        type="button"
+        class="summary-component-button edit-button btn btn-warning"
+        (click)="
+          (deliveryAddressEditable = !deliveryAddressEditable) &&
+            (changesAvailableForProcessing = true)
+        "
+        aria-controls="delivery-address"
+      >
+        Edit
+      </button>
+      <div
+        id="delivery-address"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="deliveryAddressCollapsed"
+      >
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td class="param-name">City:</td>
+              <td>
+                <input
+                  id="city"
+                  type="text"
+                  class="form-control"
+                  [readonly]="!deliveryAddressEditable"
+                  [(ngModel)]="orderDTO.deliveryAddressDTO.cityName"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="param-name">Zip code:</td>
+              <td>
+                <input
+                  id="zip-code"
+                  type="text"
+                  class="form-control"
+                  [readonly]="!deliveryAddressEditable"
+                  [(ngModel)]="orderDTO.deliveryAddressDTO.zipCode"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="param-name">Street:</td>
+              <td>
+                <input
+                  id="street"
+                  type="text"
+                  class="form-control"
+                  [readonly]="!deliveryAddressEditable"
+                  [(ngModel)]="orderDTO.deliveryAddressDTO.streetName"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="param-name">House number:</td>
+              <td>
+                <input
+                  id="house-number"
+                  type="text"
+                  class="form-control"
+                  [readonly]="!deliveryAddressEditable"
+                  [(ngModel)]="orderDTO.deliveryAddressDTO.houseNumber"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td class="param-name">Apartment:</td>
+              <td>
+                <input
+                  id="apratment"
+                  type="text"
+                  class="form-control"
+                  [readonly]="!deliveryAddressEditable"
+                  [(ngModel)]="orderDTO.deliveryAddressDTO.apartmentNumber"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="summary-component">
+      <button
+        type="button"
+        class="summary-component-button btn btn-success"
+        (click)="detailsCollapsed = !detailsCollapsed"
+        [attr.aria-expanded]="!detailsCollapsed"
+        aria-controls="details"
+      >
+        Details
+      </button>
+      <button
+        type="button"
+        class="summary-component-button edit-button btn btn-warning"
+        (click)="
+          (detailsEditable = !detailsEditable) &&
+            (changesAvailableForProcessing = true)
+        "
+        aria-controls="details"
+      >
+        Edit
+      </button>
+      <div
+        id="details"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="detailsCollapsed"
+      >
+        <label for="message">Attached message</label>
+        <input
+          id="message"
+          type="text"
+          class="form-control"
+          [readOnly]="!detailsEditable"
+          [(ngModel)]="orderDTO.message"
+        />
+        <label for="delivery-date">Delivery date</label>
+        <input
+          id="delivery-date"
+          type="text"
+          class="form-control"
+          [readOnly]="!detailsEditable"
+          [(ngModel)]="orderDTO.deliveryDate"
+        />
+        <label for="additional-info">Additional information about order</label>
+        <textarea
+          id="additional-info"
+          type="text"
+          class="form-control"
+          [readOnly]="!detailsEditable"
+          [(ngModel)]="orderDTO.additionalNote"
+        ></textarea>
+      </div>
+    </div>
+    <div class="summary-component">
+      <button
+        type="button"
+        class="summary-component-button btn btn-success"
+        (click)="paymentCollapsed = !paymentCollapsed"
+        [attr.aria-expanded]="!paymentCollapsed"
+        aria-controls="payment"
+      >
+        Payment
+      </button>
+      <button
+        type="button"
+        class="summary-component-button edit-button btn btn-warning"
+        (click)="
+          (paymentEditable = !paymentEditable) &&
+            (changesAvailableForProcessing = true)
+        "
+        aria-controls="payment"
+      >
+        Edit
+      </button>
+      <div
+        id="payment"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="paymentCollapsed"
+      >
+        <div class="row">
+          <div class="col-6">
+            <label for="payment-type">Payment type</label>
+            <select
+              id="payment-type"
+              class="form-control"
+              [(ngModel)]="orderDTO.paymentDTO.paymentType"
+              [disabled]="!paymentEditable"
+              name="payment-type"
+            >
+              <option
+                *ngFor="let paymentType of paymentTypes"
+                [value]="paymentType"
+                >{{ paymentType }}</option
+              >
+            </select>
+          </div>
+          <div>
+            <label id="was-paid-label" for="was-paid">Paid</label>
+            <input
+              id="was-paid"
+              type="checkbox"
+              class="form-control"
+              [disabled]="!paymentEditable"
+              [(ngModel)]="orderDTO.paymentDTO.wasPaid"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="total-price col-12">
+            <h4>
+              <b
+                >Total Price:
+                {{ orderDTO.paymentDTO.totalPrice.amount | number: '1.2-2' }}
+                {{ orderDTO.paymentDTO.totalPrice.currency }}</b
+              >
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-component">
+      <button
+        type="button"
+        class="summary-component-button btn btn-success"
+        (click)="employeeDetailsCollapsed = !employeeDetailsCollapsed"
+        [attr.aria-expanded]="!employeeDetailsCollapsed"
+        aria-controls="employee-details"
+      >
+        Employee Details
+      </button>
+      <button
+        type="button"
+        class="summary-component-button edit-button btn btn-warning"
+        (click)="
+          (employeeDetailsEditable = !employeeDetailsEditable) &&
+            (changesAvailableForProcessing = true)
+        "
+        aria-controls="employee-details"
+      >
+        Edit
+      </button>
+      <div
+        id="employee-details"
+        class="border border-success rounded-lg"
+        [ngbCollapse]="employeeDetailsCollapsed"
+      >
+        <div class="row">
+          <div class="col-6">
+            <label for="order-status">
+              Current order preparation status
+            </label>
+            <select
+              id="order-status"
+              class="form-control"
+              [(ngModel)]="orderDTO.orderStatus"
+              [disabled]="!employeeDetailsEditable"
+              name="order-status"
+            >
+              <option
+                *ngFor="let orderStatus of orderStatuses"
+                [value]="orderStatus"
+                >{{ orderStatus }}</option
+              >
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-component">
+      <div class="row">
+        <div class="button col">
+          <button
+            type="button"
+            class="changes-descision-button btn btn-danger"
+            [disabled]="!changesAvailableForProcessing"
+            (click)="cancelChanges()"
+          >
+            Discard changes
+          </button>
+          <button
+            type="button"
+            class="changes-descision-button save-changes-button btn btn-success"
+            [disabled]="!changesAvailableForProcessing"
+            (click)="saveChanges()"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
