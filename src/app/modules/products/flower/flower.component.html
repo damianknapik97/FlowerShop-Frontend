@@ -23,14 +23,34 @@
     </div>
   </div>
 
-  <div *ngIf="resourcesLoaded">
-    <div class="card-deck" *ngFor="let row of viewModel">
-      <div class="card border-success" *ngFor="let product of row">
-        <img
-          class="card-img-top"
-          src="{{ product.imageMedium }}"
-          alt="Image Product"
-        />
+  <div class="product-content" *ngIf="resourcesLoaded">
+    <div class="card-deck" *ngFor="let row of viewModel; let rowIndex = index">
+      <div
+        class="card border-success"
+        *ngFor="let product of row; let columnIndex = index"
+      >
+        <div>
+          <div
+            class="card-img-top"
+            class="row justify-content-center"
+            *ngIf="!isImageLoaded(rowIndex * elemntsInRow + columnIndex)"
+          >
+            <div
+              class="spinner-border text-success"
+              role="status"
+              style="width: 10rem; height: 10rem;"
+            >
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+          <img
+            class="card-img-top"
+            src="{{ product.imageMedium }}"
+            alt="Image Product"
+            [hidden]="!isImageLoaded(rowIndex * elemntsInRow + columnIndex)"
+            (load)="onImageLoad(rowIndex * elemntsInRow + columnIndex)"
+          />
+        </div>
         <div class="card-header">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text card-under-title">
