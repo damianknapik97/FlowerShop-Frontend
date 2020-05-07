@@ -39,6 +39,7 @@ import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.com
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
 import { AccountDetailsComponent } from './modules/admin/account-administration/account-details/account-details.component';
+import { AboutComponent } from './modules/about/about.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { AccountDetailsComponent } from './modules/admin/account-administration/
     AccountAdministrationComponent,
     OrderDetailsComponent,
     AccountDetailsComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 
+import { AboutComponent } from './modules/about/about.component';
 import { AccountAdministrationComponent } from './modules/admin/account-administration/account-administration.component';
 import { AccountComponent } from './modules/account/account.component';
 import { AccountDetailsComponent } from './modules/admin/account-administration/account-details/account-details.component';
@@ -35,13 +36,16 @@ import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.com
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
 import { UnfinishedOrderResolve } from './core/resolvers/order/unfinished-order.resolve';
-import { resolve } from 'url';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     pathMatch: 'full',
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
   },
   {
     path: 'account',
