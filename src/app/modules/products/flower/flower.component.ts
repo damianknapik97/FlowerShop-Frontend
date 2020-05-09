@@ -6,6 +6,10 @@ import { AuthenticationGuard } from 'src/app/core/security';
 import { FlowerService } from 'src/app/core/services';
 import { MatSnackBar } from '@angular/material';
 import { RestPage } from 'src/app/core/dto/rest-page';
+import { async } from 'rxjs/internal/scheduler/async';
+import { delay } from 'rxjs/operators';
+
+/* TODO: Think of ways to remove the flickering when changing pages (Images are loading fast) */
 
 @Component({
   selector: 'app-flower',
@@ -17,21 +21,46 @@ export class FlowerComponent implements OnInit {
   public viewModel: FlowerDTO[][];
   public elemntsInRow = 3;
   @Input() page = 1;
-  @Input() pageSize;
+  @Input() pageSize = 12;
   @Input() collectionSize;
+  private imageLoaded: boolean[] = []; // Used to store information about loaded in viewModel
 
   constructor(
     private flowerService: FlowerService,
     private arrayUtils: ArrayUtilities,
     private snackBar: MatSnackBar,
     public authenticationGuard: AuthenticationGuard
-  ) {}
+  ) {
+    this.resetLodadedImages(this.pageSize);
+  }
 
   ngOnInit() {
     this.getFlowersPage(this.page);
   }
 
-  public onChangePage(pageNumber: number) {
+  /* Returns image status for provided index */
+  public isImageLoaded(imageIndex: number): boolean {
+    return this.imageLoaded[imageIndex % this.pageSize];
+  }
+
+  /* Initializes array with false boolean values based on number of provided images from function argument. */
+  private resetLodadedImages(totalImages: number): void {
+    for (let i = 0; i < totalImages; i++) {
+      this.imageLoaded[i] = false;
+    }
+  }
+
+  /* Sets status of loading image inside booleans array. */
+  public onImageLoad(imageIndex: number): void {
+    /* Timeout is set in order to avoid flickering during fast page changing. */
+    setTimeout(
+      () => (this.imageLoaded[imageIndex % this.pageSize] = true),
+      150
+    );
+  }
+
+  public onChangePage(pageNumber: number): void {
+    this.resetLodadedImages(this.pageSize);
     this.getFlowersPage(pageNumber);
   }
 
@@ -58,7 +87,7 @@ export class FlowerComponent implements OnInit {
     );
   }
 
-  public addToShoppingCart(id: string) {
+  public addToShoppingCart(id: string): void {
     this.flowerService.addToShoppingCart(id).subscribe(
       (result: MessageResponseDTO) => {
         this.snackBar.open(result.message, '', { duration: 1500 });

@@ -1,127 +1,131 @@
-<div class="component-title text-center text-justify">
-  <h2>
-    First invocation of this application requests can take some times as Heroku
-    hosting have to wake up backend and database containers each time.
-  </h2>
+<div class="presentation-carousel">
+  <label for="carousel" id="carousel-label"><h2>Our latest deals</h2></label>
+  <ngb-carousel id="carousel" [pauseOnHover]="true">
+    <ng-template ngbSlide>
+      <div>
+        <img
+          class="carousel-image"
+          src="https://drive.google.com/uc?id=1SL9jAudKrwKRWcZyzGqCZe0r-DIZ_nP6"
+          alt="Advertisment"
+        />
+        <div class="carousel-caption">
+          <h3>We're cutting delivery fees</h3>
+          <p>For limited amount of time, every delivery is now 5 PLN!</p>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div>
+        <img
+          class="carousel-image"
+          src="https://drive.google.com/uc?id=1zlfVm67xCrMRz4-tVcUFEv4Po40yJmCO"
+          alt="Advertisment"
+        />
+        <div class="carousel-caption">
+          <h3>Check out our new souvenirs</h3>
+          <p>Available from "souvenirs" product category.</p>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div>
+        <img
+          class="carousel-image"
+          src="https://drive.google.com/uc?id=1SBFNrAz8ZeARfJIqUwge-faUBNj6msIe"
+          alt="Advertisment"
+        />
+        <div class="carousel-caption">
+          <h3>Have you seen our "About" page?</h3>
+          <p>
+            You can access it from page navigator to check our new
+            functionalities.
+          </p>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel>
 </div>
-<br />
-<div class="component-under-text text-center text-justify">
-  <b>Work in progress</b>
+<hr class="separator solid" />
+<div class="container">
+  <div class="row presentation-icon-header">
+    <div class="col text-center">
+      <h3><b>Why choose us?</b></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <div
+        class="presentation-icon-container mx-auto border-success rounded-circle d-block"
+      >
+        <img
+          class="presentation-icon mx-auto d-block img-thumbnail"
+          src="https://drive.google.com/uc?id=1EMy-hbzuJd-AkV5WWyXWdxupBSP6cZhL"
+          alt="Delivery Truck"
+        />
+      </div>
+      <div class="text-center">
+        <b class="icon-title text-success">Pick your own delivery date</b>
+        <br />
+        <p class="text-success">Our working hours are beetwen 6:00 to 24:00</p>
+      </div>
+    </div>
+    <div class="col-3">
+      <div
+        class="presentation-icon-container mx-auto border-primary rounded-circle d-block"
+      >
+        <img
+          class="presentation-icon mx-auto d-block img-thumbnail"
+          src="https://drive.google.com/uc?id=111mRHp06Icz9Ql_BXbSc-VwRtAd_TiJi"
+          alt="Delivery Truck"
+        />
+      </div>
+      <div class="text-center">
+        <b class="icon-title text-primary">Wide variety of products</b>
+        <br />
+        <p class="text-primary">
+          In our store, flowers are not the only thing you can buy
+        </p>
+      </div>
+    </div>
+    <div class="col-3">
+      <div
+        class="presentation-icon-container mx-auto border-danger rounded-circle d-block"
+      >
+        <img
+          class="presentation-icon mx-auto d-block img-thumbnail"
+          src="https://drive.google.com/uc?id=1UKTRseK3amkQu6ZIiGSQylUS0V0VfwqO"
+          alt="Delivery Truck"
+        />
+      </div>
+      <div class="text-center">
+        <b class="icon-title text-danger">Best quality</b>
+        <br />
+        <p class="text-danger">
+          We are partnered only with the best suppliers on the market
+        </p>
+      </div>
+    </div>
+    <div class="col-3">
+      <div
+        class="presentation-icon-container mx-auto border-warning rounded-circle d-block"
+      >
+        <img
+          class="presentation-icon mx-auto d-block img-thumbnail"
+          src="https://drive.google.com/uc?id=1i-4tBzXHIx3oCha5V33FeAFpzBY7b2O0"
+          alt="Delivery Truck"
+        />
+      </div>
+      <div class="text-center">
+        <b class="icon-title text-warning">Specialized customer service</b>
+        <br />
+        <p class="text-warning">
+          Our experts are ready to answer any of your questions
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 <br />
 <hr class="solid" />
 <br />
-<div class="planned-features">
-  <p><b>Planned features:</b></p>
-  <ul>
-    <li>
-      <s
-        ><b>[ADMIN/EMPLOYEE/CUSTOMER]</b> Main application layout -
-        Navigators/Footers/Context menus
-      </s>
-    </li>
-    <li>
-      <s
-        ><b>[ADMIN/EMPLOYEE/CUSTOMER]</b> Account
-        creation/modification/authorization *JWT Token*</s
-      >
-    </li>
-    <li>
-      <s
-        ><b>[CUSTOMER]</b> Order displaying with pagination - both for
-        authorized and non authorized users</s
-      >
-    </li>
-    <li>
-      <s><b>[CUSTOMER]</b> Shopping cart - product adding and displaying</s>
-    </li>
-    <li>
-      <s
-        ><b>[CUSTOMER]</b> Order placing (step by step approach) and displaying
-        for customer</s
-      >
-    </li>
-    <li>
-      <s
-        ><b>[CUSTOMER]</b> Check for unfinished orders, allowing user to finish
-        it placement at any given time</s
-      >
-    </li>
-    <li>
-      <s
-        ><b>[ADMIN/EMPLOYEE/CUSTOMER]</b> Product image url storing in database
-        and external image hosting service/upload</s
-      >
-    </li>
-    <li>
-      <s
-        ><b>[ADMIN/EMPLOYEE/CUSTOMER]</b> Website is accessible from mobile
-        phones (Responsive web design)</s
-      >
-    </li>
-    <li>
-      <b>[CUSTOMER]</b> Bouquets with pre existing templates offered by shop
-    </li>
-    <li>
-      <b>[CUSTOMER]</b> Bouquet customizer, allowing customer to make changes to
-      existing bouquest or create new ones from scratch
-    </li>
-    <li>
-      <b>[CUSTOMER]</b> Order Delivery with delivery fee calculation (maybe
-      using some sort of map, or existing api)
-    </li>
-    <li><b>[ADMIN]</b> Admin page - modyfing user privileges, etc.</li>
-    <li>
-      <b>[EMPLOYEE]</b> Employee page - looking into currently existing orders,
-      updating their status
-    </li>
-    <li>
-      <b>[ADMIN/EMPLOYEE/CUSTOMER]</b> Anti scrippting features - API protection
-    </li>
-    <li>
-      <b>[CUSTOMER]</b> Main page shop presentation (Maybe carousel with
-      banners/promotions, etc?)
-    </li>
-    <li><b>[ADMIN/EMPLOYEE]</b> Content management system</li>
-    <li><b>[ADMIN/EMPLOYEE/CUSTOMER]</b> Built-in messaging system</li>
-  </ul>
-</div>
-<br />
-<hr class="solid" />
-<br />
-<div class="container used-technologies">
-  <p class="row used-technologies-title"><b>Currently used technologies:</b></p>
-  <div class="row used-technologies-content">
-    <div class="col-6">
-      <label><b>Front End</b></label>
-      <ul>
-        <li>Angular 8</li>
-        <li>Bootstrap/Bootstrap for Angular</li>
-        <li>Angular Material UI</li>
-      </ul>
-    </div>
-    <div class="col-6">
-      <label><b>Back End</b></label>
-      <ul>
-        <li>Java 8</li>
-        <li>Spring (Core, Security, MVC, Data - JPA/Hibernate, REST Docs)</li>
-        <li>JUnit 5, MockMVC, H2Database</li>
-        <li>Gradle</li>
-        <li>Project Lombok</li>
-        <li>Java Money with Zalando Jackson money module</li>
-        <li>Log4J2</li>
-      </ul>
-    </div>
-  </div>
-  <div class="row used-technologies-content">
-    <div class="col-12">
-      <label><b>Other</b></label>
-      <ul>
-        <li>PostgreSQL</li>
-        <li>Docker</li>
-        <li>REST API</li>
-        <li>GIT</li>
-      </ul>
-    </div>
-  </div>
-</div>
+<div class="presentation-tiles"></div>

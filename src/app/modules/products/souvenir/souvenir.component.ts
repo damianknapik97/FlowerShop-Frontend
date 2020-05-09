@@ -18,18 +18,42 @@ export class SouvenirComponent implements OnInit {
   public viewModel: SouvenirDTO[][];
   public elemntsInRow = 3;
   @Input() page = 1;
-  @Input() pageSize;
+  @Input() pageSize = 12;
   @Input() collectionSize;
+  private imageLoaded: boolean[] = []; // Used to store information about loaded in viewModel
 
   constructor(
     private service: SouvenirService,
     private arrayUtils: ArrayUtilities,
     private snackBar: MatSnackBar,
     public authenticationGuard: AuthenticationGuard
-  ) {}
+  ) {
+    this.resetLodadedImages(this.pageSize);
+  }
 
   ngOnInit() {
     this.getSouvenirsPage(this.page);
+  }
+
+  /* Returns image status for provided index */
+  public isImageLoaded(imageIndex: number): boolean {
+    return this.imageLoaded[imageIndex % this.pageSize];
+  }
+
+  /* Initializes array with false boolean values based on number of provided images from function argument. */
+  private resetLodadedImages(totalImages: number): void {
+    for (let i = 0; i < totalImages; i++) {
+      this.imageLoaded[i] = false;
+    }
+  }
+
+  /* Sets status of loading image inside booleans array. */
+  public onImageLoad(imageIndex: number): void {
+    /* Timeout is set in order to avoid flickering during fast page changing. */
+    setTimeout(
+      () => (this.imageLoaded[imageIndex % this.pageSize] = true),
+      150
+    );
   }
 
   public onChangePage(pageNumber: number) {
@@ -43,6 +67,7 @@ export class SouvenirComponent implements OnInit {
         page = result;
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
+        this.resetLodadedImages(this.pageSize);
         this.viewModel = this.arrayUtils.convertToTwoDimensions(
           page.content as object[],
           this.elemntsInRow
