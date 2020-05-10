@@ -1,16 +1,31 @@
 .presentation-carousel
-    margin-top: 4em
+    margin-top: 2em
+    position: relative
+    display: block
 
+/* Placeholder for image before it loads */
+.carousel-div-container:before
+    content: ''
+    display: block
+    width: 100%
+    padding-bottom: 62.71% !important
+    
 .carousel-image
+    position: absolute
+    top: 0
+    left: 0
     width: 100%
     height: 100%
 
 .carousel-caption
-    background-color: rgba(92,184,92,0.8)
+    background-color: rgba(92, 184, 92, 0.8)
 
 .separator
     margin-top: 2.5em
     margin-bottom: 2.5em
+    border-top-width: 0.2em
+    border-style: solid
+    border-color: rgba(0, 0, 0, 0.25)
 
 .presentation-icon-header
     margin-bottom:  4em
@@ -29,3 +44,30 @@
     background: none
     width: 128px
     height: 128px
+
+@media screen and (max-width: 767px)
+    #carousel-label>h2
+        font-size: 1.2em
+    .carousel-caption>h3
+        font-size: 0.90em
+    .carousel-caption>p
+        font-size: 0.75em
+    .presentation-icon-header
+        margin-bottom:  2em
+    .presentation-icon
+        width: 64px
+        height: 64px
+    .icon-title
+        font-size: 1em
+    .icon-description
+        font-size: 0.75em
+    .presentation-icon-column
+        flex: none
+        max-width: 100%
+
+
+@media (min-width: 768px) and (max-width: 1023px)
+    .presentation-icon-column
+        flex: 0 0 50%
+        max-width: 50%
+

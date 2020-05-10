@@ -40,6 +40,7 @@ import { SouvenirComponent } from './modules/products/souvenir/souvenir.componen
 import { SummaryComponent } from './modules/order/summary/summary.component';
 import { AccountDetailsComponent } from './modules/admin/account-administration/account-details/account-details.component';
 import { AboutComponent } from './modules/about/about.component';
+import { NguiInViewComponent } from './shared/ngui-in-view/ngui-in-view.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { AboutComponent } from './modules/about/about.component';
     OrderDetailsComponent,
     AccountDetailsComponent,
     AboutComponent,
+    NguiInViewComponent,
   ],
   imports: [
     BrowserModule,
