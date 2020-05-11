@@ -14,7 +14,10 @@ import {
   animations: [
     trigger('fade', [
       state('void', style({ opacity: 0 })),
-      transition('void => *', [animate(3000)]),
+      transition('void <=> *', [animate(2500)]),
+    ]),
+    trigger('test', [
+      transition('void => *', [style({ animation: 'tada' }), animate(2000)]),
     ]),
   ],
 })

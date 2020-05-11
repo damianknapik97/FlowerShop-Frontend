@@ -3,8 +3,10 @@ import { FormsModule, NG_VALIDATORS } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbModule, NgbProgressbar } from '@ng-bootstrap/ng-bootstrap';
 
+import { AboutComponent } from './modules/about/about.component';
 import { AccountAdministrationComponent } from './modules/admin/account-administration/account-administration.component';
 import { AccountComponent } from './modules/account/account.component';
+import { AccountDetailsComponent } from './modules/admin/account-administration/account-details/account-details.component';
 import { AdminComponent } from './modules/admin/admin.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +22,7 @@ import { EmployeeComponent } from './modules/employee/employee.component';
 import { FlowerComponent } from './modules/products/flower/flower.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './modules/home/home.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { LoginComponent } from './modules/account/login/login.component';
 import { ManageDetailsComponent } from './modules/profile/manage-details/manage-details.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -38,9 +41,6 @@ import { RegisterComponent } from './modules/account/register/register.component
 import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
 import { SouvenirComponent } from './modules/products/souvenir/souvenir.component';
 import { SummaryComponent } from './modules/order/summary/summary.component';
-import { AccountDetailsComponent } from './modules/admin/account-administration/account-details/account-details.component';
-import { AboutComponent } from './modules/about/about.component';
-import { NguiInViewComponent } from './shared/ngui-in-view/ngui-in-view.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +75,6 @@ import { NguiInViewComponent } from './shared/ngui-in-view/ngui-in-view.componen
     OrderDetailsComponent,
     AccountDetailsComponent,
     AboutComponent,
-    NguiInViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +85,7 @@ import { NguiInViewComponent } from './shared/ngui-in-view/ngui-in-view.componen
     MatSnackBarModule,
     MatProgressSpinnerModule,
     NgbModule,
+    LazyLoadImageModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
