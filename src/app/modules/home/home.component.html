@@ -1,8 +1,8 @@
 <div class="presentation-carousel">
   <label for="carousel" id="carousel-label"><h2>Our latest deals</h2></label>
-  <ngb-carousel id="carousel" [pauseOnHover]="true">
+  <ngb-carousel @fade id="carousel" [pauseOnHover]="true">
     <ng-template ngbSlide>
-      <div>
+      <div class="carousel-div-container">
         <img
           class="carousel-image"
           src="https://drive.google.com/uc?id=1SL9jAudKrwKRWcZyzGqCZe0r-DIZ_nP6"
@@ -15,7 +15,7 @@
       </div>
     </ng-template>
     <ng-template ngbSlide>
-      <div>
+      <div class="carousel-div-container">
         <img
           class="carousel-image"
           src="https://drive.google.com/uc?id=1zlfVm67xCrMRz4-tVcUFEv4Po40yJmCO"
@@ -28,7 +28,7 @@
       </div>
     </ng-template>
     <ng-template ngbSlide>
-      <div>
+      <div class="carousel-div-container">
         <img
           class="carousel-image"
           src="https://drive.google.com/uc?id=1SBFNrAz8ZeARfJIqUwge-faUBNj6msIe"
@@ -45,7 +45,7 @@
     </ng-template>
   </ngb-carousel>
 </div>
-<hr class="separator solid" />
+<hr class="separator" />
 <div class="container">
   <div class="row presentation-icon-header">
     <div class="col text-center">
@@ -53,79 +53,123 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-3">
+    <div class="presentation-icon-column col-3">
       <div
         class="presentation-icon-container mx-auto border-success rounded-circle d-block"
       >
         <img
           class="presentation-icon mx-auto d-block img-thumbnail"
-          src="https://drive.google.com/uc?id=1EMy-hbzuJd-AkV5WWyXWdxupBSP6cZhL"
+          lazyLoad="https://drive.google.com/uc?id=1EMy-hbzuJd-AkV5WWyXWdxupBSP6cZhL"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
           alt="Delivery Truck"
         />
       </div>
       <div class="text-center">
         <b class="icon-title text-success">Pick your own delivery date</b>
         <br />
-        <p class="text-success">Our working hours are beetwen 6:00 to 24:00</p>
+        <p class="icon-description text-success">
+          Our working hours are beetwen 6:00 to 24:00
+        </p>
       </div>
     </div>
-    <div class="col-3">
+    <div class="presentation-icon-column col-3">
       <div
         class="presentation-icon-container mx-auto border-primary rounded-circle d-block"
       >
         <img
           class="presentation-icon mx-auto d-block img-thumbnail"
-          src="https://drive.google.com/uc?id=111mRHp06Icz9Ql_BXbSc-VwRtAd_TiJi"
-          alt="Delivery Truck"
+          lazyLoad="https://drive.google.com/uc?id=111mRHp06Icz9Ql_BXbSc-VwRtAd_TiJi"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
+          alt="Bouquet"
         />
       </div>
       <div class="text-center">
         <b class="icon-title text-primary">Wide variety of products</b>
         <br />
-        <p class="text-primary">
+        <p class="icon-description text-primary">
           In our store, flowers are not the only thing you can buy
         </p>
       </div>
     </div>
-    <div class="col-3">
+    <div class="presentation-icon-column col-3">
       <div
         class="presentation-icon-container mx-auto border-danger rounded-circle d-block"
       >
         <img
           class="presentation-icon mx-auto d-block img-thumbnail"
-          src="https://drive.google.com/uc?id=1UKTRseK3amkQu6ZIiGSQylUS0V0VfwqO"
-          alt="Delivery Truck"
+          lazyLoad="https://drive.google.com/uc?id=1UKTRseK3amkQu6ZIiGSQylUS0V0VfwqO"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
+          alt="Order"
         />
       </div>
       <div class="text-center">
         <b class="icon-title text-danger">Best quality</b>
         <br />
-        <p class="text-danger">
+        <p class="icon-description text-danger">
           We are partnered only with the best suppliers on the market
         </p>
       </div>
     </div>
-    <div class="col-3">
+    <div class="presentation-icon-column col-3">
       <div
         class="presentation-icon-container mx-auto border-warning rounded-circle d-block"
       >
         <img
           class="presentation-icon mx-auto d-block img-thumbnail"
-          src="https://drive.google.com/uc?id=1i-4tBzXHIx3oCha5V33FeAFpzBY7b2O0"
-          alt="Delivery Truck"
+          lazyLoad="https://drive.google.com/uc?id=1i-4tBzXHIx3oCha5V33FeAFpzBY7b2O0"
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8Xw8AAoMBgDTD2qgAAAAASUVORK5CYII="
+          alt="Customer service"
         />
       </div>
       <div class="text-center">
         <b class="icon-title text-warning">Specialized customer service</b>
         <br />
-        <p class="text-warning">
+
+        <p class="icon-description text-warning">
           Our experts are ready to answer any of your questions
         </p>
       </div>
     </div>
   </div>
 </div>
-<br />
-<hr class="solid" />
-<br />
-<div class="presentation-tiles"></div>
+<hr class="separator" />
+<div class="presentation-tiles container-fluid">
+  <div><h3>Check out our products</h3></div>
+  <div class="row product-row">
+    <div class="product-col">
+      <a routerLink="/products/flower">
+        <img
+          class="product-image"
+          src="https://drive.google.com/uc?id=19TjVlhRjuFPaPsP7Smcnqsev6mlcRWay"
+          alt="Flowers"
+        />
+      </a>
+    </div>
+    <div class="product-col">
+      <a routerLink="/products/occasional-article">
+        <img
+          class="product-image"
+          src="https://drive.google.com/uc?id=1fIPVRwSDfURT8rN6VcmofCww3P3NDDsb"
+          alt="Occasional Articles"
+        />
+      </a>
+    </div>
+    <div class="product-col">
+      <a routerLink="/products/souvenir">
+        <img
+          class="product-image"
+          src="https://drive.google.com/uc?id=1DoT1Z5USp0uFqCJ93C_f4jkvQALo62vv"
+          alt="Souvenirs"
+      /></a>
+    </div>
+    <div class="product-col">
+      <a routerLink="/products/bouquet">
+        <img
+          class="product-image"
+          src="https://drive.google.com/uc?id=1TzEzKiuiYDlTlLjM81hzHRtGZEiEB1Cr"
+          alt="Bouquets"
+        />
+      </a>
+    </div>
+  </div>
+</div>
