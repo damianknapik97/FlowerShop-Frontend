@@ -60,6 +60,7 @@ export class FlowerComponent implements OnInit {
   }
 
   public onChangePage(pageNumber: number): void {
+    this.resourcesLoaded = false;
     this.resetLodadedImages(this.pageSize);
     this.getFlowersPage(pageNumber);
   }

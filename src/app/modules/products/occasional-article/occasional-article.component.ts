@@ -59,6 +59,7 @@ export class OccasionalArticleComponent implements OnInit {
   }
 
   public onChangePage(pageNumber: number) {
+    this.resourcesLoaded = false;
     this.resetLodadedImages(this.pageSize);
     this.getOccasionalArticlesPage(pageNumber);
   }

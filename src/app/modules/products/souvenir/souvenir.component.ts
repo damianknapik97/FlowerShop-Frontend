@@ -57,6 +57,8 @@ export class SouvenirComponent implements OnInit {
   }
 
   public onChangePage(pageNumber: number) {
+    this.resourcesLoaded = false;
+    this.resetLodadedImages(this.pageSize);
     this.getSouvenirsPage(pageNumber);
   }
 
@@ -67,7 +69,6 @@ export class SouvenirComponent implements OnInit {
         page = result;
         this.pageSize = result.size;
         this.collectionSize = result.totalElements;
-        this.resetLodadedImages(this.pageSize);
         this.viewModel = this.arrayUtils.convertToTwoDimensions(
           page.content as object[],
           this.elemntsInRow
