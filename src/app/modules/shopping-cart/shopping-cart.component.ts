@@ -1,18 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FlowerDTO, MessageResponseDTO, Price } from 'src/app/core/dto';
-import {
-  FlowerOrderDTO,
-  OccasionalArticleOrderDTO,
-  OrderDTO,
-  ShoppingCartDTO,
-  SouvenirOrderDTO,
-} from 'src/app/core/dto/order';
+import { Component, OnInit } from '@angular/core';
+import { MessageResponseDTO, Price } from 'src/app/core/dto';
+import { OrderDTO, ShoppingCartDTO } from 'src/app/core/dto/order';
 
+import { FlowerOrderDTO } from 'src/app/core/dto/product-order/flower-order.dto';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
+import { OccasionalArticleOrderDTO } from 'src/app/core/dto/product-order/occasional-article-order.dto';
 import { OrderService } from 'src/app/core/services';
 import { ShippingService } from 'src/app/core/services/shipping.service';
 import { ShoppingCartService } from 'src/app/core/services/shopping-cart.service';
+import { SouvenirOrderDTO } from 'src/app/core/dto/product-order/souvenir-order.dto';
 
 @Component({
   selector: 'app-shopping-cart',

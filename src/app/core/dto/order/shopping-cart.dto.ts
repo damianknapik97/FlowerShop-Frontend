@@ -1,6 +1,6 @@
-import { OccasionalArticleOrderDTO } from './occasional-article-order.dto';
-import { SouvenirOrderDTO } from './souvenir-order.dto';
-import { FlowerOrderDTO } from './flower-order.dto';
+import { FlowerOrderDTO } from '../product-order/flower-order.dto';
+import { OccasionalArticleOrderDTO } from '../product-order/occasional-article-order.dto';
+import { SouvenirOrderDTO } from '../product-order/souvenir-order.dto';
 
 export interface ShoppingCartDTO {
   id: string;

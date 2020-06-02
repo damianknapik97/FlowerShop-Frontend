@@ -1,4 +1,4 @@
-import { FlowerDTO } from '../flower.dto';
+import { FlowerDTO } from '../product/flower.dto';
 
 export interface FlowerOrderDTO {
   id: string;

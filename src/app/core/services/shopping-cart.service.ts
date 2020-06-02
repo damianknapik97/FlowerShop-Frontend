@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { MessageResponseDTO, Price } from '../dto';
 import { Observable, throwError } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core';
 import { ShoppingCartDTO } from '../dto/order';
-import { Price, MessageResponseDTO } from '../dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShoppingCartService {
   private apiUrl: string;
@@ -20,11 +20,15 @@ export class ShoppingCartService {
     return this.http.get<ShoppingCartDTO>(this.apiUrl);
   }
 
-  public retrieveTotalNumberOfProducts(shoppingCartID: string): Observable<number> {
+  public retrieveTotalNumberOfProducts(
+    shoppingCartID: string
+  ): Observable<number> {
     const httpParams = new HttpParams();
     httpParams.set('id', shoppingCartID);
 
-    return this.http.get<number>(this.apiUrl + '/count', {params: httpParams});
+    return this.http.get<number>(this.apiUrl + '/count', {
+      params: httpParams,
+    });
   }
 
   public putFlower(id: string): Observable<MessageResponseDTO> {
@@ -34,33 +38,44 @@ export class ShoppingCartService {
 
   public putOccasionalArticle(id: string): Observable<MessageResponseDTO> {
     const params = new HttpParams().set('id', id);
-    return this.http.put<MessageResponseDTO>(this.apiUrl + '/occasional-article', params);
+    return this.http.put<MessageResponseDTO>(
+      this.apiUrl + '/occasional-article',
+      params
+    );
   }
 
   public putSouvenir(id: string): Observable<MessageResponseDTO> {
     const params = new HttpParams().set('id', id);
     return this.http.put<MessageResponseDTO>(this.apiUrl + '/souvenir', params);
-
   }
 
   public deleteFlowerOrder(id: string): Observable<MessageResponseDTO> {
     const params = new HttpParams().set('id', id);
-    return this.http.delete<MessageResponseDTO>(this.apiUrl + '/flower', {params});
+    return this.http.delete<MessageResponseDTO>(this.apiUrl + '/flower', {
+      params,
+    });
   }
 
-  public deleteOccasionalArticleOrder(id: string): Observable<MessageResponseDTO> {
+  public deleteOccasionalArticleOrder(
+    id: string
+  ): Observable<MessageResponseDTO> {
     const params = new HttpParams().set('id', id);
-    return this.http.delete<MessageResponseDTO>(this.apiUrl + '/occasional-article', {params});
+    return this.http.delete<MessageResponseDTO>(
+      this.apiUrl + '/occasional-article',
+      { params }
+    );
   }
 
   public deleteSouvenirOrder(id: string): Observable<MessageResponseDTO> {
     const params = new HttpParams().set('id', id);
-    return this.http.delete<MessageResponseDTO>(this.apiUrl + '/souvenir', {params});
+    return this.http.delete<MessageResponseDTO>(this.apiUrl + '/souvenir', {
+      params,
+    });
   }
 
   public countTotalPrice(shoppingCartID: string): Observable<Price> {
     const params = new HttpParams().set('id', shoppingCartID);
-    return this.http.get<Price>(this.apiUrl + '/total-price', {params});
+    return this.http.get<Price>(this.apiUrl + '/total-price', { params });
   }
 
   /**
@@ -87,9 +102,10 @@ export class ShoppingCartService {
       return true;
     }
 
-    const combinedLength = shoppingCart.flowerOrderDTOs.length +
-    shoppingCart.occasionalArticleOrderDTOs.length +
-    shoppingCart.souvenirOrderDTOs.length;
+    const combinedLength =
+      shoppingCart.flowerOrderDTOs.length +
+      shoppingCart.occasionalArticleOrderDTOs.length +
+      shoppingCart.souvenirOrderDTOs.length;
 
     if (combinedLength > 0) {
       return false;
@@ -105,12 +121,14 @@ export class ShoppingCartService {
    * @param shoppingCartID
    * @param shipping
    */
-  public countTotalPriceWithDelivery(shoppingCartID: string, shipping: Price): Promise<Price> {
+  public countTotalPriceWithDelivery(
+    shoppingCartID: string,
+    shipping: Price
+  ): Promise<Price> {
     let totalPricePromise = this.countTotalPrice(shoppingCartID).toPromise();
-    totalPricePromise = totalPricePromise.then<Price>(
-      (value: Price) => {
-        value.amount = Number(value.amount) + Number(shipping.amount);
-        return value;
+    totalPricePromise = totalPricePromise.then<Price>((value: Price) => {
+      value.amount = Number(value.amount) + Number(shipping.amount);
+      return value;
     });
 
     return totalPricePromise;

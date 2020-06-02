@@ -1,4 +1,4 @@
-import { SouvenirDTO } from '../souvenir.dto';
+import { SouvenirDTO } from '../product/souvenir.dto';
 
 export interface SouvenirOrderDTO {
   id: string;

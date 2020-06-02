@@ -1,19 +1,23 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { FlowerDTO } from '../dto/flower.dto';
+
+import { FlowerDTO } from '../dto/product/flower.dto';
+import { Injectable } from '@angular/core';
+import { MessageResponseDTO } from '../dto';
 import { Observable } from 'rxjs';
 import { RestPage } from '../dto/rest-page';
 import { ShoppingCartService } from './shopping-cart.service';
-import { MessageResponseDTO } from '../dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FlowerService {
   private apiUrl: string;
 
-  constructor(private http: HttpClient, private shoppingCartService: ShoppingCartService) {
+  constructor(
+    private http: HttpClient,
+    private shoppingCartService: ShoppingCartService
+  ) {
     this.apiUrl = environment.apiUrl + '/product/flower';
   }
 
@@ -29,5 +33,4 @@ export class FlowerService {
   public addToShoppingCart(id: string): Observable<MessageResponseDTO> {
     return this.shoppingCartService.putFlower(id);
   }
-
 }
