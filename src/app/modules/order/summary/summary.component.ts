@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { MatSnackBar } from '@angular/material';
 import { OrderDTO } from 'src/app/core/dto/order';
-import { OrderService } from 'src/app/core/services';
+import { OrderService } from 'src/app/core/services/order/order.service';
 import { Price } from 'src/app/core/dto';
 import { Router } from '@angular/router';
-import { ShippingService } from 'src/app/core/services/shipping.service';
+import { ShippingService } from 'src/app/core/services/order/shipping.service';
 
 @Component({
   selector: 'app-summary',

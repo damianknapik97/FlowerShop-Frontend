@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MatSnackBar } from '@angular/material';
 import { OrderDTO } from 'src/app/core/dto/order';
-import { OrderService } from 'src/app/core/services';
+import { OrderService } from 'src/app/core/services/order/order.service';
 
 @Component({
   selector: 'app-order',

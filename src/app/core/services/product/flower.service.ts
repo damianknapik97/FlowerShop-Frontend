@@ -1,11 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { FlowerDTO } from '../dto/product/flower.dto';
+import { FlowerDTO } from '../../dto/product/flower.dto';
 import { Injectable } from '@angular/core';
-import { MessageResponseDTO } from '../dto';
+import { MessageResponseDTO } from '../../dto';
 import { Observable } from 'rxjs';
-import { RestPage } from '../dto/rest-page';
-import { ShoppingCartService } from './shopping-cart.service';
+import { RestPage } from '../../dto/rest-page';
+import { ShoppingCartService } from '../order/shopping-cart.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

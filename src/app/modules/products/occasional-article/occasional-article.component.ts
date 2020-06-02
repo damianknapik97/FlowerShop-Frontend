@@ -8,7 +8,7 @@ import {
 import { ArrayUtilities } from 'src/app/core/utilites';
 import { AuthenticationGuard } from 'src/app/core/security';
 import { MatSnackBar } from '@angular/material';
-import { OccasionalArticleService } from 'src/app/core/services';
+import { OccasionalArticleService } from 'src/app/core/services/product/occasional-article.service';
 
 @Component({
   selector: 'app-occasional-article',

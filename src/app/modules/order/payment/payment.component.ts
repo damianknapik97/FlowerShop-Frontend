@@ -1,16 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  OrderService,
-  PaymentService,
-  ShoppingCartService,
-} from 'src/app/core/services';
 
 import { MatSnackBar } from '@angular/material';
+import { OrderService } from 'src/app/core/services/order/order.service';
 import { PaymentDTO } from 'src/app/core/dto/order/payment.dto';
-import { PaymentType } from 'src/app/core/constants/payment-type.enum';
+import { PaymentService } from 'src/app/core/services/order/payment.service';
 import { Price } from 'src/app/core/dto';
-import { ShippingService } from 'src/app/core/services/shipping.service';
+import { ShippingService } from 'src/app/core/services/order/shipping.service';
+import { ShoppingCartService } from 'src/app/core/services/order/shopping-cart.service';
 
 @Component({
   selector: 'app-payment',

@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { MessageResponseDTO, RestPage } from '../dto';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { MessageResponseDTO, RestPage } from '../../dto';
 
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
-import { OrderDTO } from '../dto/order/order.dto';
-import { OrderDetailsDTO } from '../dto/order';
+import { OrderDTO } from '../../dto/order/order.dto';
+import { OrderDetailsDTO } from '../../dto/order';
 import { Router } from '@angular/router';
 import { ShoppingCartService } from './shopping-cart.service';
 import { environment } from 'src/environments/environment';

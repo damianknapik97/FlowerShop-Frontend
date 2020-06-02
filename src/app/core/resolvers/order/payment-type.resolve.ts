@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PaymentService } from '../../services';
+import { PaymentService } from '../../services/order/payment.service';
 import { Resolve } from '@angular/router';
 
 @Injectable({

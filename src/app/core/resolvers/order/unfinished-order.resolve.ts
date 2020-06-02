@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OrderDTO } from '../../dto/order';
-import { OrderService } from '../../services';
+import { OrderService } from '../../services/order/order.service';
 import { Resolve } from '@angular/router';
 
 @Injectable({

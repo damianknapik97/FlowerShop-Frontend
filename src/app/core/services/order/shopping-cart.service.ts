@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { MessageResponseDTO, Price } from '../dto';
+import { MessageResponseDTO, Price } from '../../dto';
 import { Observable, throwError } from 'rxjs';
 
 import { Injectable } from '@angular/core';
-import { ShoppingCartDTO } from '../dto/order';
+import { ShoppingCartDTO } from '../../dto/order';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

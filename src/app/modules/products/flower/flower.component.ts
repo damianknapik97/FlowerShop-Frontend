@@ -3,11 +3,9 @@ import { FlowerDTO, MessageResponseDTO } from 'src/app/core/dto';
 
 import { ArrayUtilities } from 'src/app/core/utilites';
 import { AuthenticationGuard } from 'src/app/core/security';
-import { FlowerService } from 'src/app/core/services';
+import { FlowerService } from 'src/app/core/services/product/flower.service';
 import { MatSnackBar } from '@angular/material';
 import { RestPage } from 'src/app/core/dto/rest-page';
-import { async } from 'rxjs/internal/scheduler/async';
-import { delay } from 'rxjs/operators';
 
 /* TODO: Think of ways to remove the flickering when changing pages (Images are loading fast) */
 

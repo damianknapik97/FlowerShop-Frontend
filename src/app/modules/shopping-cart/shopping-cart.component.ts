@@ -6,9 +6,9 @@ import { FlowerOrderDTO } from 'src/app/core/dto/product-order/flower-order.dto'
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
 import { OccasionalArticleOrderDTO } from 'src/app/core/dto/product-order/occasional-article-order.dto';
-import { OrderService } from 'src/app/core/services';
-import { ShippingService } from 'src/app/core/services/shipping.service';
-import { ShoppingCartService } from 'src/app/core/services/shopping-cart.service';
+import { OrderService } from 'src/app/core/services/order/order.service';
+import { ShippingService } from 'src/app/core/services/order/shipping.service';
+import { ShoppingCartService } from 'src/app/core/services/order/shopping-cart.service';
 import { SouvenirOrderDTO } from 'src/app/core/dto/product-order/souvenir-order.dto';
 
 @Component({

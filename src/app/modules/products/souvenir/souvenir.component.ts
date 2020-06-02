@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material';
 import { MessageResponseDTO } from 'src/app/core/dto';
 import { RestPage } from 'src/app/core/dto/rest-page';
 import { SouvenirDTO } from 'src/app/core/dto/product/souvenir.dto';
-import { SouvenirService } from 'src/app/core/services';
+import { SouvenirService } from 'src/app/core/services/product/souvenir.service';
 
 @Component({
   selector: 'app-souvenir',

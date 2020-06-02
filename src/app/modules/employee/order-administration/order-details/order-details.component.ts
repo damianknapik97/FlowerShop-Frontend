@@ -7,7 +7,7 @@ import { AccountEmployeeDetailsDTO } from 'src/app/core/dto/administration/accou
 import { MatSnackBar } from '@angular/material';
 import { OrderAdministrationService } from 'src/app/core/services/administration/order-administration.service';
 import { OrderDTO } from 'src/app/core/dto/order';
-import { ShippingService } from 'src/app/core/services/shipping.service';
+import { ShippingService } from 'src/app/core/services/order/shipping.service';
 
 /* TODO: Add Constraints for input fields */
 @Component({
