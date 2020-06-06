@@ -12,7 +12,7 @@ export abstract class AbstractProduct implements ProductImage, ProductContent {
    * @param imageIndex - index of the image.
    * @param pageSize - size of the product page.
    */
-  isImageLoaded(
+  public isImageLoaded(
     imageStatusArray: boolean[],
     imageIndex: number,
     pageSize: number
@@ -27,7 +27,7 @@ export abstract class AbstractProduct implements ProductImage, ProductContent {
    * @param imageStatusArray - array to reset all the statuses in
    * @param totalImages - number of total images that will be represented inside returned array
    */
-  resetLoadedImages(
+  public resetLoadedImages(
     imageStatusArray: boolean[],
     totalImages: number
   ): boolean[] {
@@ -43,7 +43,7 @@ export abstract class AbstractProduct implements ProductImage, ProductContent {
    *
    * // TODO: investigate better possibility to avoid mentioned flickering.
    */
-  onImageLoad(
+  public onImageLoad(
     imageStatusArray: boolean[],
     pageSize: number,
     imageIndex: number
@@ -55,17 +55,17 @@ export abstract class AbstractProduct implements ProductImage, ProductContent {
   /**
    * Defines action that will be performed when the page button is clicked
    */
-  abstract onPageChange(): void;
+  public abstract onPageChange(pageNumber: number): void;
 
   /**
    * Defines action that will be performed when the user enters component url
    * that will be responsible for presenting products from the shop offer.
    */
-  abstract retrieveProductsPage(): void;
+  public abstract retrieveProductsPage(pageNumber: number): void;
 
   /**
    * Defines action that will be performed when user clicks button responsible
    * for adding particular product to his shopping cart.
    */
-  abstract addToShoppingCart(): void;
+  public abstract addToShoppingCart(productID: string): void;
 }

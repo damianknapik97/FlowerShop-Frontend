@@ -9,7 +9,7 @@
       [rotate]="true"
       [ellipses]="false"
       [collectionSize]="collectionSize"
-      (pageChange)="onChangePage(page)"
+      (pageChange)="onPageChange(page)"
     ></ngb-pagination>
   </div>
 
@@ -31,7 +31,13 @@
       >
         <div
           class="row justify-content-center"
-          *ngIf="!isImageLoaded(rowIndex * elemntsInRow + columnIndex)"
+          *ngIf="
+            !isImageLoaded(
+              imagesLoaded,
+              rowIndex * elemntsInRow + columnIndex,
+              pageSize
+            )
+          "
         >
           <div
             class="spinner-border text-success"
@@ -45,8 +51,20 @@
           class="card-img-top"
           src="{{ product.imageMedium }}"
           alt="Image Product"
-          [hidden]="!isImageLoaded(rowIndex * elemntsInRow + columnIndex)"
-          (load)="onImageLoad(rowIndex * elemntsInRow + columnIndex)"
+          [hidden]="
+            !isImageLoaded(
+              imagesLoaded,
+              rowIndex * elemntsInRow + columnIndex,
+              pageSize
+            )
+          "
+          (load)="
+            onImageLoad(
+              imagesLoaded,
+              pageSize,
+              rowIndex * elemntsInRow + columnIndex
+            )
+          "
         />
         <div class="card-header">
           <h5 class="card-title">{{ product.name }}</h5>
@@ -85,7 +103,7 @@
         [rotate]="true"
         [ellipses]="false"
         [collectionSize]="collectionSize"
-        (pageChange)="onChangePage(page)"
+        (pageChange)="onPageChange(page)"
       ></ngb-pagination>
     </div>
   </div>
