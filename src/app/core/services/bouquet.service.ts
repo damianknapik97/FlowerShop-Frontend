@@ -2,8 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { BouquetDTO } from '../dto/bouquet/bouquet.dto';
 import { Injectable } from '@angular/core';
+import { MessageResponseDTO } from '../dto';
 import { Observable } from 'rxjs';
 import { RestPage } from '../dto/rest-page';
+import { ShoppingCartService } from './order/shopping-cart.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,7 +14,10 @@ import { environment } from 'src/environments/environment';
 export class BouquetService {
   private apiUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private shoppingCartService: ShoppingCartService
+  ) {
     this.apiUrl = environment.apiUrl + '/bouquet';
   }
 
@@ -25,7 +30,11 @@ export class BouquetService {
   public retrieveBouquetPage(
     pageNumber: number,
     sorting?: string
-  ): Observable<RestPage<BouquetDTO[]>> {
+  ): Observable<RestPage<BouquetDTO>> {
+    if (pageNumber < 0) {
+      pageNumber = 0;
+    }
+
     if (sorting == null) {
       sorting = 'NONE';
     }
@@ -34,8 +43,12 @@ export class BouquetService {
       .set('number', pageNumber.toString())
       .set('sorting', sorting);
 
-    return this.http.get<RestPage<BouquetDTO[]>>(this.apiUrl + '/all', {
+    return this.http.get<RestPage<BouquetDTO>>(this.apiUrl + '/page', {
       params: httpParams,
     });
+  }
+
+  public addToShoppingCart(bouquetID: string): Observable<MessageResponseDTO> {
+    return this.shoppingCartService.putBouquet(bouquetID);
   }
 }

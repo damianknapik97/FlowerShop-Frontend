@@ -48,6 +48,7 @@ export class OrderDetailsComponent implements OnInit {
       flowerOrderDTOs: [],
       occasionalArticleOrderDTOs: [],
       souvenirOrderDTOs: [],
+      bouquetDTOs: [],
     },
     paymentDTO: {
       id: '',

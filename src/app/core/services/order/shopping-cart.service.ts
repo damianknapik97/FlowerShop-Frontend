@@ -166,6 +166,10 @@ export class ShoppingCartService {
         shoppingCart.souvenirOrderDTOs = [];
       }
     }
+
+    if (shoppingCart.bouquetDTOs == null) {
+      shoppingCart.bouquetDTOs = [];
+    }
   }
 
   /**
@@ -179,7 +183,8 @@ export class ShoppingCartService {
     const combinedLength =
       shoppingCart.flowerOrderDTOs.length +
       shoppingCart.occasionalArticleOrderDTOs.length +
-      shoppingCart.souvenirOrderDTOs.length;
+      shoppingCart.souvenirOrderDTOs.length +
+      shoppingCart.bouquetDTOs.length;
 
     if (combinedLength > 0) {
       return false;

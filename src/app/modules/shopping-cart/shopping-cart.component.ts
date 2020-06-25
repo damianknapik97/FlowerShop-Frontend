@@ -1,5 +1,5 @@
+import { BouquetDTO, MessageResponseDTO, Price } from 'src/app/core/dto';
 import { Component, OnInit } from '@angular/core';
-import { MessageResponseDTO, Price } from 'src/app/core/dto';
 import { OrderDTO, ShoppingCartDTO } from 'src/app/core/dto/order';
 
 import { FlowerOrderDTO } from 'src/app/core/dto/product-order/flower-order.dto';
@@ -133,6 +133,23 @@ export class ShoppingCartComponent implements OnInit {
           souvenirOrder
         );
         this.shoppingCart.souvenirOrderDTOs.splice(indexToRemove, 1);
+        this.recountTotalPrice();
+        this.continueButtonInvisible = this.service.isShoppingCartEmpty(
+          this.shoppingCart
+        );
+        this.snackBar.open(result.message, '', { duration: 1500 });
+      },
+      (error: any) => {
+        this.snackBar.open(error, 'Error', { duration: 1500 });
+      }
+    );
+  }
+
+  public deleteBouquet(bouquet: BouquetDTO): void {
+    this.service.deleteBouquet(bouquet.id).subscribe(
+      (result: MessageResponseDTO) => {
+        const indexToRemove = this.shoppingCart.bouquetDTOs.indexOf(bouquet);
+        this.shoppingCart.bouquetDTOs.splice(indexToRemove, 1);
         this.recountTotalPrice();
         this.continueButtonInvisible = this.service.isShoppingCartEmpty(
           this.shoppingCart

@@ -7,6 +7,7 @@ export interface BouquetDTO {
   name: string;
   bouquetFlowerList: BouquetFlowerDTO[];
   bouquetAddonList: BouquetAddonDTO[];
+  description: string;
   imageLarge: string;
   imageMedium: string;
   imageSmall: string;

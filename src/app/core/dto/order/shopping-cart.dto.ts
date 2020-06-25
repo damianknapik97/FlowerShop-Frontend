@@ -1,3 +1,4 @@
+import { BouquetDTO } from '../bouquet/bouquet.dto';
 import { FlowerOrderDTO } from '../product-order/flower-order.dto';
 import { OccasionalArticleOrderDTO } from '../product-order/occasional-article-order.dto';
 import { SouvenirOrderDTO } from '../product-order/souvenir-order.dto';
@@ -8,4 +9,5 @@ export interface ShoppingCartDTO {
   occasionalArticleOrderDTOs: OccasionalArticleOrderDTO[];
   souvenirOrderDTOs: SouvenirOrderDTO[];
   flowerOrderDTOs: FlowerOrderDTO[];
+  bouquetDTOs: BouquetDTO[];
 }

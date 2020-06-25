@@ -1,4 +1,77 @@
-.products-column
-  margin-left: auto
-  margin-right: auto
-  margin-bottom: 50px
+/* Override pagination navigator background colour */
+ngb-pagination ::ng-deep ul > li.active > a
+  background-color: #1e7e34 !important
+
+ngb-pagination ::ng-deep .pagination .page-link
+  padding: .75rem 1.5rem
+  font-size: 1.25rem
+  line-height: 1.5
+
+.card-img-top:before
+  padding-bottom: 74.85% !important
+
+.card-deck
+  margin-top: 2em
+  margin-bottom: 2em
+
+.card
+  min-width: 27rem
+  max-width: 27rem
+  
+.product-content-list
+  list-style: none
+
+.product-content-list>li
+  padding-top: 0.2rem
+
+.price
+  padding-top: 6px
+
+@media screen and (max-width: 767px)
+  ngb-pagination ::ng-deep .pagination .page-link
+    margin-top: 2em
+    padding: .5em .75em
+    font-size: 1em
+    line-height: 1.25
+  .card-deck
+    display: block
+  .card
+    min-width: 10em
+    max-width: 17em
+    margin-top: 1em
+    margin-bottom: 1em
+    margin-left: auto
+    margin-right: auto
+  .card-text
+    font-size: 0.7em
+  .card-title
+    font-size: 1.05em
+  .card-under-title
+    font-size: 0.6em
+
+@media (min-width: 768px) and (max-width: 1024px)
+  .card-deck
+    display: block
+  .card
+    min-width: 27em
+    max-width: 27em
+    margin-top: 2.5em
+    margin-bottom: 2.5em
+    margin-left: auto
+    margin-right: auto
+
+@media (min-width: 1025px) and (max-width: 1450px)
+  .card-deck
+    display: block
+  .card
+    min-width: 27em
+    max-width: 27em
+    margin-top: 2.5em
+    margin-bottom: 2.5em
+    margin-left: auto
+    margin-right: auto
+
+@media (min-width: 1451px) and (max-width: 1676px)
+
+/* large desktops and up ----------- */
+@media screen and (min-width: 1677px)

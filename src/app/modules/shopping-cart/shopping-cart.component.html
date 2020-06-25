@@ -238,6 +238,73 @@
   </div>
 </div>
 
+<div
+  class="card"
+  *ngIf="shoppingCart != null && shoppingCart.bouquetDTOs.length > 0"
+>
+  <div class="card-header" id="headingOne">
+    <button
+      class="btn btn-success"
+      type="button"
+      data-toggle="collapse"
+      data-target="#collapseBouquet"
+      aria-expanded="true"
+      aria-controls="collapseBouquet"
+    >
+      Bouquets
+    </button>
+  </div>
+  <div class="collapse show multi-collapse" id="collapseBouquet">
+    <div class="card-body">
+      <div class="container mb-4">
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Product</th>
+                    <th scope="col"></th>
+                    <th scope="col" class="text-right">Price</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let bouquetOrder of shoppingCart.bouquetDTOs">
+                    <td>
+                      <img
+                        class="product-img"
+                        src="{{ bouquetOrder.imageSmall }}"
+                      />
+                    </td>
+                    <td class="product-column">
+                      {{ bouquetOrder.name }}
+                    </td>
+                    <td class="product-column"></td>
+                    <td class="product-column text-right">
+                      {{ bouquetOrder.totalPrice.amount | number: '1.2-2' }}
+                      {{ bouquetOrder.totalPrice.currency }}
+                    </td>
+                    <td class="product-column text-right">
+                      <button
+                        class="btn btn-sm btn-danger cancel-btn"
+                        (click)="deleteBouquet(bouquetOrder)"
+                      >
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container mb-4">
   <div class="row">
     <div class="col-12">
